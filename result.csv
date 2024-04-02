@@ -1,0 +1,2 @@
+URL,Volation Type,Impact,Help,HTML Element,Messages,DOM Element
+http://localhost:5173/,page-has-heading-one,moderate,https://dequeuniversity.com/rules/axe/4.8/page-has-heading-one?application=axe-puppeteer&lang=ja,<html dir="ltr" lang="ja">,,html

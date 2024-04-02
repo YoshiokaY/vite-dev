@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+result.csv
+
+check/diff/
+check/screenshot/
+
 
 # Editor directories and files
 .vscode/*
