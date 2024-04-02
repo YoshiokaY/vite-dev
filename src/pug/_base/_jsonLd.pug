@@ -1,0 +1,48 @@
+if slug =="top"
+  script(type="application/ld+json").
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "#{site.domain}",
+        "logo": "#{site.logo}"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "#{head.title}"
+          }
+        ]
+      }
+    ]
+else
+  script(type="application/ld+json").
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "url": "#{site.domain}",
+        "logo": "#{site.logo}"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "#{head.title}",
+            "item": "#{site.domain}"
+          }
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "#{head.title}"
+          },
+        ]
+      }
+    ]

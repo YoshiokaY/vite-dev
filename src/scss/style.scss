@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+// Vendors
+@use "../../node_modules/@acab/reset.css";
+
+// // Base
+@use "base/*.scss";
+
+// // Components
+@use "components/*.scss";
+
+// // Layouts
+@use "layouts/*.scss";
+
+// // Pages
+@use "pages/*.scss";
+
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;

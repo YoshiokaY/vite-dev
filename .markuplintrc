@@ -1,0 +1,38 @@
+{
+  "parser": {
+    "\\.jsx$": "@markuplint/pug-parser"
+  },
+  "rules": {
+    "class-naming": false,
+    "case-sensitive-attr-name": false,
+    "disallowed-element": true,
+    "attr-value-quotes": false,
+    "no-hard-code-id": false,
+    "require-datetime": true,
+    "no-empty-palpable-content": false,
+    "doctype": "always",
+    "ineffective-attr": false,
+    "use-list": false,
+    "no-default-value": false,
+    "required-element": true,
+    "required-h1": true,
+    "case-sensitive-tag-name": false,
+    "no-refer-to-non-existent-id": true,
+    "no-use-event-handler-attr": false,
+    "deprecated-element": true,
+    "character-reference": true,
+    "landmark-roles": false,
+    "end-tag": false,
+    "id-duplication": true,
+    "attr-duplication": true,
+    "deprecated-attr": true,
+    "placeholder-label-option": true,
+    "label-has-control": false,
+    "invalid-attr": true,
+    "require-accessible-name": true,
+    "no-boolean-attr-value": false,
+    "required-attr": true,
+    "wai-aria": true,
+    "permitted-contents": true
+  }
+}

@@ -1,0 +1,168 @@
+@use "../abstracts" as *;
+@use "sass:math";
+
+:root {
+  // --header-height: 10rem;
+  --base-font-size: 1.4rem;
+  @include mq() {
+    --base-font-size: 1.6rem;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  scroll-margin-top: var(--header-height);
+  font-size: 100%;
+
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+input::-moz-focus-inner {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+ul,
+ol,
+dd {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-size: inherit;
+  font-weight: inherit;
+  text-wrap: wrap;
+}
+
+cite {
+  font-style: normal;
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+}
+
+button {
+  padding: 0;
+  color: inherit;
+  appearance: none;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+summary {
+  display: block;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+figure,
+picture {
+  display: block;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  text-align: center;
+
+  img {
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+    vertical-align: middle;
+  }
+
+  figcaption {
+    margin: auto;
+    text-align: left;
+  }
+}
+
+html,
+body {
+  text-size-adjust: 100%;
+}
+
+html {
+  overflow: auto;
+
+  // --header-height: 11rem;
+
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+}
+
+body {
+  width: 100%;
+  overflow: hidden;
+  font-family: $baseFont;
+  font-size: var(--base-font-size);
+  // font-feature-settings: "palt";
+  color: $colorTxt;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background-color: $bgBody;
+  -webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
+}
+
+::selection {
+  color: $colorTxtReversal;
+  background-color: $colorPrime;
+}
+
+p {
+  + p {
+    margin-top: 1em;
+  }
+}
+
+main {
+  min-height: 60vh;
+}
+
+a,
+button {
+  color: inherit;
+  text-decoration: none;
+  transition: 0.3s;
+
+  &:focus-visible {
+    border: 0;
+    outline: solid 0.2rem $colorPrime;
+    outline-offset: 0.3rem;
+    box-shadow: none;
+  }
+}
+
+@include mq(pc) {
+  a[href^="tel:"] {
+    color: inherit !important;
+    text-decoration: none !important;
+    pointer-events: none;
+  }
+}

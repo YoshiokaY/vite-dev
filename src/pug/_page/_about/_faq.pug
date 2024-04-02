@@ -1,0 +1,26 @@
+<!--詳細コンテンツ -->
+
+-
+  let faqContent = content.faqContent ? content.faqContent : [];
+
+section#faq(class=`md:pt-[17.69rem] pt-[10.69rem] md:pb-[10rem] pb-[8rem]`)
+  .contentInner
+    .borderBox
+      h2.c_ttl_img(class=`pd:max-w-[23.885rem] max-w-[19.1rem]`)
+        span.c_ttl_img_en !{faqContent.ttl.en}
+        +picture(faqContent.ttl.img, faqContent.ttl.jp,[191,36],lazy='lazy',webp='webp')
+      dl.faqList(class=`max-w-[42.8rem] mx-auto`)
+        each list in faqContent.list
+          .grayBox(class=`flex flex-col gap-y-[0.4rem] px-[1.6rem] [&:not(:last-child)]:mb-[1.6rem]`)
+            dt(class=`text-[1.4rem] md:text-[1.6rem] leading-[calc(18.38/14)] md:leading-[calc(24/16)] w-[100%] font-bold mb-[1.6rem]`) !{list.dt}
+            dd(class=`text-[1.4rem] md:text-[1.6rem] leading-[calc(18.38/14)] md:leading-[calc(24/16)]`)
+              span
+                | !{list.dd}
+                if list.link
+                  each val in list.link
+                    a.pdfBtn(href=val.link) !{val.ttl}
+              if list.list
+                ul.list-disc(class=`ml-[2em] mt-[1em] [&>*:not(:last-child)]:mb-[0.8em]`)
+                  each val in list.list
+                    li !{val}
+<!--/詳細コンテンツ -->

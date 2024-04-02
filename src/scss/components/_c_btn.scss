@@ -1,0 +1,19 @@
+@use "../abstracts" as *;
+
+/* ボタン */
+.c_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 20rem;
+  height: 5rem;
+  color: $colorBtnTxt;
+  background-color: $colorBtn;
+  border: 0.1rem solid $colorPrime;
+  @include hover {
+    color: $colorBtnTxt_hover;
+    background-color: $colorBtn_hover;
+  }
+}
+
+/* /ボタン */

@@ -1,0 +1,27 @@
+//　ビューポート
+$containerSize: 1200; //　コンテンツ最大幅
+$brakePoint: 767; //　ブレイクポイント
+
+// カラーパレット
+$colorTxt: #333;
+$colorTxtReversal: #fff;
+$colorGray: #f5f5f7;
+$colorPrime: #0a1284;
+$colorSecond: #ffe17b;
+$colorThird: #333;
+$bgBody: #fff;
+$bgHighlight: #f4f4f4;
+
+// ボタン
+$colorBtn: $colorPrime; //　背景色
+$colorBtnTxt: $colorTxtReversal; //　文字色
+$colorBtn_hover: $colorBtnTxt; //　ホバー時背景
+$colorBtnTxt_hover: $colorBtn; //　ホバー時文字色
+
+//　フォント
+$fontNoto: "Noto Sans JP", "NotoSansJP", "Noto Sans Japanese", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$baseFont: $fontNoto;
+$baseFontSize: 16, 14;
+
+//　画像パス
+$imgPath: "/";

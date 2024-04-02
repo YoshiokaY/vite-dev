@@ -1,0 +1,26 @@
+include ../_component/_mixin
+include ../_contents/_common
+
+block vars
+- let site = common["head"];
+doctype html
+html(dir="ltr", lang="ja")
+  if slug == "top"
+    head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#")
+      include ./_head
+  else
+    head(prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#")
+      include ./_head
+
+  body(class="page-" + slug)
+    include ../_includes/_gtag2
+    include ../_includes/_beginBody
+    include ../_layouts/_header
+
+    main#main(aria-label="本文")
+      include ../_layouts/_main
+
+    include ../_layouts/_footer
+
+    //- popoverポリフィル
+    script(src="//cdn.jsdelivr.net/npm/@oddbird/popover-polyfill@0.3.8/dist/popover.iife.min.js", integrity="sha256-e4nHKzmwysJ3lb8GTURv5YrPqNFQ7xNcYzn/xop4K+0=", crossorigin="anonymous", defer)

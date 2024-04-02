@@ -1,0 +1,19 @@
+section
+  .contentInner
+    h2.c_ttl_h2 モーダル
+    ul
+      li
+        a.c_modal_btn(href="https://www.youtube.com/watch?v=XhNMziNO8xc") モーダルボタンyoutube
+      li
+        a.c_modal_btn(href="/_assets/img/ogp.png") モーダルボタン画像
+      li
+        a.c_btn(href="", aria-control="modalContent1") モーダルボタン
+    dialog#modalContent1.dialog
+      .c_modal_content
+        .modalBody(tabindex="1")
+          h3.modal_ttl 沖縄
+          figure
+            img(src="https://placehold.jp/800x600.png?text=demo", alt)
+          p テキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入りますテキストが入ります
+        button.c_modal_close(aria-label="ウィンドウを閉じる", tabindex="2")
+        button.c_modal_close.textHidden ウィンドウを閉じる

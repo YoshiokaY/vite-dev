@@ -1,0 +1,10 @@
+@use "../abstracts" as *;
+@use "sass:math";
+
+/* フッター */
+.l_footer {
+  height: 20rem;
+  border: 0.4rem solid $colorSecond;
+}
+
+/* /フッター */
