@@ -4,10 +4,10 @@ export default {
   content: ["./src/**/*.{js,ts,jsx,tsx,html,pug}"],
   theme: {
     fontSize: {
-      sm: "0.8rem",
-      base: "1rem",
-      lg: "1.125rem",
-      xl: "1.25rem",
+      sm: "1.4rem",
+      base: "1.6rem",
+      lg: "1.8rem",
+      xl: "2rem",
     },
     extend: {
       // 変数などを設定できる。
@@ -15,15 +15,13 @@ export default {
       colors: {
         txt: "#333",
         reversal: "#fff",
-        prime: "#0A1284",
-        second: "#FFE17B",
+        prime: "#0a1284",
+        second: "#ffe17b",
+        third: "#333",
         gray: "#F5F5F7",
         body: "#FFC9FB",
-        body2: "#82F0FE",
       },
-      backgroundImage: {
-        mv: "url('/hajimete-fes/images/mv_bg.jpg')",
-      },
+      backgroundImage: {},
     },
     spacing: {
       ...Object.fromEntries([...Array(401)].map((_, i) => i).map((num) => [num, `${num}rem`])),

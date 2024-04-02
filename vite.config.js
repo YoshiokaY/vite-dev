@@ -80,7 +80,7 @@ export default defineConfig(({ command, mode }) => {
       }),
       //webPに変換する場合はコメントアウトを解除する
       // VitePluginWebpAndPath({
-      //   targetDir: `./htdocs/${asset}/img/`,
+      //   targetDir: `./htdocs/`,
       //   imgExtensions: "jpg,png",
       //   quality: 80,
       // }),
