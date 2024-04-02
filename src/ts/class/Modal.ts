@@ -18,9 +18,7 @@ export class Modal {
           modal = document.getElementById(modalID) as HTMLDialogElement;
         } else {
           //画像・動画の場合
-          //aタグの遷移抑制
-          e.preventDefault();
-          let modalHref = sanitize(event.getAttribute("href"));
+          let modalHref = sanitize(event.getAttribute("data-href"));
           if (!targetNext) {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
             const youtube_uri = YOUTUBE.exec(modalHref);
