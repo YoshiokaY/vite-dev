@@ -1,0 +1,57 @@
+@use "../abstracts" as *;
+@use "sass:math";
+
+/* アコーディオン  */
+
+.c_pull {
+  height: var(--pullHeightClosed, auto);
+  overflow: hidden;
+  transition: height 0.25s;
+  // タイトル部分
+  .c_pull_ttl {
+    position: relative;
+    padding-right: 5rem;
+    cursor: pointer;
+
+    // 開閉アイコン
+    &::before,
+    &::after {
+      position: absolute;
+      inset: 0 1em 0 auto;
+      width: 2rem;
+      height: 0.2rem;
+      margin: auto;
+      content: "";
+      background-color: $colorPrime;
+      transition: opacity 0.5s;
+      transition: rotate 0.4s;
+      transform-origin: center;
+    }
+
+    &::after {
+      rotate: 90deg;
+    }
+
+    &:focus-visible {
+      outline: 0;
+      box-shadow: none;
+
+      &::after {
+        outline: solid 0.3rem $colorPrime;
+        outline-offset: 0.2rem;
+      }
+    }
+  }
+  // 展開時の状態
+  &.-open {
+    height: var(--pullHeightOpen, auto);
+
+    .c_pull_ttl {
+      &::after {
+        rotate: none;
+      }
+    }
+  }
+}
+
+/* /アコーディオン  */

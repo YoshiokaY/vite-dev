@@ -1,0 +1,10 @@
+@use "../abstracts" as *;
+@use "sass:math";
+
+/* ヘッダー */
+.l_header {
+  height: 20rem;
+  border: 0.4rem solid $colorPrime;
+}
+
+/* /ヘッダー */

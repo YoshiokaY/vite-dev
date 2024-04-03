@@ -1,0 +1,11 @@
+extends ./_base/_layout
+
+block vars
+  include ./_contents/_top
+  - let slug = "top";
+  - let head = top["head"];
+  - let content = top["content"];
+  - let imgPath = "/img/";
+
+block contents
+  include ./_page/_top/_content

@@ -1,0 +1,8 @@
+@use "sass:map";
+@use "sass:math";
+@use "sass:string";
+@use "variables" as *;
+
+@function rem($pxSize) {
+  @return ($pxSize * 0.1) + rem;
+}

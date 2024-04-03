@@ -1,0 +1,18 @@
+section
+  .contentInner
+    h2.c_ttl_h2 モーダル
+    ul
+      li
+        button.c_modal_btn(data-href="https://www.youtube.com/watch?v=XhNMziNO8xc") モーダルボタンyoutube
+      li
+        button.c_modal_btn(data-href="/img/noimage.png") モーダルボタン画像
+      li
+        button.c_modal_btn.c_btn(aria-controls="modalContent1") モーダルボタン
+    dialog#modalContent1.dialog
+      .c_modal_content
+        .modalBody(tabindex="1")
+          h3.modal_ttl タイトル
+          figure
+            img(src="/img/noimage.png", alt="", loading="lazy", decodyng="async")
+          p あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+        button.c_modal_close(aria-label="ウィンドウを閉じる", tabindex="2")

@@ -1,0 +1,38 @@
+include ../_includes/_gtag
+meta(charset="utf-8")
+title !{ head.title }
+meta(name="description", content=head.description)
+meta(name="keywords", content=head.keywords)
+
+if slug === "top"
+  meta(property="og:type", content="website")
+else
+  meta(property="og:type", content="article")
+
+meta(property="og:local", content="ja_JP")
+meta(property="og:site_name", content=site.sitename)
+meta(property="og:title", content=head.title)
+meta(property="og:description", content=head.description)
+meta(property="og:url", content=head.url)
+meta(property="og:image", content=site.ogp)
+
+meta(name="twitter:card", content="summary_large_image")
+meta(name="twitter:title", content=head.title)
+meta(name="twitter:description", content=head.description)
+meta(name="twitter:image", content=site.ogp)
+meta(name="twitter:site", content="@" + site.sitename)
+
+link(rel="icon", href=site.icon + "/favicon.ico")
+link(rel="icon", href=site.icon + "/icon.svg", type="image/svg+xml")
+link(rel="apple-touch-icon", sizes="180x180", href=site.icon + "/apple-touch-icon.png")
+
+link(rel="canonical", href=head.url)
+
+include ./_jsonLd
+
+link(rel="preconnect", href="https://fonts.googleapis.com")
+link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900", rel="stylesheet")
+
+link(rel="stylesheet", href="/scss/style.scss")
+script(type="module", src="/ts/app.ts", defer)

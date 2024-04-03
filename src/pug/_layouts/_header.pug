@@ -1,0 +1,16 @@
+<!--　ヘッダー -->
+
+-
+  let menus = common["menu"] ? common["menu"] : [];
+
+header.l_header
+  .contentInner
+    p ヘッダー
+    nav
+      h2.txtHidden グローバルナビゲーション
+      ul
+        each val in menus
+          li
+            a(href=val.link) !{ val.txt }
+
+<!--　/ヘッダー -->
