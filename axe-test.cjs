@@ -18,35 +18,6 @@ urls_list = urls_list.split(",");
 // 空の改行を除去する
 urls_list = urls_list.filter((url) => url);
 
-/**
- * 指定した時間だけ待機する関数
- * @param ms 待機時間（ミリ秒）
- */
-const waitForTimeout = (ms) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
-
-/**
- * ページの最下部までスクロールする
- */
-const scrollToBottom = async (page, maxScrolls = 10, waitTime = 3000) => {
-  let previousHeight = 0;
-  let scrollCount = 0;
-
-  while (scrollCount < maxScrolls) {
-    const currentHeight = await page.evaluate(() => document.body.scrollHeight);
-
-    if (previousHeight === currentHeight) break;
-
-    await page.evaluate("window.scrollTo(0, document.body.scrollHeight)");
-    previousHeight = currentHeight;
-
-    await waitForTimeout(waitTime);
-
-    scrollCount++;
-  }
-};
-
 (async () => {
   const urls = urls_list;
 
@@ -65,8 +36,6 @@ const scrollToBottom = async (page, maxScrolls = 10, waitTime = 3000) => {
 
     // ページを読み込む。
     await Promise.all([page.setDefaultNavigationTimeout(0), page.waitForNavigation({ waitUntil: ["load", "networkidle2"] }), page.goto(`${url}`)]);
-
-    await scrollToBottom(page);
 
     // テストを実行する。withTags で、テスト基準をいろいろ設定できる。
     const results = await new AxePuppeteer(page).configure(config).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"]).analyze();
