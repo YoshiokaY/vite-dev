@@ -8,7 +8,7 @@ export const SCREENSHOT_DIR = "./check/screenshot";
 export const DIFF_DIR = "./check/diff";
 
 // ローカルホスト
-export const CAPTURE_URL = "http://localhost:5173";
+export const CAPTURE_URL = "http://localhost:4173";
 
 // デザイン画とそのページのURL
 export const testSettings = [
@@ -17,7 +17,7 @@ export const testSettings = [
     capturePath: "/",
   },
   {
-    design: "company.png",
+    design: "about.png",
     capturePath: "/about/",
   },
 ];
