@@ -7,7 +7,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "check": "run-p start test",
+    "check": "run-p preview test",
     "test": "run-s vrt axe",
     "axe": "node axe-test.cjs => result.csv",
     "vrt": "node visual-test.mjs"

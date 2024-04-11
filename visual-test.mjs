@@ -2,13 +2,7 @@ import puppeteer from "puppeteer";
 import sharp from "sharp";
 import { existsSync, mkdirSync, copyFileSync, unlinkSync } from "fs";
 import path from "path";
-import {
-  CAPTURE_URL,
-  DESIGN_DIR,
-  DIFF_DIR,
-  SCREENSHOT_DIR,
-  testSettings,
-} from "./test-config.mjs";
+import { CAPTURE_URL, DESIGN_DIR, DIFF_DIR, SCREENSHOT_DIR, testSettings } from "./test-config.mjs";
 
 (async () => {
   // 出力先フォルダがなければ作成
@@ -58,6 +52,7 @@ import {
         scroll(0, 99999);
       }, 5000);
     });
+    await page.setDefaultNavigationTimeout(0);
     await page.waitForTimeout(5000);
 
     // ページ全体のスクリーンショット撮影
@@ -92,9 +87,7 @@ import {
         .toBuffer();
 
       // 比較画像を取得をファイル出力
-      await sharp(compositedScreenshot)
-        .negate({ alpha: false })
-        .toFile(`${DIFF_DIR}/reg_${designFileName}.png`);
+      await sharp(compositedScreenshot).negate({ alpha: false }).toFile(`${DIFF_DIR}/reg_${designFileName}.png`);
 
       // 前回の画像を今回の画像で上書き
       copyFileSync(newScreenshotFilePath, screenshotFilePath);
@@ -129,9 +122,7 @@ import {
       .toBuffer();
 
     // ネガ反転してファイル出力
-    await sharp(difference)
-      .negate({ alpha: false })
-      .toFile(`${DIFF_DIR}/diff_${designFileName}.png`);
+    await sharp(difference).negate({ alpha: false }).toFile(`${DIFF_DIR}/diff_${designFileName}.png`);
   }
 
   await browser.close();
