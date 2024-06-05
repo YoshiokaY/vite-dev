@@ -3,18 +3,30 @@
 // Vendors
 @use "../../node_modules/@acab/reset.css";
 
-// // Base
+// Base
 @use "base/*.scss";
 
-// // Components
+// Components
 @use "components/*.scss";
+@use "components/utility/*.scss";
+// @forward "components/option/op-bread";
+@forward "components/option/_op-tab";
+@forward "components/option/_op-modal";
+@forward "components/option/_op-accordion";
+// @forward "components/option/_op-flow";
+@forward "components/option/_op-faq";
+// @forward "components/option/_op-news";
+// @forward "components/option/_op-pager";
+// @forward "components/option/_op-form";
+// @forward "components/option/_op-opening";
+// @forward "components/option/_op-loading";
 
-// // Layouts
+// Layouts
 @use "layouts/*.scss";
 
-// // Pages
+// Pages
 @use "pages/*.scss";
 
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -3,18 +3,19 @@
 // コンテナ
 .contentInner {
   width: 100%;
-  max-width: rem($containerSize);
-  padding: 0 1.6rem;
+  max-width: var(--content-width);
+  padding: 0;
   margin: auto;
-  @include mq() {
-    padding: 0;
-  }
-  @include mq(pc, $containerSize) {
+  container: content / inline-size;
+  @include mq(sp, $containerSize) {
     padding: 0 1.6rem;
+  }
+  @include mq(sp) {
+    padding: 0 spSize(16);
   }
 }
 
-//　PC/SP出しわけ
+// PC/SP出しわけ
 .pcOnly {
   @include mq(sp) {
     display: none;
@@ -59,12 +60,16 @@
 
 // frameコンテナ
 .frameWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+
   iframe {
+    position: absolute;
     top: 0;
     right: 0;
     width: 100%;
     height: 100%;
-    aspect-ratio: 452/360;
     border: 0;
   }
 }

@@ -1,0 +1,45 @@
+@use "../../abstracts" as *;
+@use "sass:math";
+
+.opening-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 9998;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: auto;
+  padding: 2.5%;
+  background-color: getColor(--colorText, 0.8);
+  @include mq() {
+    width: 100%;
+  }
+  .openingContents {
+    position: relative;
+    display: block;
+    width: 80%;
+    max-width: 800px;
+    padding: 2em 1.5em;
+    margin: auto;
+    font-size: 1.4rem;
+    background-color: getColor(--colorBody);
+    opacity: 0;
+    @include mq() {
+      width: 99%;
+      font-size: 1.2rem;
+    }
+    .btnContainer {
+      display: flex;
+      gap: 0 30px;
+      justify-content: center;
+    }
+    .btnStyle {
+      max-width: 200px;
+      margin-top: 1em;
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+}

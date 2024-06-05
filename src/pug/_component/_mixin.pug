@@ -1,1 +1,105 @@
+//- 画像出力
+//- 機能：WebPの出しわけコードを一括で出力する
+//- 引数(string)：画像ファイル名（拡張子付き）,alt用テキスト,画像のサイズ,遅延読み込みか否か,webp画像があるか否か,デフォルト以外のパス
+mixin picture(img, txt, sizes, lazy="lazy", webp="false", style ,url)
+  //- ファイル名と拡張子取得
+  - const [imgName, imgType] = img.split(/(?=\.[^.]+$)/);
+  //- 画像のサイズを配列で格納
+  - const [pcWidth, pcHeight, spWidth, spHeight] = sizes ? sizes : [];
+  //- urlが指定されていなければデフォルトのパスを使用
+  - let path = url ? url : imgPath;
+  picture(class=style && style)
+    if webp == "webp"
+      //- webP
+      source(type="image/webp", srcset=site.assets + imgPath + imgName + ".webp")
+    if lazy == "nolazy"
+      //- nolazy
+      img(src=path + img, alt=txt, decoding="async", width=pcWidth, height=pcHeight)
+    else
+      //- pc
+      img(src=path + img, alt=txt, loading="lazy", decoding="async", width=pcWidth, height=pcHeight)
 
+mixin picture_sp(img, txt, sizes, lazy="lazy", webp="false", style, url, max="767")
+  //- ファイル名と拡張子取得
+  - const [imgName, imgType] = img.split(/(?=\.[^.]+$)/);
+  //- 画像のサイズを配列で格納
+  - const [pcWidth, pcHeight, spWidth, spHeight] = sizes ? sizes : [];
+  //- urlが指定されていなければデフォルトのパスを使用
+  - const path = url ? url : imgPath;
+  picture(class=style && style)
+    if webp == "webp"
+      //- webP+SP
+      source(media="(max-width: " + max + "px)", type="image/webp", srcset=site.assets + imgName + "_sp.webp", width=spWidth, height=spHeight)
+      //- webP
+      source(type="image/webp", srcset=site.assets + imgName + ".webp")
+    //- SP
+    source(media="(max-width:" + max + "px)", srcset=path + imgName + "_sp" + imgType, width=spWidth, height=spHeight)
+    if lazy == "nolazy"
+      //- nolazy
+      img(src=path + img, alt=txt, decoding="async", width=pcWidth, height=pcHeight)
+    else
+      //- pc
+      img(src=path + img, alt=txt, decoding="async", loading="lazy", width=pcWidth, height=pcHeight)
+
+//- 日付出力
+//- 機能：datetime属性付きのtimeタグを出力する
+//- 引数(string)：任意の日付形式 or 空の場合は現在
+//- <time datetime="YYYY-MM-DD"></time>
+mixin getTime(time)
+  time(datetime=new Date(time).getFullYear() + "-" + (new Date(time).getMonth() + 1).toString().padStart(2, "0") + "-" + new Date(time).getDate().toString().padStart(2, "0")) #{ time }
+
+mixin formatDate(date)
+  - var formattedDate = new Date(date.replace(/年|月/g, "/").replace("日", ""));
+  - var year = formattedDate.getFullYear();
+  - var month = String(formattedDate.getMonth() + 1).padStart(2, "0");
+  - var day = String(formattedDate.getDate()).padStart(2, "0");
+
+  time(datetime=`${year}-${month}-${day}`)= date
+
+//- パンくず
+//- 機能：構造化データ入りのパンくずリストを出力する
+//- 引数(array)：["ホーム", "/"],["テキスト","リンク"]
+//- <time datetime="YYYY-MM-DD"></time>
+mixin setBread(levels)
+  nav#breadcrumbs
+    ol.breadList(itemscope, itemtype="//schema.org/BreadcrumbList")
+      each level, index in levels
+        - const count = index + 1;
+        - const link = level[1];
+
+        li.breadList_item(itemprop="itemListElement", itemscope, itemtype="http://schema.org/ListItem")
+          if count != levels.length
+            a(href=link, itemprop="item")
+              span(itemprop="name") #{ level[0] }
+              meta(itemprop="position", content!=count)
+          else
+            span(itemprop="name") #{ level[0] }
+            meta(itemprop="position", content!=count)
+
+//- アンカーリンク
+mixin setAnker(list)
+  ol.c_anchorList
+    each val, index in list
+      li.c_anchorList_item
+        a(href="#" + a + ("0" + (index + 1)).slice(-2))
+          #{val}
+
+//- Gナビ
+mixin setNav(list,pc)
+  each menu in list
+    //- デザイン違うのでメニューごとにページ名のクラス付与
+    //- 子メニュー持ちに専用クラス付与
+    //- 現在ページにcurrentクラス付与
+    li(class="-" + menu.link.slice(1, -1) + (menu.child && menu.comment !== true ? " has-child" : "") + (slug == menu.link.slice(1, -1) ? " -current" : ""))
+      if menu.child
+        if (pc !== true)
+          .relative
+            a.naviLink(href=menu.link) !{ menu.txt }
+            button.spAccordion
+              span.txtHidden 子メニューを表示します
+        ul.subMenu
+          each child in menu.child
+            li
+              a(href=child.link) !{ child.txt }
+      else
+        a.naviLink(href=menu.link) !{ menu.txt }

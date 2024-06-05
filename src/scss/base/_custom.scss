@@ -1,0 +1,101 @@
+@use "../abstracts" as *;
+@use "sass:math";
+
+:root {
+  --headerHeight: 6rem;
+  // Spacing
+  @include mq() {
+    --spacing-8: 238px;
+    --spacing-7: 147px;
+    --spacing-6: 91px;
+    --spacing-5: 56px;
+    --spacing-4: 35px;
+    --spacing-3: 21px;
+    --spacing-2: 14px;
+    --spacing-1: 7px;
+    --spacing-0: 0;
+    --spacing-content-side: 15px;
+  }
+
+  --spacing-8: 226.1px;
+  --spacing-7: 139.65px;
+  --spacing-6: 86.45px;
+  --spacing-5: 53.2px;
+  --spacing-4: 33.25px;
+  --spacing-3: 19.95px;
+  --spacing-2: 13.3px;
+  --spacing-1: 6.65px;
+  --font-family-base: #{$baseFont};
+  --font-leading: #{$baseLineHeight};
+
+  // Font sizes
+  @include mq() {
+    --font-size-large-6: #{rem(nth($h1, 1))};
+    --font-size-large-5: #{rem(nth($h2, 1))};
+    --font-size-large-4: #{rem(nth($h3, 1))};
+    --font-size-large-3: #{rem(nth($h4, 1))};
+    --font-size-large-2: #{rem(nth($h5, 1))};
+    --font-size-large-1: #{rem(nth($largeFontSize, 1))};
+    --font-size-base: #{rem(nth($baseFontSize, 1))};
+    --font-size-small-1: #{rem(nth($smallFontSize, 1))};
+    --font-size-small-2: 1rem;
+  }
+
+  --font-size-large-6: #{spSize(nth($h1, 2))};
+  --font-size-large-5: #{spSize(nth($h2, 2))};
+  --font-size-large-4: #{spSize(nth($h3, 2))};
+  --font-size-large-3: #{spSize(nth($h4, 2))};
+  --font-size-large-2: #{spSize(nth($h5, 2))};
+  --font-size-large-1: #{spSize(nth($largeFontSize, 2))};
+  --font-size-base: #{spSize(nth($baseFontSize, 2))};
+  --font-size-small-1: #{spSize(nth($smallFontSize, 2))};
+  --font-size-small-2: #{spSize(10)};
+
+  // Font weights
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  // font-feature-settings
+  --font-feature-settings: "pkna" on, "palt" on, "pwid" on;
+
+  // Font Shorthand (Body)
+  --font-shorthand-base-normal: var(--font-weight-normal) var(--font-size-base) / var(--font-leading) var(--font-family-base);
+  // Breakpoints
+  --breakpoint-lg: #{rem($containerSize)};
+  --breakpoint-md: #{rem(1064)};
+  --breakpoint-sm: #{rem($brakePoint)};
+
+  // Colors
+  --color-black: #{$colorTxt};
+  --color-white: #{$colorTxtReversal};
+  --color-gray: #{$colorGray};
+  --color-prime: #{$colorPrime};
+  --color-second: #{$colorSecond};
+  --color-third: #{$colorThird};
+  --color-body: #{$bgBody};
+  --color-highlight: #{$bgHighlight};
+
+  // Shadow
+  --shadow-balck: 0 0 2rem 0.5em #{rgba($colorTxt, 0.3)};
+  --shadow-white: 0 0 2rem 0.5em #{rgba($colorTxtReversal, 0.3)};
+
+  // Border radius
+  @include mq() {
+    --border-radius-large: 3rem;
+    --border-radius-base: 1.2rem;
+    --border-radius-small: 0.8rem;
+  }
+
+  --border-radius-large: #{spSize(30)};
+  --border-radius-base: #{spSize(12)};
+  --border-radius-small: #{spSize(8)};
+
+  // Width
+  --content-width: #{rem($containerSize)};
+
+  // Transition
+  --transition-base: 0.3s ease-out;
+  --transition-cubic: cubic-bezier(0.165, 0.84, 0.44, 1);
+}

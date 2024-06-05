@@ -1,4 +1,4 @@
-@use "../abstracts" as *;
+@use "../../abstracts" as *;
 @use "sass:math";
 
 /* アコーディオン  */
@@ -12,20 +12,27 @@
     position: relative;
     padding-right: 5rem;
     cursor: pointer;
+    @include mq() {
+      padding-right: spSize(30);
+    }
 
     // 開閉アイコン
     &::before,
     &::after {
+      @include mq() {
+        width: 2rem;
+      }
+
       position: absolute;
       inset: 0 1em 0 auto;
-      width: 2rem;
+      width: spSize(24);
       height: 0.2rem;
       margin: auto;
       content: "";
       background-color: $colorPrime;
-      transition: opacity 0.5s;
-      transition: rotate 0.4s;
-      transform-origin: center;
+      transition:
+        opacity 0.5s,
+        rotate 0.4s;
     }
 
     &::after {
@@ -36,7 +43,7 @@
       outline: 0;
       box-shadow: none;
 
-      &::after {
+      &::before {
         outline: solid 0.3rem $colorPrime;
         outline-offset: 0.2rem;
       }
@@ -49,6 +56,27 @@
     .c_pull_ttl {
       &::after {
         rotate: none;
+      }
+    }
+  }
+  // SP時のみアコーディオン
+  &.-spPull {
+    @include mq(pc) {
+      border: 0;
+
+      .c_pull_ttl {
+        padding: 0;
+        pointer-events: none;
+        cursor: none;
+
+        &::before,
+        &::after {
+          content: none;
+        }
+      }
+
+      .c_pull_content {
+        padding: 0;
       }
     }
   }

@@ -1,0 +1,122 @@
+@use "../../abstracts" as *;
+@use "sass:math";
+
+//----------------- ページャー//
+.pagerContainer {
+  padding: 8rem 0 2rem;
+}
+
+.pagenation {
+  ul,
+  ol {
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    @include mq() {
+      gap: spSize(8);
+    }
+  }
+
+  .pagerList_item {
+    a,
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 4rem;
+      height: 4rem;
+      font-family: $outfit;
+      font-size: 1.4rem;
+      font-weight: normal;
+      background-color: $bgHighlight;
+      border-radius: 50%;
+      transition:
+        color 0.4s,
+        background-color 0.4s;
+      @include hover {
+        color: #fff;
+        background-color: $colorThird;
+      }
+      @include mq() {
+        width: spSize(32);
+        height: spSize(32);
+        font-size: spSize(12);
+      }
+    }
+
+    &.-current {
+      a,
+      span {
+        font-weight: normal;
+        color: #fff;
+        pointer-events: none;
+        background-color: $colorThird;
+      }
+    }
+
+    &.-arrow,
+    &.-hidden {
+      a,
+      span {
+        background: none;
+      }
+      @include hover {
+        background-color: transparent;
+      }
+    }
+
+    &.-hidden {
+      span {
+        position: relative;
+        pointer-events: none;
+
+        &::before {
+          content: "…";
+        }
+      }
+    }
+
+    &.-arrow {
+      i {
+        &::before,
+        &::after {
+          content: none;
+        }
+
+        width: 0.5rem;
+        height: 1.2rem;
+        background-color: $colorThird;
+        mask-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%224.795%22%20height%3D%2212%22%20viewBox%3D%220%200%204.795%2012%22%3E%20%3Cpath%20id%3D%22%E3%83%91%E3%82%B9_14%22%20data-name%3D%22%E3%83%91%E3%82%B9%2014%22%20d%3D%22M3.128%2C6%2C0%2C12H1.641L4.795%2C6%2C1.641%2C0H0Z%22%20fill%3D%22%23d33080%22%2F%3E%3C%2Fsvg%3E");
+        mask-repeat: no-repeat;
+        mask-position: center;
+        mask-size: contain;
+        @include mq() {
+          width: spSize(5);
+          height: spSize(12);
+        }
+      }
+
+      &.-last,
+      &.-first {
+        i {
+          width: 0.9rem;
+          height: 1.1rem;
+          mask-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20id%3D%22%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97_4469%22%20data-name%3D%22%E3%82%B0%E3%83%AB%E3%83%BC%E3%83%97%204469%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228.181%22%20height%3D%2210.237%22%20viewBox%3D%220%200%208.181%2010.237%22%3E%20%3Cpath%20id%3D%22%E3%83%91%E3%82%B9_14%22%20data-name%3D%22%E3%83%91%E3%82%B9%2014%22%20d%3D%22M2.669%2C5.119%2C0%2C10.237H1.4L4.091%2C5.119%2C1.4%2C0H0Z%22%20transform%3D%22translate(0%200)%22%20fill%3D%22%23d33080%22%2F%3E%20%3Cpath%20id%3D%22%E3%83%91%E3%82%B9_2190%22%20data-name%3D%22%E3%83%91%E3%82%B9%202190%22%20d%3D%22M2.669%2C5.119%2C0%2C10.237H1.4L4.091%2C5.119%2C1.4%2C0H0Z%22%20transform%3D%22translate(4.091%200)%22%20fill%3D%22%23d33080%22%2F%3E%3C%2Fsvg%3E");
+          @include mq() {
+            width: spSize(9);
+            height: spSize(11);
+          }
+        }
+      }
+
+      &.-first,
+      &.-prev {
+        i {
+          transform: rotate(180deg);
+        }
+      }
+    }
+  }
+}

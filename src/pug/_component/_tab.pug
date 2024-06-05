@@ -1,0 +1,18 @@
+- const tab = ["タブリストA", "タブリストB", "タブリストC"];
+
+section(class="my-[3rem]")
+  .contentInner
+    h2.font-bold(class="md:text-[2.4rem] mb-[2em]") タブ
+    //- タブのラッパー要素（これでくくることで排他的な動作になる）
+    .c_tab
+      //- タブボタン
+      ul.c_tab_list.flex.justify-center(class="gap-y-[1.6rem] gap-x-[1.4rem]")
+        each val, index in tab
+          li.flex.justify-center.items-center
+            button.text-center.bg-reversal.border-prime.text-prime.no-underline.border-solid(class="border-[0.15rem] w-[100%] md:h-[5.6rem] rounded-[999rem] leading-[calc(17/12)] md:leading-[calc(22/16)]", id="tab" + (index + 1), class=index == 0 && "-open", aria-pressed=index == 0 ? "true" : "false", aria-controls="tabpanel" + (index + 1)) !{ val }
+      //- タブパネルの中身
+      each val, index in tab
+        if index === 0
+          .c_tab_content(role="tabpanel", id="tabpanel" + (index + 1), tabindex="0", aria-labelledby="tab" + (index + 1)) !{ val }中身
+        else
+          .c_tab_content(role="tabpanel", id="tabpanel" + (index + 1), tabindex="-1", aria-labelledby="tab" + (index + 1), hidden) !{ val }中身

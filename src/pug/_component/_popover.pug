@@ -1,0 +1,13 @@
+section(class=`my-[3rem]`)
+  .contentInner
+    h2(class=`font-bold md:text-[2.4rem] mb-[2em]`) モーダル2
+    button.btnStyle(class=`md:mr-0 mr-auto ml-auto max-w-[27rem]` popovertarget='aboutModal' popovertargetaction='show') モーダルボタン
+
+    #aboutModal.popover(popover)
+      .borderBox(class=`bg-none pt-[4rem] md:pb-[6.4rem] pd-[4.4rem]`)
+        button.closeBtn(popovertarget='aboutModal' popovertargetaction='hide') <span class="txtHidden">モーダルを閉じる</span>
+        h3(class=`text-[3.5rem] md:text-[4rem] md:leading-[calc(60/40)] leading-[calc(45.5/35)] font-bold text-center text-txt mb-[1.6rem]`) タイトル
+        figure(class=`mb-[3.2rem] rounded-[0.6rem] overflow-hidden`)
+          +picture("mv.jpg", "alt",[452,370], lazy='lazy')
+        div(class=`max-w-[37.2rem] m-auto md:px-0 px-[1.2rem]`) テキスト
+        button.txtHidden.skipLink(popovertarget='aboutModal' popovertargetaction='hide') モーダルを閉じる

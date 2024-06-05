@@ -1,0 +1,49 @@
+@use "../../abstracts" as *;
+@use "sass:math";
+// ----------------- パンくずリスト//
+
+.breadcrumb {
+  padding-left: 0;
+  margin: 1em auto;
+  line-height: 1;
+  @include mq() {
+    display: none;
+  }
+
+  li {
+    display: inline-block;
+    margin-bottom: 0.3em;
+    font-size: 1.4rem;
+    list-style: none;
+
+    &:not(:first-child) {
+      padding-left: 1em;
+    }
+
+    &:not(:last-child)::after {
+      display: inline-block;
+      width: 7px;
+      height: 7px;
+      margin-left: 10px;
+      vertical-align: middle;
+      content: "";
+      border-top: 1.5px solid getColor(--colortext);
+      border-right: 1.5px solid getColor(--colortext);
+      transform: rotate(45deg) translateY(-1px);
+      transform-origin: top;
+    }
+
+    a {
+      text-decoration: none;
+      @include mq(pc) {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    &:last-child {
+      // opacity: .7;
+    }
+  }
+}

@@ -1,19 +1,79 @@
 @use "../abstracts" as *;
 
-/* ボタン */
-.c_btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-width: 20rem;
-  height: 5rem;
-  color: $colorBtnTxt;
-  background-color: $colorBtn;
-  border: 0.1rem solid $colorPrime;
+/* ボタン  */
+
+.btnStyle {
+  @apply border-solid border-prime border-[0.2rem] rounded-[2.8rem] md:h-[5.6rem] min-h-[5.6rem] md:min-w-[24rem] flex justify-between items-center leading-[calc(27.2/16)] text-prime relative pr-[5.5rem] pl-[3.2rem] font-bold w-[100%] text-[1.6rem] pt-[0.15em];
+
+  transition:
+    background-color 0.4s,
+    color 0.4s;
+
+  &::after {
+    position: absolute;
+    inset: 0 2.4rem 0 auto;
+    width: 2.8rem;
+    height: 1.6rem;
+    margin: auto;
+    content: "";
+    @include mask(arrow, $colorPrime);
+
+    transition:
+      background-color 0.4s,
+      right 0.4s,
+      left 0.4s;
+  }
   @include hover {
-    color: $colorBtnTxt_hover;
-    background-color: $colorBtn_hover;
+    color: $colorTxtReversal;
+    background-color: $colorPrime;
+
+    &::after {
+      right: 1.6rem;
+      background-color: $colorTxtReversal;
+    }
+  }
+
+  &.-invert {
+    @apply bg-prime text-reversal;
+
+    &::after {
+      background-color: $colorTxtReversal;
+    }
+    @include hover {
+      color: $colorPrime;
+      background-color: transparent;
+
+      &::after {
+        background-color: $colorPrime;
+      }
+    }
+  }
+
+  &.-reversal {
+    @apply pl-[5.5rem] pr-[3.2rem];
+
+    &::after {
+      inset: 0 auto 0 2.4rem;
+      rotate: 180deg;
+    }
+    @include hover {
+      &::after {
+        left: 1.6rem;
+      }
+    }
+  }
+
+  &.-blank {
+    &::after {
+      @include mask(blank, $colorPrime);
+    }
+    @include hover {
+      &::after {
+        right: 2.4rem;
+        background-color: $colorTxtReversal;
+      }
+    }
   }
 }
 
-/* /ボタン */
+/* /ボタン  */

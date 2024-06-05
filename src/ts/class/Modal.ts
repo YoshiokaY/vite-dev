@@ -1,10 +1,15 @@
 // モーダル
 export class Modal {
-  constructor() {
+  /**
+   * モーダルボタン
+   * @parm {string}
+   */
+  target: string;
+
+  constructor(TARGET: string = ".c_modal_btn") {
+    this.target = TARGET;
     //モーダル
-    const html = document.querySelector("html");
-    const modalBtn = document.querySelectorAll(".c_modal_btn");
-    // let modal = "";
+    const modalBtn = document.querySelectorAll(TARGET);
     let closes = document.querySelectorAll(".c_modal_close");
 
     modalBtn.forEach((a) => {
@@ -18,12 +23,13 @@ export class Modal {
           modal = document.getElementById(modalID) as HTMLDialogElement;
         } else {
           //画像・動画の場合
-          let modalHref = sanitize(event.getAttribute("data-href"));
+          let modalHref = sanitize(event.getAttribute("data-src")); // アセットのアドレス
+          let modalAlt = sanitize(event.getAttribute("data-alt")); // alt属性
           if (!targetNext) {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
             const youtube_uri = YOUTUBE.exec(modalHref);
             let dialog = "";
-            dialog += '<dialog class="dialog"><div class="c_modal_content">';
+            dialog += '<dialog class="dialog"><div class="c_modal_content"><div class="c_modal_inner">';
             //youtubeiframe挿入
             if (youtube_uri) {
               dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
@@ -42,10 +48,10 @@ export class Modal {
               );
             } else {
               //画像用モーダル
-              dialog += `<figure tabindex="1"><img src=${modalHref} decoding="async"></figure>`;
+              dialog += `<figure tabindex="-1"><img src=${modalHref} alt="${modalAlt}" decoding="async"></figure>`;
             }
             dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
-            dialog += "</div></dialog>";
+            dialog += "</div></div></dialog>";
             event.insertAdjacentHTML("afterend", dialog);
           }
           modal = event.nextElementSibling as HTMLDialogElement;
@@ -54,8 +60,6 @@ export class Modal {
 
         //モーダル展開
         modal?.showModal();
-        //htmlのスクロール抑制のためのクラス
-        html?.classList.add("-disable");
 
         //モーダルの使い回し時に呼び出す
         // setModal(modalDate);
@@ -85,10 +89,9 @@ export class Modal {
       modal.close("cancelled");
       //iframeだけ始末
       modal.querySelector(".frameWrapper") && modal.remove();
-      html?.classList.remove("-disable");
     }
 
-    //サニタイズ
+    // サニタイズ
     function sanitize(str: string | null) {
       return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }

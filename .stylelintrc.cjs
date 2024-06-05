@@ -10,11 +10,13 @@ module.exports = {
     "selector-id-pattern": null, // idでkebab-case以外も許容
     "selector-class-pattern": null, // classでkebab-case以外も許容
     "keyframes-name-pattern": null, // keyframesでkebab-case以外も許容
+    "scss/at-function-pattern": null,
     "scss/at-mixin-pattern": null, // mixinでkebab-case以外も許容
     "scss/dollar-variable-pattern": null, // $変数でkebab-case以外も許容
     "scss/percent-placeholder-pattern": null, // %placeholderでkebab-case以外も許容
     "scss/at-extend-no-missing-placeholder": null, // @extendで%placeholder以外も許容
     "function-url-quotes": ["always", { severity: "warning" }], // url()内が""で囲まれていなくてもwarningで止める
+    "scss/no-global-function-names": null,
     "number-max-precision": [3, { severity: "warning" }], // 小数点以下3桁以上でもwarningで止める
     "alpha-value-notation": ["number", { severity: "warning" }], // 0.3が30%となっていてもwarningで止める
     "font-family-name-quotes": ["always-where-recommended", { severity: "warning" }], // font-family名のルールが適合していなくてもwarningで止める

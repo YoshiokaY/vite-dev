@@ -1,0 +1,47 @@
+-
+  let table = content.table ? content.table : [];
+
+section(class=`my-[3rem]`)
+  .contentInner.countReset
+    h2(class=`font-bold md:text-[2.4rem] mb-[2em]`) テーブル
+    table.u_table.childcareTable
+      thead
+        tr
+          each th,index in table.thead
+            th(scope="col",class=(index == 0 && "-sticky")) !{th}
+      tbody
+        each tr in table.tbody
+          tr
+            th.-sticky(scope="row",rowspan="2") !{tr.th}
+              each td,index in tr.tr
+                td !{td}
+          tr
+            each td in tr.tr2
+              td !{td}
+
+    table.u_table.-line.-resTable
+      tbody
+        tr
+          th(scope='col') 順位
+          td 関東モンスト太郎
+        tr
+          th(scope='col') 順位
+          td 関東モンスト太郎
+        tr
+          th(scope='col') 順位
+          td 関東モンスト太郎
+    .scrollTable
+      table.u_table.childcareTable
+        thead
+          tr
+            each th,index in table.thead
+              th(scope="col",class=(index == 0 && "-sticky"), class=`w-[20rem]`) !{th}
+        tbody
+          each tr in table.tbody
+            tr
+              th.-sticky(scope="row",rowspan="2") !{tr.th}
+                each td,index in tr.tr
+                  td !{td}
+            tr
+              each td in tr.tr2
+                td !{td}

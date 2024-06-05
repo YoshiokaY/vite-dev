@@ -4,13 +4,26 @@
   let menus = common["menu"] ? common["menu"] : [];
 
 header.l_header
-  .contentInner
-    p ヘッダー
-    nav
-      h2.txtHidden グローバルナビゲーション
-      ul
-        each val in menus
-          li
-            a(href=val.link) !{ val.txt }
+  .contentInner.flex.justify-between.items-center.relative
+    <!--ロゴ -->
+    if slug === "top"
+      h1.titleLogo
+        a(href="/")
+          img(src=imgPath + "logo.svg", alt=site.sitename, decoding="async", width="68", height="44")
+    else
+      .titleLogo
+        a(href="/")
+          img(src=imgPath + "logo.svg", alt=site.sitename, decoding="async", width="68", height="44")
+
+    <!--/ロゴ -->
+    nav.headerNavi
+      h2.txtHidden ナビゲーションメニュー
+      button.ac_menu
+        span メニューを開く
+      .naviWrapper
+        ul#navi
+          +setNav(menus)
+
+        button.txtHidden メニューを閉じる
 
 <!--　/ヘッダー -->

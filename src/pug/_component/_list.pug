@@ -1,0 +1,65 @@
+- const list = ["リストAリストAリストAリストAリストAリストAリストAリストAリストAリストAリストAリストAリストAリストA","リストBリストBリストBリストBリストBリストB","リストCリストCリストCリストCリストCリストC"]
+
+section(class=`my-[3rem]`)
+  .contentInner
+    h2(class=`font-bold md:text-[2.4rem] mb-[2em]`) リスト
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) 通常
+    ul.u_ul
+      each val,i in list
+        li !{val}
+          if i == 1
+            ul
+              each listItem in list
+                li !{listItem}
+
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) 丸
+    ul.u_ul.-circle
+      each val,i in list
+        li !{val}
+          if i == 1
+            ul
+              each listItem in list
+                li !{listItem}
+
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) チェック
+    ul.u_ul.-check
+      each val,i in list
+        li !{val}
+
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) 数字
+    ol.u_ol
+      each val,i in list
+        li !{val}
+          if i == 1
+            ol
+              each listItem in list
+                li !{listItem}
+
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) 数字
+    ol.u_ol.-type2
+      each val,i in list
+        li !{val}
+          if i == 1
+            ol
+              each listItem in list
+                li !{listItem}
+
+    h3(class=`font-bold md:text-[1.8rem] mb-[1em]`) カタカナ
+    ol.u_ol.-aiueo
+      each val,i in list
+        li !{val}
+          if i == 1
+            ol
+              each listItem in list
+                li !{listItem}
+
+    ol.u_ol.-floatList
+      li リスト
+      li リスト
+      li リストリスト
+      li リスト
+    dl(class=`mx-auto`)
+      each val in list
+        div(class=`flex flex-col gap-y-[0.4rem] [&:not(:last-child)]:mb-[1.6rem]`)
+          dt(class=`text-[1.4rem] md:text-[1.6rem] leading-[calc(18.38/14)] md:leading-[calc(24/16)] w-[100%] font-bold mb-[1.6rem]`) タイトル
+          dd(class=`text-[1.4rem] md:text-[1.6rem] leading-[calc(18.38/14)] md:leading-[calc(24/16)]`) 中身

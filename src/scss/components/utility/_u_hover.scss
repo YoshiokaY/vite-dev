@@ -1,0 +1,169 @@
+@use "../../abstracts" as *;
+@use "sass:math";
+
+/* ホバー  */
+
+/// -----------------透過オーバー//
+.hoverOpacity {
+  opacity: 1;
+  transition: opacity 0.4s;
+  @include hover {
+    opacity: 0.7;
+  }
+}
+
+/// -----------------反射オーバー//
+.hoverShine {
+  position: relative;
+  display: block;
+  width: fit-content;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    content: "";
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0) 0%, rgba($colorTxtReversal, 0) 10%, rgba($colorTxtReversal, 0) 20%, rgba($colorTxtReversal, 0) 100%);
+  }
+  @include hover {
+    &::before {
+      animation: shine 0.15s ease-in-out;
+    }
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0) 0%, rgba($colorTxtReversal, 0) 10%, rgba($colorTxtReversal, 0) 20%, rgba($colorTxtReversal, 0) 100%);
+  }
+
+  25% {
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0.2) 0%, rgba($colorTxtReversal, 0.4) 10%, rgba($colorTxtReversal, 0.2) 20%, rgba($colorTxtReversal, 0) 100%);
+  }
+
+  50% {
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0) 0%, rgba($colorTxtReversal, 0.2) 40%, rgba($colorTxtReversal, 0.4) 50%, rgba($colorTxtReversal, 0.2) 60%, rgba($colorTxtReversal, 0) 100%);
+  }
+
+  75% {
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0) 0%, rgba($colorTxtReversal, 0.2) 80%, rgba($colorTxtReversal, 0.4) 90%, rgba($colorTxtReversal, 0.2) 100%);
+  }
+
+  100% {
+    background-image: linear-gradient(135deg, rgba($colorTxtReversal, 0) 0%, rgba($colorTxtReversal, 0) 80%, rgba($colorTxtReversal, 0) 90%, rgba($colorTxtReversal, 0) 100%);
+  }
+}
+
+/// -----------------拡大オーバー//
+
+.hoverScale {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: fit-content;
+  overflow: hidden;
+
+  figure,
+  picture {
+    overflow: hidden;
+  }
+
+  img {
+    position: relative;
+    z-index: -1;
+    transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  @include hover {
+    img {
+      transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transform: scale(1.05) translateZ(0);
+    }
+  }
+}
+
+/// -----------------グリッチオーバー//
+.hoverNoize {
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 2px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    clip: rect(0, 900px, 0, 0);
+    content: attr(data-hover);
+    background-color: $bgBody;
+  }
+
+  &::after {
+    text-shadow: -1px 0 red;
+  }
+
+  &::before {
+    left: -2px;
+    text-shadow: 1px 0 blue;
+  }
+
+  @include hover {
+    &::before {
+      animation: noise-anim 1.5s infinite linear alternate-reverse;
+    }
+
+    &::after {
+      animation: noise-anim 1.8s infinite linear alternate-reverse;
+    }
+  }
+}
+
+/// -----------------欠けオーバー//
+.hoverLack {
+  @include fontsize(30);
+
+  position: relative;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    clip: rect(0, 999px, 0.9em, 0);
+    color: $colorTxt;
+    content: attr(data-hover);
+    background-color: $bgBody;
+    transition: transform 0.2s;
+  }
+
+  &::after {
+    top: auto;
+    bottom: 0;
+    clip: rect(0.9em, 999px, 2em, 0);
+  }
+
+  @include hover {
+    color: transparent;
+
+    &::before {
+      transition: transform 0.2s;
+      transform: translateX(1.5px) skew(-10deg);
+    }
+
+    &::after {
+      transition: transform 0.2s;
+      transform: translateX(-1.5px);
+    }
+  }
+}
+
+/* /ホバー  */

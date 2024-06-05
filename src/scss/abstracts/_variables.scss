@@ -1,6 +1,9 @@
-//　ビューポート
-$containerSize: 1200; //　コンテンツ最大幅
-$brakePoint: 767; //　ブレイクポイント
+// ビューポート
+$containerSize: 1200; // コンテンツ最大幅
+$brakePoint: 767; // ブレイクポイント
+$pcDesign: 1366; // PCデザインサイズ
+$spDesign: 376; // SPデザインサイズ
+$logoWidth: 200; // ロゴ幅
 
 // カラーパレット
 $colorTxt: #333;
@@ -13,15 +16,30 @@ $bgBody: #fff;
 $bgHighlight: #f4f4f4;
 
 // ボタン
-$colorBtn: $colorPrime; //　背景色
-$colorBtnTxt: $colorTxtReversal; //　文字色
-$colorBtn_hover: $colorBtnTxt; //　ホバー時背景
-$colorBtnTxt_hover: $colorBtn; //　ホバー時文字色
+$colorBtn: $colorPrime; // 背景色
+$colorBtnTxt: $colorTxtReversal; // 文字色
+$colorBtn_hover: $colorBtnTxt; // ホバー時背景
+$colorBtnTxt_hover: $colorBtn; // ホバー時文字色
 
-//　フォント
+// テーブル
+$colorTableBorder: #d6d6d6;
+$colorTableTh: #f4f4f4;
+$colorTableTd: $bgBody;
+$colorTableHighlight: #eee;
+
+// フォント
 $fontNoto: "Noto Sans JP", "NotoSansJP", "Noto Sans Japanese", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $baseFont: $fontNoto;
+$baseLetterSpace: 0;
+$baseLineHeight: calc(32 / 16);
 $baseFontSize: 16, 14;
+$largeFontSize: 24, 18;
+$smallFontSize: 14, 12;
+$h1: 72, 48;
+$h2: 64, 32;
+$h3: 32, 24;
+$h4: 20, 20;
+$h5: 18, 18;
 
-//　画像パス
+// 画像パス
 $imgPath: "/";

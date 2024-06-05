@@ -1,4 +1,4 @@
-@use "../abstracts" as *;
+@use "../../abstracts" as *;
 @use "sass:math";
 
 /* モーダル  */
@@ -23,7 +23,6 @@
 
     &::backdrop {
       opacity: 1;
-      transition: opacity 0.4s;
     }
   }
 
@@ -42,7 +41,7 @@
 }
 
 // モーダル展開時スクロール非活性
-html:has(dialog[open]) {
+html:has(.dialog[open]) {
   overflow: hidden;
 
   body {
@@ -84,24 +83,35 @@ html:has(dialog[open]) {
   &_content {
     position: absolute;
     inset: 0;
-    width: auto;
-    max-width: math.div($containerSize, 10) + rem;
+    width: fit-content;
+    max-width: rem($containerSize);
     height: fit-content;
-    max-height: 100vh;
-    max-height: 100dvh;
+    max-height: 90vh;
     padding: 0;
     margin: auto;
     opacity: 0;
     transition: opacity 0.4s;
+    @include mq(sp, $containerSize) {
+      padding: 0 1.6rem;
+    }
+    @include mq(sp) {
+      padding: 0 spSize(16);
+    }
+
+    /* stylelint-disable-next-line no-descending-specificity */
+    &:has(.frameWrapper) {
+      width: auto;
+    }
 
     figure {
       width: fit-content;
       margin: auto;
+      overflow: auto;
     }
+  }
 
-    iframe {
-      aspect-ratio: 16/9;
-    }
+  &_inner {
+    position: relative;
   }
 }
 

@@ -3,8 +3,370 @@
 
 /* ヘッダー */
 .l_header {
-  height: 20rem;
-  border: 0.4rem solid $colorPrime;
+  position: relative;
+  z-index: 99;
+
+  .titleLogo {
+    @include mq() {
+      max-width: rem($logoWidth);
+      margin: 0.8rem 0;
+    }
+
+    width: spSize(170);
+    max-width: inherit;
+  }
+
+  /// -----------------Gナビ//
+  .headerNavi {
+    // ハンバーガーボタン
+    .ac_menu {
+      @include mq() {
+        display: none;
+      }
+
+      position: absolute;
+      inset: 0 spSize(16) 0 auto;
+      width: spSize(30);
+      height: spSize(30);
+      margin: auto;
+
+      > span {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 0.3rem;
+        margin: auto;
+        text-indent: -999.9rem;
+        background-color: var(--color-prime);
+        transition: background-color var(--transition-base);
+
+        &::before,
+        &::after {
+          position: absolute;
+          inset: -1.2rem 0 auto;
+          display: block;
+          width: 100%;
+          height: 0.3rem;
+          margin: auto;
+          content: "";
+          background-color: var(--color-prime);
+          transition: rotate var(--transition-base);
+        }
+
+        &::after {
+          top: auto;
+          bottom: -1.2rem;
+        }
+      }
+    }
+
+    // SP時メニュー背景
+    .naviWrapper {
+      @include mq() {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: auto;
+        overflow-y: visible;
+        background-color: transparent;
+        opacity: 1;
+      }
+
+      position: absolute;
+      inset: 100% 0 0 auto;
+      width: 0;
+      height: 100dvh;
+      padding: 2em 0;
+      overflow-y: auto;
+      background-color: var(--color-prime);
+      opacity: 0;
+    }
+
+    // メニュー
+    #navi {
+      @include mq() {
+        display: flex;
+        gap: 0 pcSize(40);
+        justify-content: flex-end;
+        padding: 0;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      position: relative;
+      width: 100%;
+      padding: 0 spSize(16);
+      margin: auto;
+      visibility: hidden;
+      opacity: 0;
+
+      > li {
+        @include mq() {
+          display: flex;
+          align-items: center;
+          width: auto;
+        }
+
+        position: relative;
+        display: block;
+        width: 100%;
+        text-align: center;
+
+        &:not(:last-child) {
+          border-bottom: 0.15rem solid var(--color-white);
+        }
+
+        a {
+          // 下線/矢印
+          &::before {
+            @include mq() {
+              inset: auto 0 0;
+              width: 0;
+              height: 0.4rem;
+              background-color: var(--color-prime);
+              transition: width 0.4s var(--transition-cubic);
+              rotate: none;
+            }
+
+            position: absolute;
+            inset: 0 0 0 auto;
+            width: spSize(7);
+            height: spSize(7);
+            margin: auto;
+            content: "";
+            border: 0.2rem solid var(--color-white);
+            border-width: 0.2rem 0.2rem 0 0;
+            transition: rotate var(--transition-base);
+            rotate: 45deg;
+          }
+          @include hover {
+            @include mq() {
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+        }
+
+        .naviLink {
+          @include mq() {
+            padding: 0.8rem 0;
+            color: var(--color-prime);
+            text-align: center;
+          }
+
+          position: relative;
+          display: block;
+          padding: spSize(20) 1.5em spSize(20) 0;
+          font-weight: bold;
+          color: var(--color-white);
+          text-align: left;
+          text-decoration: none;
+          transition: color var(--transition-base);
+        }
+
+        // 現在ページ
+        &.-current {
+          @include mq() {
+            .naviLink {
+              pointer-events: none;
+
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+        }
+        /// -----------------サブメニュー//
+        &.has-child {
+          .naviLink {
+            @include mq() {
+              padding-right: 1.5em;
+
+              // 矢印
+              &::after {
+                position: absolute;
+                inset: 0 0 0 auto;
+                width: pcSize(7);
+                height: pcSize(7);
+                margin: auto;
+                content: "";
+                background: none;
+                border-right: 0.2rem solid $colorTxt;
+                border-bottom: 0.2rem solid $colorTxt;
+                transition: rotate var(--transition-base);
+                rotate: 45deg;
+              }
+            }
+
+            &::before {
+              content: none;
+            }
+          }
+
+          // サブメニュー本体
+          > ul.subMenu {
+            @include mq() {
+              position: absolute;
+              inset: 0 0 auto;
+              display: block;
+              width: pcSize(220);
+              height: auto;
+              padding: pcSize(24) pcSize(18);
+              margin: auto;
+              overflow: visible;
+              visibility: hidden;
+              background: var(--color-body);
+              border-radius: var(--border-radius-small);
+              box-shadow: var(--shadow-balck);
+              opacity: 0;
+              transition:
+                top 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.4s;
+              transform: translateX(-25%);
+            }
+
+            height: 0;
+            padding: 0 1em;
+            overflow: hidden;
+            transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+            > li {
+              display: block;
+              width: 100%;
+              margin: 0;
+
+              &:not(:last-child) {
+                margin-bottom: pcSize(16);
+              }
+
+              > a {
+                @include mq() {
+                  color: var(--color-prime);
+
+                  &::before {
+                    right: auto;
+                  }
+                }
+
+                position: relative;
+                display: block;
+                width: 100%;
+                padding: 0.5em 0;
+                color: var(--color-white);
+                text-align: left;
+              }
+            }
+
+            &.-open {
+              height: var(--subHeightOpen, auto);
+            }
+          }
+
+          @include hover {
+            .naviLink {
+              &::after {
+                rotate: 221deg;
+              }
+            }
+
+            ul.subMenu {
+              top: 100%;
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+          // キーボード操作時に子メニューを閉じないようにする
+          &:focus-within {
+            /* stylelint-disable-next-line no-descending-specificity */
+            > a {
+              &::after {
+                rotate: 221deg;
+              }
+            }
+
+            > ul.subMenu {
+              top: 100%;
+              visibility: visible;
+              opacity: 1;
+            }
+          }
+        }
+      }
+      // SP時アコーディオンボタン
+      .spAccordion {
+        @include mq() {
+          display: none;
+        }
+
+        position: absolute;
+        inset: 0 0 0 auto;
+        display: block;
+        width: spSize(10);
+        height: spSize(10);
+        margin: auto;
+
+        &::before,
+        &::after {
+          position: absolute;
+          inset: 0;
+          width: spSize(8);
+          height: 0.15rem;
+          margin: auto;
+          content: "";
+          background-color: var(--color-white);
+        }
+
+        &::after {
+          transition: rotate var(--transition-base);
+          rotate: 90deg;
+        }
+
+        &.-open {
+          &::after {
+            rotate: none;
+          }
+        }
+      }
+    }
+
+    &.-open {
+      .ac_menu {
+        span {
+          background-color: transparent;
+          transition: background-color var(--transition-base);
+
+          &::before,
+          &::after {
+            top: 0;
+            bottom: 0;
+            transition: rotate var(--transition-base);
+            rotate: 45deg;
+          }
+
+          &::after {
+            rotate: -45deg;
+          }
+        }
+      }
+
+      .naviWrapper {
+        @include mq(sp) {
+          width: 100%;
+          opacity: 1;
+          transition:
+            width 0.4s,
+            opacity 0.4s;
+
+          #navi {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
 }
 
 /* /ヘッダー */

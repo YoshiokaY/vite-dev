@@ -1,0 +1,15 @@
+@use "../abstracts" as *;
+
+/* ボックス  */
+
+.borderBox {
+  @apply border-solid border-[0.4rem] border-prime rounded-[3.2rem] bg-reversal max-w-[50rem] mx-auto pb-[3.6rem] px-[1.2rem] md:px-[2rem] relative;
+}
+
+@layer components {
+  .grayBox {
+    @apply bg-gray rounded-[1.2rem] py-[1.6rem] px-[1.8rem] md:px-[2.8rem];
+  }
+}
+
+/* /ボックス  */

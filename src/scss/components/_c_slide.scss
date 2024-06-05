@@ -1,0 +1,167 @@
+@use "../abstracts" as *;
+
+/* スライド  */
+
+.c_slider {
+  &_arrow {
+    position: relative;
+  }
+
+  /// -----------------矢印//
+  .splide__arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 500;
+    width: 6rem;
+    height: 6rem;
+    margin-top: unset;
+    color: transparent;
+    text-indent: -9999px;
+    cursor: pointer;
+    background: $colorPrime;
+    border: 0;
+    border-radius: 50%;
+    transition: opacity 0.4s;
+    transform: none;
+
+    svg {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      fill: $colorTxtReversal;
+    }
+    @include mq() {
+      width: spSize(40);
+      height: spSize(40);
+    }
+    @include hover {
+      opacity: 0.7;
+    }
+
+    &:disabled {
+      opacity: 0;
+    }
+  }
+
+  .splide__arrow--prev {
+    left: -1.5rem;
+    transform: scaleX(-1) translateY(-50%);
+    @include mq() {
+      left: spSize(-15);
+    }
+  }
+
+  .splide__arrow--next {
+    right: -1.5rem;
+    transform: translateY(-50%);
+    @include mq() {
+      right: spSize(-15);
+    }
+  }
+
+  /// -----------------ページャー//
+  .splide__pagination {
+    gap: 2.6rem 0;
+
+    @include mq() {
+      gap: 0 spSize(26);
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      width: auto;
+      height: auto;
+      margin: 0;
+
+      button {
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        color: transparent;
+        cursor: pointer;
+        border: none;
+        border-radius: 50%;
+        opacity: 0.3;
+
+        &::after {
+          position: absolute;
+          inset: 0;
+          width: 0.7rem;
+          height: 0.7rem;
+          margin: auto;
+          content: "";
+          background-color: $colorTxtReversal;
+          border-radius: 50%;
+          @include mq() {
+            width: spSize(7);
+            height: spSize(7);
+            background-color: $colorTxt;
+          }
+        }
+      }
+
+      .splide__pagination__page {
+        &.is-active {
+          opacity: 1;
+        }
+      }
+    }
+
+    &.-circle {
+      .sliderCircle {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        fill: none;
+        stroke: $colorTxtReversal;
+        // stroke-dasharray: 0, 2.5rem * 3.14 * 2;
+        stroke-dasharray: 0, calc(24 * 3.14);
+        stroke-width: 0.05rem;
+        transform: rotate(-90deg);
+        @include mq() {
+          stroke: #333;
+        }
+      }
+
+      .splide__pagination__page {
+        &.is-active {
+          .sliderCircle {
+            animation: line_animation01 6s ease-in infinite;
+          }
+        }
+      }
+    }
+  }
+  /// -----------------プログレスバー//
+  &.-bar {
+    @include mq() {
+      padding: 0;
+
+      .pagerBarBg {
+        margin: spSize(16) auto 0;
+        background: #989898;
+      }
+
+      .pagerBar {
+        width: 0;
+        height: 0.1rem;
+        background: $colorPrime;
+        transition: width 400ms ease;
+      }
+    }
+  }
+}
+
+@keyframes line_animation01 {
+  0% {
+    stroke-dasharray: 0, calc(24 * 3.14);
+  }
+
+  100% {
+    stroke-dasharray: calc(24 * 3.14), calc(24 * 3.14);
+  }
+}
+
+/* /スライド  */

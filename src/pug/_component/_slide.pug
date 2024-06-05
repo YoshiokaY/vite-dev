@@ -1,0 +1,21 @@
+-
+  let slides = content.slides ? content.slides : [];
+
+section(class=`my-[3rem]`)
+  .contentInner
+    h2(class=`font-bold md:text-[2.4rem] mb-[2em]`) スライド
+    .c_slider.splide.-bar.-circle
+      .c_slider_arrow
+        .splide__track.overflow-visible
+          ul.splide__list
+            each slider,index in slides
+              li.splide__slide
+                a.c_card.hoverScale(href=slider.link)
+                  figure
+                    +picture(slider.img, slider.ttl, [800,600], lazy="nolazy", webp="false")
+                    figcaption.c_card_cap
+                      h3.c_card_ttl !{slider.ttl}
+                      span !{slider.txt}
+                      span.c_card_info !{slider.day}
+        .pagerBarBg
+          .pagerBar

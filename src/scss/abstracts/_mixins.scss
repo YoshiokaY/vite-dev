@@ -43,3 +43,211 @@
     @content;
   }
 }
+
+@mixin min-max($min: $viewTablet, $max: $containerSize) {
+  @media (min-width: math.div($min, 16) + em) and (max-width: math.div($max - 1, 16) + em) {
+    @content;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Clearfix
+// ---------------------------------------------------------------------------
+@mixin clearfix() {
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+// ---------------------------------------------------------------------------
+// 横幅をコンテンツ幅にして中央寄せ
+// ---------------------------------------------------------------------------
+@mixin cwLayout() {
+  max-width: $contentsW;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// ---------------------------------------------------------------------------
+// Hover時に要素を透明化
+// ---------------------------------------------------------------------------
+@mixin hoverOpacity($time: 0.5s, $opacity: 0.5) {
+  a {
+    transition: opacity $time;
+    @include hover {
+      opacity: $opacity;
+    }
+  }
+}
+
+///-----------------boxshadow//
+@mixin boxShadow($color: rgba($colorTxt, 0.25)) {
+  box-shadow: 0 2.5rem 2rem -2rem $color;
+}
+
+///-----------------fontsize//
+
+@mixin fontsize($pcSize: nth($baseFontSize, 1), $spSize: $pcSize) {
+  // font-size: string.unquote(
+  //   "clamp(#{math.div($spSize, 10) + rem},#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize, 10) + rem})"
+  // );
+  font-size: #{math.div($pcSize, 10) + rem};
+  // font-size: math.div(100, $pcDesign) * $pcSize + vw;
+  @include mq() {
+    font-size: string.unquote("clamp(#{math.div($spSize, 10) + rem},#{math.div(100, $spDesign) * $spSize}vw,#{math.div($pcSize, 10) + rem})");
+  }
+}
+
+///-----------------文字マーカー//
+@mixin textMarker($color: $colorPrime, $position: 75%) {
+  line-height: 1.2 !important;
+  background: linear-gradient(transparent 75%, $colorPrime 75%) !important;
+}
+
+///-----------------縁文字//
+@mixin fillText($fillWidth: 1px, $fillColor: $colorTxtReversal) {
+  text-shadow:
+    $fillWidth $fillWidth 0 $fillColor,
+    -$fillWidth $fillWidth 0 $fillColor,
+    -$fillWidth - $fillWidth 0 $fillColor,
+    $fillWidth - $fillWidth 0 $fillColor,
+    $fillWidth 0 0 $fillColor,
+    0 $fillWidth 0 $fillColor,
+    -$fillWidth 0 0 $fillColor,
+    0 - $fillWidth 0 $fillColor,
+    -2px 0 0 $fillColor,
+    0 -2px 0 $fillColor;
+}
+
+///-----------------gradation//
+@mixin gradation($color: $colorPrime, $color2: $colorSecond, $border: 50%) {
+  background: $color;
+  background: linear-gradient(to right, $color $border, $color2 $border);
+}
+
+///-----------------CSSパターン//
+
+@mixin bgCheck2($tartanColor: $fillColor, $checkSize: 50px 50px) {
+  background-image: linear-gradient(to bottom, rgba($tartanColor, 0.5) 0%, rgba($tartanColor, 0.5) 30%, transparent 30%, transparent 33%, rgba($tartanColor, 0.5) 33%, rgba($tartanColor, 0.5) 40%, transparent 40%, transparent 80%, rgba($tartanColor, 0.3) 80%, rgba($tartanColor, 0.3) 96%, transparent 96%, transparent 100%), linear-gradient(to right, rgba($tartanColor, 0.5) 0%, rgba($tartanColor, 0.5) 30%, transparent 30%, transparent 33%, rgba($tartanColor, 0.5) 33%, rgba($tartanColor, 0.5) 40%, transparent 40%, transparent 80%, rgba($tartanColor, 0.3) 80%, rgba($tartanColor, 0.3) 96%, transparent 96%, transparent 100%);
+  background-repeat: repeat;
+  background-size: $checkSize;
+}
+
+///-----------------maskセット//
+
+@mixin mask($svg, $color, $size: contain) {
+  @extend %#{$svg};
+
+  background-color: $color;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: $size;
+}
+
+@mixin bgBorder($borderColor: #fff, $borderHeight: 5) {
+  background-image: linear-gradient($borderColor, $borderColor 50%, transparent 50%, transparent);
+  background-repeat: repeat;
+  background-size: $borderHeight + px $borderHeight + px;
+}
+
+@mixin bgDotted($dotsColor: #fff, $dotsSize: 10) {
+  background-image: radial-gradient(circle farthest-side, $dotsColor, $dotsColor 45%, transparent 55%, transparent);
+  background-repeat: repeat;
+  background-size: $dotsSize + px $dotsSize + px;
+}
+
+@mixin bgStripe($stripeColor: #fff, $stripeWidth: 5) {
+  background-image: linear-gradient(to right, $stripeColor, $stripeColor 50%, transparent 50%, transparent);
+  background-repeat: repeat;
+  background-size: $stripeWidth + px $stripeWidth + px;
+}
+
+@mixin bgCheck($checkColor: #fff, $checkWidth: 10) {
+  background-image: linear-gradient($checkColor, $checkColor 50%, transparent 50%, transparent), linear-gradient(to right, $checkColor, $checkColor 50%, transparent 50%, transparent);
+  background-repeat: repeat;
+  background-size: $checkWidth + px $checkWidth + px;
+}
+
+@mixin bgSlash($slashColor: #fff, $slashWidth: 10) {
+  background-image: linear-gradient(to right bottom, $slashColor, $slashColor 24%, transparent 26%, transparent 49%, $slashColor 51%, $slashColor 74%, transparent 76%, transparent);
+  background-repeat: repeat;
+  background-size: $slashWidth + px $slashWidth + px;
+}
+
+///-----------------矢印//
+$root2: 1.41421356;
+// ******************************************
+// 機能：＞に設定すべきright&leftの値を取得
+// 引数：$diameter 背景の円の直径
+//      $borderLength ＞の一辺の長さ
+//      $borderWidth ＞の線の太さ
+//      $arrowWidth ＞の先っぽから-の末端までの長さ
+// 返値：rightに指定すべき値（pxの単位付きで返す）
+// ******************************************
+@function getRightPoint_arrow($diameter, $borderLength, $borderWidth, $arrowWidth) {
+  @return (math.div(($root2 * $borderLength + $diameter - $borderLength - $arrowWidth), 2)) + px;
+}
+@function getLeftPoint_arrow($diameter, $borderLength, $borderWidth, $arrowWidth) {
+  @return (math.div(($diameter - $arrowWidth), 2)) + px;
+}
+// ******************************************
+// 概要：○の中に->がある装飾
+// 引数：$diameter 背景の円の直径
+//      $borderLength ＞の一辺の長さ
+//      $borderWidth ＞の線の太さ
+//      $arrowWidth ＞の先っぽから-の末端までの長さ
+//      $circleColor 背景の円の色
+//      $borderColor ＞の線の色
+// ******************************************
+@mixin arrow($diameter, $borderLength, $borderWidth, $arrowWidth, $circleColor, $borderColor) {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: $diameter + px;
+  height: $diameter + px;
+  background: $circleColor;
+  border-radius: 50%;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    box-sizing: border-box;
+    display: block;
+    content: "";
+    transform-origin: center center;
+  }
+
+  &::before {
+    right: getRightPoint_arrow($diameter, $borderLength, $borderWidth, $arrowWidth);
+    width: $borderLength + px;
+    height: $borderLength + px;
+    border-top: $borderWidth + px solid $borderColor;
+    border-right: $borderWidth + px solid $borderColor;
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  &::after {
+    left: getLeftPoint_arrow($diameter, $borderLength, $borderWidth, $arrowWidth);
+    width: ($arrowWidth - $borderWidth) + px;
+    height: $borderWidth + px;
+    background: $borderColor;
+    transform: translateY(-50%);
+  }
+}
+
+@mixin clampText($size: 1em, $row: 2, $lineHeight: 1.6) {
+  > * {
+    display: -webkit-box;
+    min-height: 0;
+
+    /* ブラウザがサポートしていない場合のフェールセーフ */
+    max-height: calc($size * $lineHeight * $row);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $row;
+  }
+}

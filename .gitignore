@@ -14,8 +14,7 @@ dist-ssr
 
 result.csv
 
-check/diff/*
-check/screenshot/*
+check
 
 
 # Editor directories and files

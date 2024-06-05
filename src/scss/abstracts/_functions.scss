@@ -3,6 +3,51 @@
 @use "sass:string";
 @use "variables" as *;
 
+//spの余白などのサイズ
+@function spSize($spSize: 1) {
+  @return string.unquote("min(#{math.div(100, $spDesign) * $spSize}vw,#{math.div($spSize * 2, 10) + rem})");
+}
+
+@function pcSize($pcSize: 1) {
+  @return string.unquote("min(#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize * 1, 10) + rem})");
+}
+
 @function rem($pxSize) {
   @return ($pxSize * 0.1) + rem;
+}
+
+// カラーコード→RGB変換
+@function toRgb($color) {
+  @return red($color), green($color), blue($color);
+}
+
+@function toHsl($color) {
+  // $red: red($color) / 255 ;
+  // $green: green($color) / 255 ;
+  // $blue: blue($color) / 255 ;
+  // $max: math.max( $red, $green, $blue ) ;
+  // $min: math.min( $red, $green, $blue ) ;
+  // $diff: $max - $min;
+  // $hue: 0;
+  // $lightness: percentage(($max + $min) / 2) ;
+  // $saturation: percentage($diff / ( 1 - ( math.abs( $max + $min - 1 ) ) )) ;
+  // @if $min == $max {
+  //   $hue: 0;
+  // }
+  // @else if $min == $red {
+  //   $hue:  (60 * (($bulue - $green) / $diff)) + 180
+  // }
+  // @else if $min == $green {
+  //   $hue: (60 * (($red - $blue) / $diff)) + 300 ;
+  // }
+  // @else if $min == $blue {
+  //   $hue: (60 * (($green - $red) / $diff)) + 60 ;
+  // }
+  // @return hsl(var($hue, $saturation, $lightness));
+  @return hsl(hue($color), saturation($color), lightness($color));
+}
+
+// CSS変数をRGBA関数で使えるようにする
+@function getColor($color, $alpha: 1) {
+  @return rgba(var(#{$color}), $alpha);
 }

@@ -1,0 +1,197 @@
+/* stylelint-disable no-descending-specificity */
+@use "../../abstracts" as *;
+@use "sass:math";
+
+/* リスト  */
+
+.u_ul {
+  padding-left: 0.1em;
+
+  > li {
+    position: relative;
+    padding-left: 1em;
+    text-indent: -1.25em;
+
+    &::before {
+      margin-right: 0.3em;
+      content: "・";
+    }
+
+    ul {
+      padding-left: 0.5em;
+      margin-top: 0.3em;
+
+      > li {
+        text-indent: -0.8em;
+
+        &::before {
+          margin-right: 0.5em;
+          content: "-";
+        }
+      }
+    }
+  }
+  // -----------------丸リスト/
+  &.-circle {
+    > li {
+      padding-left: 1em;
+      text-indent: -0.9em;
+
+      &::before {
+        display: inline-block;
+        width: 0.8rem;
+        height: 0.8rem;
+        content: "";
+        background-color: $colorThird;
+        border-radius: 50%;
+      }
+    }
+  }
+  // -----------------チェックリスト/
+  &.-check {
+    > li {
+      padding-left: 1.3em;
+      text-indent: 0;
+
+      &::before,
+      &::after {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        margin: auto;
+        content: "";
+      }
+
+      &::before {
+        width: 1.5rem;
+        height: 1.5rem;
+        content: "";
+        background: transparent;
+        border: 0.2rem solid $colorTxt;
+      }
+
+      &::after {
+        top: 0.3em;
+        left: 0.5rem;
+        width: 1.6rem;
+        height: 0.5rem;
+        margin: auto;
+        border-bottom: 2px solid $colorTxt;
+        border-left: 2px solid $colorTxt;
+        transform: rotate(-60deg);
+        transform-origin: left;
+      }
+    }
+  }
+}
+
+// -----------------数字リスト//
+.u_ol {
+  counter-reset: number 0;
+
+  > li {
+    padding-left: 1.5em;
+    text-indent: -1.25em;
+
+    &::before {
+      margin-right: 0.5em;
+      content: counter(number, decimal) ".";
+      counter-increment: number 1;
+    }
+
+    ol {
+      padding-left: 1.5em;
+      margin-top: 0.3em;
+      counter-reset: number 0;
+
+      > li {
+        text-indent: -1.6em;
+
+        &::before {
+          margin-right: 0.5em;
+          content: counter(number, decimal) " )"; // lower-alpha
+          counter-increment: number 1;
+        }
+      }
+    }
+  }
+
+  &.-type2 {
+    > li {
+      padding-left: 1.7em;
+      text-indent: -1.55em;
+
+      &::before {
+        content: counter(number, decimal) " )";
+      }
+
+      > ol {
+        margin-top: 1em;
+        counter-reset: number 0;
+
+        > li {
+          text-indent: -2.2em;
+
+          &::before {
+            content: "( " counter(number, decimal) " )";
+            counter-increment: number 1;
+          }
+        }
+      }
+    }
+  }
+
+  &.-aiueo {
+    > li {
+      padding-left: 2em;
+      text-indent: -1.85em;
+
+      &::before {
+        margin-right: 0;
+        content: counter(number, katakana) "）";
+        counter-increment: number 1;
+      }
+    }
+  }
+
+  &.-alpa {
+    > li {
+      &::before {
+        content: counter(number, upper-alpha) ")";
+        counter-increment: number 1;
+      }
+    }
+  }
+}
+
+// -----------------フロートリスト//
+
+.-floatList {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+
+  > li {
+    float: left;
+    @include mq() {
+      float: none;
+    }
+  }
+
+  > li + li {
+    margin-left: 2em;
+    @include mq() {
+      margin-left: 0;
+    }
+  }
+
+  &::after {
+    display: block;
+    clear: both;
+    content: "";
+  }
+}
+
+/* /リスト  */

@@ -1,0 +1,34 @@
+@use "../abstracts" as *;
+
+/* 見出し  */
+
+/// -----------------数字つき見出し//
+
+.-numTtl {
+  position: relative;
+  padding-left: 2.8em;
+  text-indent: -2.9em;
+
+  &::before {
+    margin-right: 0.1em;
+    color: $colorPrime;
+    content: counter(number, decimal-leading-zero) "."; // lower-alpha
+    counter-increment: number 1;
+    @include fontsize(32, 24);
+  }
+}
+
+/// -----------------背景つき見出し出し分け//
+
+// $list: forte, think, service;
+
+// @each $val in $list {
+//   .underTitle.h1_#{$val} {
+//     background-image: url($imgPath + "h1_#{$val}.jpg");
+//     @include mq() {
+//       background-image: url($imgPath + "h1_#{$val}_sp.jpg");
+//     }
+//   }
+// }
+
+/* /見出し  */
