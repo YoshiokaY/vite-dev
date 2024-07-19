@@ -2,12 +2,38 @@
 
 /* ボタン  */
 
-.btnStyle {
-  @apply border-solid border-prime border-[0.2rem] rounded-[2.8rem] md:h-[5.6rem] min-h-[5.6rem] md:min-w-[24rem] flex justify-between items-center leading-[calc(27.2/16)] text-prime relative pr-[5.5rem] pl-[3.2rem] font-bold w-[100%] text-[1.6rem] pt-[0.15em];
+.c_btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 20rem;
+  height: 5.6rem;
+  padding: 1em;
+  overflow: hidden;
+  font-weight: bold;
+  color: var(--color-white);
+  border: 0.15rem solid var(--color-prime);
+  border-radius: var(--radius-base);
+  transition: color var(--transition-base);
 
-  transition:
-    background-color 0.4s,
-    color 0.4s;
+  &::before,
+  &::after {
+    position: absolute;
+    content: "";
+  }
+
+  &::before {
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-prime);
+    transition: transform 0.4s ease-in-out;
+    transform: scale(1, 1);
+    transform-origin: left top;
+  }
 
   &::after {
     position: absolute;
@@ -16,44 +42,30 @@
     height: 1.6rem;
     margin: auto;
     content: "";
-    @include mask(arrow, $colorPrime);
+    @include mask(arrow, $colorTxtReversal);
 
     transition:
-      background-color 0.4s,
-      right 0.4s,
-      left 0.4s;
+      background-color var(--transition-base),
+      translate var(--transition-base);
   }
   @include hover {
-    color: $colorTxtReversal;
-    background-color: $colorPrime;
+    color: var(--color-prime);
+
+    &::before {
+      transform: scale(0, 1);
+      transform-origin: right top;
+    }
 
     &::after {
-      right: 1.6rem;
-      background-color: $colorTxtReversal;
-    }
-  }
-
-  &.-invert {
-    @apply bg-prime text-reversal;
-
-    &::after {
-      background-color: $colorTxtReversal;
-    }
-    @include hover {
-      color: $colorPrime;
-      background-color: transparent;
-
-      &::after {
-        background-color: $colorPrime;
-      }
+      background-color: var(--color-prime);
+      translate: 0.5rem 0;
     }
   }
 
   &.-reversal {
-    @apply pl-[5.5rem] pr-[3.2rem];
-
     &::after {
       inset: 0 auto 0 2.4rem;
+      border-color: var(--color-prime);
       rotate: 180deg;
     }
     @include hover {
@@ -63,14 +75,74 @@
     }
   }
 
-  &.-blank {
+  &[target="_blank"] {
     &::after {
-      @include mask(blank, $colorPrime);
+      @include mask(blank, $colorTxtReversal);
     }
     @include hover {
       &::after {
-        right: 2.4rem;
-        background-color: $colorTxtReversal;
+        background-color: var(--color-prime);
+        translate: none;
+      }
+    }
+  }
+
+  &[href^="#"] {
+    &::after {
+      width: 1.2rem;
+      height: 1.2rem;
+      background: none;
+      border: solid 0.15rem var(--color-white);
+      border-width: 0 0.15rem 0.15rem 0;
+      mask-image: none;
+      transition:
+        border-color var(--transition-base),
+        translate var(--transition-base);
+      rotate: 45deg;
+    }
+    @include hover {
+      &::after {
+        border-color: var(--color-prime);
+        translate: 0 0.3rem;
+      }
+    }
+  }
+
+  &.-invert {
+    color: var(--color-prime);
+
+    &::before {
+      transform: scale(0, 1);
+      transform-origin: right top;
+    }
+
+    &::after {
+      background-color: var(--color-prime);
+    }
+
+    &[href^="#"] {
+      &::after {
+        background: none;
+        border-color: var(--color-prime);
+      }
+    }
+    @include hover {
+      color: var(--color-white);
+
+      &::before {
+        transform: scale(1, 1);
+        transform-origin: left top;
+      }
+
+      &::after {
+        background-color: var(--color-white);
+      }
+
+      &[href^="#"] {
+        &::after {
+          background: none;
+          border-color: var(--color-white);
+        }
       }
     }
   }

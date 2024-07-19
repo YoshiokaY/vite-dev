@@ -83,9 +83,9 @@
 
   // Border radius
   @include mq() {
-    --border-radius-large: 3rem;
-    --border-radius-base: 1.2rem;
-    --border-radius-small: 0.8rem;
+    --radius-large: 3rem;
+    --radius-base: 1.2rem;
+    --radius-small: 0.8rem;
   }
 
   --border-radius-large: #{spSize(30)};

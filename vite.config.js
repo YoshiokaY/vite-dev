@@ -17,12 +17,12 @@ export default defineConfig(({ command, mode }) => {
   return {
     publicDir: "public", //コピーディレクトリ
     root: "src", //ルートディレクトリ
-    base: "/", //アセットのパス指定(相対パスにする場合は"./")
+    base: "./", //アセットのパス指定(相対パスにする場合は"./")
     server: {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, "htdocs"),
+      outDir: resolve(__dirname, "htdocs/ielts/venue"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
       rollupOptions: {
