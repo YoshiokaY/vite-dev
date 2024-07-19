@@ -27,5 +27,9 @@ export default {
       ...Object.fromEntries([...Array(401)].map((_, i) => i).map((num) => [num, `${num}rem`])),
     },
   },
+  // corePlugins: {
+  //   preflight: false, // falseでリセットCSS無効化
+  // },
+  // important: "", // セレクタを記述することでTailwindのスタイルをそのセレクタ内に限定する
   plugins: [],
 };
