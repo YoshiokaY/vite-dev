@@ -16,9 +16,7 @@ export const vitePluginPugBuild = (): Plugin => {
       if (source.endsWith(".pug")) {
         // xxxx.pug へのリクエストを
         // xxxx.html へのリクエストに偽る
-        let dummy = `${
-          source.slice(0, Math.max(0, source.lastIndexOf("."))) || source
-        }.html`;
+        let dummy = `${source.slice(0, Math.max(0, source.lastIndexOf("."))) || source}.html`;
         // pugディレクトリを含んでいる場合はパスから削除する
         dummy = dummy.replace("/pug/", "/");
         // xxxx.pug と xxxx.html 対応表を作る
@@ -35,6 +33,7 @@ export const vitePluginPugBuild = (): Plugin => {
         if (pathMap[id]) {
           // もとのファイルが xxxx.pug の時は pug をコンパイルして返す
           const html = compileFile(pathMap[id])();
+          // const html = compileFile(pathMap[id], { pretty: true })(); // 非圧縮
           return html;
         }
         // もとのファイルも xxxx.html の時は xxxx.html の中身をそのまま返す
