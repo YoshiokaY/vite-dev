@@ -1,11 +1,14 @@
 extends ./_base/_layout
 
 block vars
-  include ./_contents/_top
+  include ./_contents
   - let slug = "top";
   - let head = top["head"];
   - let content = top["content"];
   - let imgPath = "/img/";
+  - let imgPathLocal = "/img/" + slug + "/";
 
 block contents
-  include ./_page/_top/_content
+  include ./_parts/_content
+  include ./_parts/_modal
+  include ./_parts/_accordion

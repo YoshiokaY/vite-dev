@@ -1,5 +1,5 @@
-include ../_component/_mixin
-include ../_contents/_common
+include ../_components/_mixin
+include ./_common
 
 block vars
 - let site = common["head"];
@@ -13,12 +13,10 @@ html(dir="ltr", lang="ja")
       include ./_head
 
   body(class="page-" + slug)
-    include ../_includes/_gtag2
-    include ../_includes/_beginBody
+    include ../_layouts/_beginBody
     include ../_layouts/_header
 
-    main#main(aria-label="本文")
-      include ../_layouts/_main
+    include ../_layouts/_main
 
     include ../_layouts/_footer
 

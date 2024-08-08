@@ -1,0 +1,78 @@
+//- 画像出力(PC/SPだしわけ)
+//- 機能：WebPの出しわけコードを一括で出力する
+//- 引数(string)：画像ファイル名（拡張子付き）,alt用テキスト,画像のサイズ,遅延読み込みか否か,ピクチャータグに付けるクラス,デフォルト以外のパス,ブレイクポイント
+mixin picture(img, txt, sizes, lazy="lazy", style, url, max="767")
+  //- ファイル名と拡張子取得
+  - const [imgName, imgType] = img.split(/(?=\.[^.]+$)/);
+  //- 画像のサイズを配列で格納
+  - const [pcWidth, pcHeight, spWidth, spHeight] = sizes ? sizes : [];
+  //- urlが指定されていなければデフォルトのパスを使用
+  - const path = url ? url : imgPathLocal;
+  picture(class=style && style)
+    //- SP
+    source(media="(max-width:" + max + "px)", srcset=path + imgName + "_sp" + imgType, width=spWidth, height=spHeight)
+    if lazy == "no-lazy"
+      //- nolazy
+      img(src=path + img, alt=txt, decoding="async", width=pcWidth, height=pcHeight)
+    else
+      //- pc
+      img(src=path + img, alt=txt, decoding="async", loading="lazy", width=pcWidth, height=pcHeight)
+
+//- 画像出力
+//- 機能：WebPの出しわけコードを一括で出力する
+//- 引数(string)：画像ファイル名（拡張子付き）,alt用テキスト,画像のサイズ,遅延読み込みか否か,imgタグに付けるクラス,デフォルト以外のパス
+mixin imgPc(img, txt, sizes, lazy="lazy", style, url)
+  //- ファイル名と拡張子取得
+  - const [imgName, imgType] = img.split(/(?=\.[^.]+$)/);
+  //- 画像のサイズを配列で格納
+  - const [pcWidth, pcHeight] = sizes ? sizes : [];
+  //- urlが指定されていなければデフォルトのパスを使用
+  - const path = url ? url : imgPathLocal;
+  if lazy == "no-lazy"
+    //- nolazy
+    img(src=path + img, alt=txt, decoding="async", width=pcWidth, height=pcHeight, class=style && style)
+  else
+    //- pc
+    img(src=path + img, alt=txt, decoding="async", loading="lazy", width=pcWidth, height=pcHeight, class=style && style)
+
+//- パンくず
+//- 機能：構造化データ入りのパンくずリストを出力する
+//- 引数(array)：["ホーム", "/"],["テキスト","リンク"]
+//- <time datetime="YYYY-MM-DD"></time>
+mixin setBread(levels)
+  nav#breadcrumbs.scrollIn.-up
+    ol.flex(class="md:gap-x-[3.4rem] gap-x-[3rem]", itemscope, itemtype="//schema.org/BreadcrumbList")
+      each level, index in levels
+        - const count = index + 1;
+        - const link = level[1];
+
+        li.relative(class="md:text-[1.2rem] tracking-[0.08em] text-[1rem]", itemprop="itemListElement", itemscope, itemtype="http://schema.org/ListItem")
+          if count != levels.length
+            a.transition-opacity(href=link, itemprop="item", class="hover:opacity-70")
+              span.text-reversal(itemprop="name") #{ level[0] }
+              meta(itemprop="position", content!=count)
+          else
+            span(itemprop="name") #{ level[0] }
+            meta(itemprop="position", content!=count)
+
+//- Gナビ
+mixin setNav(list,pc)
+  each menu in list
+    //- デザイン違うのでメニューごとにページ名のクラス付与
+    //- 子メニュー持ちに専用クラス付与
+    //- 現在ページにcurrentクラス付与
+    li.w-full.relative.block(class="md:flex md:items-center md:w-auto -" + menu.link.slice(1, -1) + (menu.child && menu.comment !== true ? " has-child" : "") + (slug == menu.link.slice(1, -1) ? " -current" : ""))
+      if menu.child
+        .relative
+          a.relative.block.text-reversal.font-semibold(href=menu.link, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
+          button.spAccordion.spOnly.absolute.aspect-square.m-auto(class="h-[2rem] inset-[0_0_0_auto]")
+            span.text-transparent.w-full.h-full.block(class="indent-[-999rem] after:bg-reversal before:bg-reversal after:h-[0.2rem] before:h-[0.2rem]") 子メニューを表示します
+        ul.subMenu.flex.flex-col(class="md:pt-[1.5rem] md:gap-y-[1.2rem] pt-[3rem] gap-y-[2.4rem] md:bg-black md:w-[200%]")
+          each child in menu.child
+            li
+              if child.blank == true
+                a(href=child.link, target="_blank", rel="noopener", class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
+              else
+                a(href=child.link, class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.0rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
+      else
+        a.relative.block.text-reversal.font-semibold(href=menu.link, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }

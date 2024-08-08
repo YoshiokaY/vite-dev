@@ -74,6 +74,43 @@ npm run check
 Pugをエントリーポイントにビルドしているので、従来通りpugおよびhtmlで記述することができますが、ejsや本来のjsxには対応していません。
 また画像などアセットへのパスはsrc内でのパスを記述することで、ビルド時に自動で実際のパスへ置き換わります。
 
+### ディレクトリ構造
+.
+└── pug
+    ├── _base
+    │   ├── _head         // headタグ（cssやjsの読み込みもここ）
+    │   ├── _jsonLd       // JSONLD
+    │   ├── _layout       // pugのテンプレートファイル
+    │   └── _common       // ヘッダーフッターなどページ共通要素のコンテンツ
+    ├── _component        // 複数ページで共通で使用するパーツ
+    │   ├── _circular-nav
+    │   ├── _cta
+    │   ├── _links
+    │   ├── _mixin
+    │   ├── _sns
+    │   ├── _lowerMv
+    │   └── _lowerTtl
+    ├── _layouts          // デフォルトで使用する構造
+    │   ├── _footer
+    │   ├── _header
+    │   ├── _main
+    │   ├── _beginBody    // bodyタグ直後（Gタグなどもここ）
+    │   └── _beginHead    // headタグ直後（Gタグなどもここ）
+    └── recruit           // 下層ページディレクトリ
+    │    ├── _parts       // ページ固有のパーツ
+    │    │   └──_content
+    │    ├── _contents    // ページ固有のコンテンツ
+    │    ├── index        // 実際のページ
+    │    └── jobs         // 第三階層ディレクトリ
+    │        ├── _parts
+    │        │   └── _sticky
+    │        ├── _contents
+    │        └── index
+    └──_parts 
+    │  └──_content        
+    ├── _contents
+    └── index             // ルートディレクトリのページ
+
 ## CSS - TailwindCSS / SASS
 
 従来通りDart Sassで記述できるほか、Tailwind.cssでの記述をサポートしていますが不要の場合は読み込みをコメントアウトします。
