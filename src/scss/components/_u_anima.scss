@@ -1,5 +1,5 @@
 /* stylelint-disable no-descending-specificity */
-@use "../../abstracts" as *;
+@use "../abstracts" as *;
 @use "sass:math";
 
 @keyframes fuwafuwa {
@@ -138,6 +138,7 @@ $time: 1s;
     &.-active {
       clip-path: polygon(0 0, 400% 0, 0 500%);
       transition: clip-path 1.77s cubic-bezier(0.24, 0.13, 0.26, 1.01) 0.3s;
+
       @for $i from 2 through 10 {
         &.-each ~ .-each:nth-of-type(#{$i}) {
           animation-delay: #{$i * 800}ms;
@@ -234,6 +235,7 @@ $time: 1s;
       opacity: 1;
       transition: 0.3s;
       transform: none;
+
       @for $i from 1 through 30 {
         &:nth-of-type(#{$i}) {
           transition-delay: #{500 + $i * 80}ms;
@@ -244,6 +246,7 @@ $time: 1s;
     &.-wave {
       > font {
         animation: wave 0.35s ease-in-out 0s 1 forwards;
+
         @for $i from 1 through 30 {
           &:nth-of-type(#{$i}) {
             animation-delay: #{500 + $i * 80}ms;
@@ -409,10 +412,12 @@ $time: 1s;
     &:nth-of-type(#{$i}):before {
       animation-delay: #{$i * 200}ms;
     }
+
     > *:nth-of-type(#{$i}) {
       transition-delay: #{$i * 1200}ms;
     }
   }
+
   .-bound.-active.-each ~ .-bound.-active.-each:nth-of-type(#{$i}) {
     transition-delay: none !important;
     animation-delay: #{$i * 100}ms !important;
@@ -426,6 +431,7 @@ $time: 1s;
   80% {
     transform: translateY(0) scale(1);
   }
+
   // 10%, 30% {
   //   transform: translateY(0) scale(1.1,0.8);
   // }
@@ -646,5 +652,38 @@ $time: 1s;
   100% {
     clip-path: none;
     transform: none;
+  }
+}
+
+.rippleAnimation {
+  position: relative;
+  transition: filter 0.4s;
+
+  &::before,
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: -10;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: #fff;
+    border-radius: 3.2rem 3.2rem 0 0;
+    transform: translate3d(0, 0, 0);
+    @include mq() {
+      background-color: #000;
+      border-radius: 0 0 0 2rem;
+    }
+  }
+
+  &::before {
+    animation: anime 2s ease-out infinite;
+  }
+
+  &::after {
+    animation: anime 2s ease-out 1s infinite;
+  }
+  @include hover {
+    filter: invert(1);
   }
 }

@@ -3,59 +3,53 @@
 
 /* ヘッダー */
 .l_header {
-  position: relative;
-  z-index: 99;
+  height: 20rem;
+  border: 0.4rem solid $colorPrime;
 
-  .titleLogo {
-    @include mq() {
-      max-width: rem($logoWidth);
-      margin: 0.8rem 0;
-    }
-
-    width: spSize(170);
-    max-width: inherit;
+  .headerLogo {
+    z-index: 999;
+    transition: filter 0.3s ease-out 0.3s;
   }
-
   /// -----------------Gナビ//
   .headerNavi {
+    &::before {
+      position: fixed;
+      inset: 0 0 auto auto;
+      z-index: 997;
+      height: 6rem;
+      aspect-ratio: 1 / 1;
+      margin: auto;
+      content: "";
+      background-color: #000;
+      border-radius: 50%;
+      opacity: 0;
+      transition:
+        transform 0.6s cubic-bezier(0.6, -0.01, 0.1, 1),
+        opacity 0.2s ease-out 0.3s;
+      transform: translateZ(0) scale(0);
+      @include mq() {
+        content: none;
+      }
+    }
     // ハンバーガーボタン
     .ac_menu {
-      @include mq() {
-        display: none;
-      }
-
-      position: absolute;
-      inset: 0 spSize(16) 0 auto;
-      width: spSize(30);
-      height: spSize(30);
-      margin: auto;
-
       > span {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 0.3rem;
-        margin: auto;
-        text-indent: -999.9rem;
-        background-color: var(--color-prime);
-        transition: background-color var(--transition-base);
+        transition: background-color 0.4s;
 
         &::before,
         &::after {
           position: absolute;
-          inset: -1.2rem 0 auto;
+          inset: -0.7rem 0 auto;
           display: block;
           width: 100%;
-          height: 0.3rem;
           margin: auto;
           content: "";
-          background-color: var(--color-prime);
-          transition: rotate var(--transition-base);
+          transition: rotate 0.4s;
         }
 
         &::after {
           top: auto;
-          bottom: -1.2rem;
+          bottom: -0.7rem;
         }
       }
     }
@@ -69,101 +63,60 @@
         padding: 0;
         margin: auto;
         overflow-y: visible;
+        visibility: visible;
         background-color: transparent;
         opacity: 1;
       }
 
       position: absolute;
-      inset: 100% 0 0 auto;
-      width: 0;
+      inset: 0;
+      z-index: 998;
       height: 100dvh;
-      padding: 2em 0;
-      overflow-y: auto;
-      background-color: var(--color-prime);
+      padding: calc(17.6rem / 2) calc(20 / 375 * 100%);
+      visibility: hidden;
       opacity: 0;
+      transition: opacity 0.3s ease-out 0.4s;
     }
 
     // メニュー
     #navi {
       @include mq() {
-        display: flex;
-        gap: 0 pcSize(40);
-        justify-content: flex-end;
-        padding: 0;
         visibility: visible;
         opacity: 1;
       }
 
       position: relative;
       width: 100%;
-      padding: 0 spSize(16);
       margin: auto;
       visibility: hidden;
       opacity: 0;
+      transition: opacity 0.3s ease-out 0.4s;
 
       > li {
-        @include mq() {
-          display: flex;
-          align-items: center;
-          width: auto;
-        }
-
-        position: relative;
-        display: block;
-        width: 100%;
-        text-align: center;
-
-        &:not(:last-child) {
-          border-bottom: 0.15rem solid var(--color-white);
-        }
-
         a {
           // 下線/矢印
           &::before {
             @include mq() {
+              position: absolute;
               inset: auto 0 0;
               width: 0;
-              height: 0.4rem;
-              background-color: var(--color-prime);
-              transition: width 0.4s var(--transition-cubic);
+              height: 0.2rem;
+              margin: auto;
+              content: "";
+              background-color: $colorPrime;
+              transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
               rotate: none;
             }
-
-            position: absolute;
-            inset: 0 0 0 auto;
-            width: spSize(7);
-            height: spSize(7);
-            margin: auto;
-            content: "";
-            border: 0.2rem solid var(--color-white);
-            border-width: 0.2rem 0.2rem 0 0;
-            transition: rotate var(--transition-base);
-            rotate: 45deg;
           }
           @include hover {
             @include mq() {
+              color: $colorPrime;
+
               &::before {
                 width: 100%;
               }
             }
           }
-        }
-
-        .naviLink {
-          @include mq() {
-            padding: 0.8rem 0;
-            color: var(--color-prime);
-            text-align: center;
-          }
-
-          position: relative;
-          display: block;
-          padding: spSize(20) 1.5em spSize(20) 0;
-          font-weight: bold;
-          color: var(--color-white);
-          text-align: left;
-          text-decoration: none;
-          transition: color var(--transition-base);
         }
 
         // 現在ページ
@@ -180,28 +133,30 @@
         }
         /// -----------------サブメニュー//
         &.has-child {
-          .naviLink {
-            @include mq() {
-              padding-right: 1.5em;
-
-              // 矢印
+          .spAccordion {
+            > span {
+              &::before,
               &::after {
                 position: absolute;
-                inset: 0 0 0 auto;
-                width: pcSize(7);
-                height: pcSize(7);
+                inset: 0;
+                display: block;
+                width: 100%;
                 margin: auto;
                 content: "";
-                background: none;
-                border-right: 0.2rem solid $colorTxt;
-                border-bottom: 0.2rem solid $colorTxt;
-                transition: rotate var(--transition-base);
-                rotate: 45deg;
+                transition: rotate 0.4s;
+              }
+
+              &::before {
+                rotate: 90deg;
               }
             }
 
-            &::before {
-              content: none;
+            &.-open {
+              > span {
+                &::before {
+                  rotate: none;
+                }
+              }
             }
           }
 
@@ -210,52 +165,36 @@
             @include mq() {
               position: absolute;
               inset: 0 0 auto;
-              display: block;
-              width: pcSize(220);
-              height: auto;
-              padding: pcSize(24) pcSize(18);
-              margin: auto;
               overflow: visible;
               visibility: hidden;
-              background: var(--color-body);
-              border-radius: var(--border-radius-small);
-              box-shadow: var(--shadow-balck);
               opacity: 0;
               transition:
                 top 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
                 opacity 0.4s;
-              transform: translateX(-25%);
+            }
+            @include mq(sp) {
+              position: relative;
+              height: 0;
+              max-height: none;
+              visibility: hidden;
+              transition:
+                height 0.4s,
+                opacity 0.4s;
+
+              &.-open {
+                height: var(--subHeaderHeight);
+                visibility: visible;
+                opacity: 1;
+              }
             }
 
-            height: 0;
-            padding: 0 1em;
-            overflow: hidden;
-            transition: height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-
             > li {
-              display: block;
-              width: 100%;
-              margin: 0;
-
-              &:not(:last-child) {
-                margin-bottom: pcSize(16);
-              }
-
               > a {
                 @include mq() {
-                  color: var(--color-prime);
-
                   &::before {
                     right: auto;
                   }
                 }
-
-                position: relative;
-                display: block;
-                width: 100%;
-                padding: 0.5em 0;
-                color: var(--color-white);
-                text-align: left;
               }
             }
 
@@ -263,85 +202,47 @@
               height: var(--subHeightOpen, auto);
             }
           }
-
-          @include hover {
-            .naviLink {
-              &::after {
-                rotate: 221deg;
+          @include mq() {
+            @include hover {
+              ul.subMenu {
+                top: 100%;
+                visibility: visible;
+                opacity: 1;
               }
             }
-
-            ul.subMenu {
-              top: 100%;
-              visibility: visible;
-              opacity: 1;
-            }
-          }
-          // キーボード操作時に子メニューを閉じないようにする
-          &:focus-within {
-            /* stylelint-disable-next-line no-descending-specificity */
-            > a {
-              &::after {
-                rotate: 221deg;
+            // キーボード操作時に子メニューを閉じないようにする
+            &:focus-within {
+              > ul.subMenu {
+                top: 100%;
+                visibility: visible;
+                opacity: 1;
               }
             }
-
-            > ul.subMenu {
-              top: 100%;
-              visibility: visible;
-              opacity: 1;
-            }
-          }
-        }
-      }
-      // SP時アコーディオンボタン
-      .spAccordion {
-        @include mq() {
-          display: none;
-        }
-
-        position: absolute;
-        inset: 0 0 0 auto;
-        display: block;
-        width: spSize(10);
-        height: spSize(10);
-        margin: auto;
-
-        &::before,
-        &::after {
-          position: absolute;
-          inset: 0;
-          width: spSize(8);
-          height: 0.15rem;
-          margin: auto;
-          content: "";
-          background-color: var(--color-white);
-        }
-
-        &::after {
-          transition: rotate var(--transition-base);
-          rotate: 90deg;
-        }
-
-        &.-open {
-          &::after {
-            rotate: none;
           }
         }
       }
     }
 
     &.-open {
+      &::before {
+        opacity: 1;
+        transition:
+          transform 0.8s cubic-bezier(0.4, 0.1, 0.3, 1),
+          oapcity 0.3s cubic-bezier(0.4, 0.1, 0.3, 1) 0.5s;
+        transform: translateZ(0) scale(80);
+      }
+
       .ac_menu {
         span {
           background-color: transparent;
-          transition: background-color var(--transition-base);
+          transition: background-color 0.4s;
 
           &::before,
           &::after {
             top: 0;
             bottom: 0;
-            transition: rotate var(--transition-base);
+            background-color: $colorTxtReversal;
+            transition: rotate 0.4s;
             rotate: 45deg;
           }
 
@@ -353,11 +254,8 @@
 
       .naviWrapper {
         @include mq(sp) {
-          width: 100%;
+          visibility: visible;
           opacity: 1;
-          transition:
-            width 0.4s,
-            opacity 0.4s;
 
           #navi {
             visibility: visible;
@@ -365,6 +263,23 @@
           }
         }
       }
+    }
+  }
+
+  &:has(.headerNavi.-open) {
+    .headerLogo {
+      filter: invert(1);
+    }
+  }
+}
+
+@include mq(sp) {
+  html:has(.headerNavi.-open) {
+    overflow: hidden;
+
+    body {
+      overflow: auto;
+      scrollbar-gutter: stable;
     }
   }
 }
