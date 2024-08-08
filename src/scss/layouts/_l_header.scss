@@ -5,6 +5,283 @@
 .l_header {
   height: 20rem;
   border: 0.4rem solid $colorPrime;
+
+  .headerLogo {
+    z-index: 999;
+    transition: filter 0.3s ease-out 0.3s;
+  }
+  /// -----------------Gナビ//
+  .headerNavi {
+    &::before {
+      position: fixed;
+      inset: 0 0 auto auto;
+      z-index: 997;
+      height: 6rem;
+      aspect-ratio: 1 / 1;
+      margin: auto;
+      content: "";
+      background-color: #000;
+      border-radius: 50%;
+      opacity: 0;
+      transition:
+        transform 0.6s cubic-bezier(0.6, -0.01, 0.1, 1),
+        opacity 0.2s ease-out 0.3s;
+      transform: translateZ(0) scale(0);
+      @include mq() {
+        content: none;
+      }
+    }
+    // ハンバーガーボタン
+    .ac_menu {
+      > span {
+        transition: background-color 0.4s;
+
+        &::before,
+        &::after {
+          position: absolute;
+          inset: -0.7rem 0 auto;
+          display: block;
+          width: 100%;
+          margin: auto;
+          content: "";
+          transition: rotate 0.4s;
+        }
+
+        &::after {
+          top: auto;
+          bottom: -0.7rem;
+        }
+      }
+    }
+
+    // SP時メニュー背景
+    .naviWrapper {
+      @include mq() {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        margin: auto;
+        overflow-y: visible;
+        visibility: visible;
+        background-color: transparent;
+        opacity: 1;
+      }
+
+      position: absolute;
+      inset: 0;
+      z-index: 998;
+      height: 100dvh;
+      padding: calc(17.6rem / 2) calc(20 / 375 * 100%);
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease-out 0.4s;
+    }
+
+    // メニュー
+    #navi {
+      @include mq() {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      position: relative;
+      width: 100%;
+      margin: auto;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease-out 0.4s;
+
+      > li {
+        a {
+          // 下線/矢印
+          &::before {
+            @include mq() {
+              position: absolute;
+              inset: auto 0 0;
+              width: 0;
+              height: 0.2rem;
+              margin: auto;
+              content: "";
+              background-color: $colorPrime;
+              transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+              rotate: none;
+            }
+          }
+          @include hover {
+            @include mq() {
+              color: $colorPrime;
+
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+        }
+
+        // 現在ページ
+        &.-current {
+          @include mq() {
+            .naviLink {
+              pointer-events: none;
+
+              &::before {
+                width: 100%;
+              }
+            }
+          }
+        }
+        /// -----------------サブメニュー//
+        &.has-child {
+          .spAccordion {
+            > span {
+              &::before,
+              &::after {
+                position: absolute;
+                inset: 0;
+                display: block;
+                width: 100%;
+                margin: auto;
+                content: "";
+                transition: rotate 0.4s;
+              }
+
+              &::before {
+                rotate: 90deg;
+              }
+            }
+
+            &.-open {
+              > span {
+                &::before {
+                  rotate: none;
+                }
+              }
+            }
+          }
+
+          // サブメニュー本体
+          > ul.subMenu {
+            @include mq() {
+              position: absolute;
+              inset: 0 0 auto;
+              overflow: visible;
+              visibility: hidden;
+              opacity: 0;
+              transition:
+                top 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+                opacity 0.4s;
+            }
+            @include mq(sp) {
+              position: relative;
+              height: 0;
+              max-height: none;
+              visibility: hidden;
+              transition:
+                height 0.4s,
+                opacity 0.4s;
+
+              &.-open {
+                height: var(--subHeaderHeight);
+                visibility: visible;
+                opacity: 1;
+              }
+            }
+
+            > li {
+              > a {
+                @include mq() {
+                  &::before {
+                    right: auto;
+                  }
+                }
+              }
+            }
+
+            &.-open {
+              height: var(--subHeightOpen, auto);
+            }
+          }
+          @include mq() {
+            @include hover {
+              ul.subMenu {
+                top: 100%;
+                visibility: visible;
+                opacity: 1;
+              }
+            }
+            // キーボード操作時に子メニューを閉じないようにする
+            &:focus-within {
+              > ul.subMenu {
+                top: 100%;
+                visibility: visible;
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &.-open {
+      &::before {
+        opacity: 1;
+        transition:
+          transform 0.8s cubic-bezier(0.4, 0.1, 0.3, 1),
+          oapcity 0.3s cubic-bezier(0.4, 0.1, 0.3, 1) 0.5s;
+        transform: translateZ(0) scale(80);
+      }
+
+      .ac_menu {
+        span {
+          background-color: transparent;
+          transition: background-color 0.4s;
+
+          &::before,
+          &::after {
+            top: 0;
+            bottom: 0;
+            background-color: $colorTxtReversal;
+            transition: rotate 0.4s;
+            rotate: 45deg;
+          }
+
+          &::after {
+            rotate: -45deg;
+          }
+        }
+      }
+
+      .naviWrapper {
+        @include mq(sp) {
+          visibility: visible;
+          opacity: 1;
+
+          #navi {
+            visibility: visible;
+            opacity: 1;
+          }
+        }
+      }
+    }
+  }
+
+  &:has(.headerNavi.-open) {
+    .headerLogo {
+      filter: invert(1);
+    }
+  }
+}
+
+@include mq(sp) {
+  html:has(.headerNavi.-open) {
+    overflow: hidden;
+
+    body {
+      overflow: auto;
+      scrollbar-gutter: stable;
+    }
+  }
 }
 
 /* /ヘッダー */
