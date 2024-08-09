@@ -22,7 +22,7 @@ export default defineConfig(({ command, mode }) => {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, "htdocs/ielts/venue"),
+      outDir: resolve(__dirname, "htdocs"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
       rollupOptions: {
