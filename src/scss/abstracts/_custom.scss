@@ -1,0 +1,38 @@
+@use "variables" as *;
+@use "mixins" as *;
+@use "functions" as *;
+@use "sass:list";
+
+:root {
+  // サイズ
+  --size-container: #{$containerSize}; // コンテナサイズ
+  --size-logo: #{$logoWidth}; // ロゴサイズ
+
+  // フォント
+  --font-family-base: #{$baseFont};
+  --font-feature-settings: "pkna" on, "palt" on, "pwid" on;
+  --font-setting-base: var(--font-weight-normal) var(--font-size-base) / var(--font-leading) var(--font-family-base);
+  --font-size-heading-1: #{spSize(list.nth($h1, 2))};
+  --font-size-heading-2: #{spSize(list.nth($h2, 2))};
+  --font-size-heading-3: #{spSize(list.nth($h3, 2))};
+  --font-size-heading-4: #{spSize(list.nth($h4, 2))};
+  --font-size-heading-5: #{spSize(list.nth($h5, 2))};
+  --font-size-large-2: #{spSize(list.nth($xLargeFontSize, 2))};
+  --font-size-large-1: #{spSize(list.nth($largeFontSize, 2))};
+  --font-size-base: #{spSize(list.nth($baseFontSize, 2))};
+  --font-size-small-1: #{spSize(list.nth($smallFontSize, 2))};
+  --font-size-small-2: #{spSize(list.nth($xSmallFontSize, 2))};
+  // PC時
+  @include mq() {
+    --font-size-heading-1: #{rem(list.nth($h1, 1))};
+    --font-size-heading-2: #{rem(list.nth($h2, 1))};
+    --font-size-heading-3: #{rem(list.nth($h3, 1))};
+    --font-size-heading-4: #{rem(list.nth($h4, 1))};
+    --font-size-heading-5: #{rem(list.nth($h5, 1))};
+    --font-size-large-2: #{rem(list.nth($xLargeFontSize, 1))};
+    --font-size-large-1: #{rem(list.nth($largeFontSize, 1))};
+    --font-size-base: #{rem(list.nth($baseFontSize, 1))};
+    --font-size-small-1: #{rem(list.nth($smallFontSize, 1))};
+    --font-size-small-2: #{rem(list.nth($xSmallFontSize, 1))};
+  }
+}

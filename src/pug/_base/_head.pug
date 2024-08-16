@@ -1,5 +1,5 @@
-include ../_layouts/_beginHead
 meta(charset="utf-8")
+include ../_layouts/_beginHead.html
 meta(http-equiv="X-UA-Compatible", content="IE=edge")
 meta(name="viewport", content="width=device-width,initial-scale=1.0,shrink-to-fit=no")
 meta(name="format-detection", content="telephone=no")
@@ -25,17 +25,20 @@ meta(name="twitter:description", content=head.description)
 meta(name="twitter:image", content=site.ogp)
 meta(name="twitter:site", content="@" + site.sitename)
 
-link(rel="icon", href=site.icon + "/favicon.ico")
-link(rel="icon", href=site.icon + "/icon.svg", type="image/svg+xml")
-link(rel="apple-touch-icon", sizes="180x180", href=site.icon + "/apple-touch-icon.png")
+link(rel="icon", href=site.icon)
+if site.icon
+  link(rel="icon", href=site.icon + "/icon.svg", type="image/svg+xml")
+if site.touchIcon
+  link(rel="apple-touch-icon", sizes="180x180", href=site.icon + "/apple-touch-icon.png")
 
 link(rel="canonical", href=head.url)
 
 include ./_jsonLd
 
-link(rel="preconnect", href="https://fonts.googleapis.com")
-link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-link(href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900", rel="stylesheet")
+if site.webfont
+  link(rel="preconnect", href="https://fonts.googleapis.com")
+  link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
+  link(href=site.font, rel="stylesheet")
 
 link(rel="stylesheet", href="/scss/style.scss")
 script(type="module", src="/ts/app.js", defer)

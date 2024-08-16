@@ -14,16 +14,16 @@
 // ------------------------------------------------
 @mixin mq($type: pc, $value1: $brakePoint) {
   // １つの値を使って範囲指定する場合
-  $reverse: "";
+  $operator: ">=";
   $widthType: "min";
   @if $type == sp {
     // PC用（spMaxサイズ < w）
-    $reverse: "not";
+    $operator: "<";
   } @else {
     // SP用（w <= spMaxサイズ）
     // そのままでOK
   }
-  @media #{$reverse} screen and (#{$widthType}-width: math.div($value1, 16) + em) {
+  @media screen and (width #{$operator} math.div($value1, 16) + em) {
     @content;
   }
 }
@@ -42,4 +42,17 @@
   &:focus-visible {
     @content;
   }
+}
+
+// SVGマスク
+// ------------------------------------------------
+// extendに登録したsvgアイコンをまsk-imageで出力
+// ------------------------------------------------
+@mixin mask($svg, $color, $size: contain) {
+  @extend %#{$svg};
+
+  background-color: $color;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: $size;
 }

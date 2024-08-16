@@ -56,6 +56,14 @@
 
     // SP時メニュー背景
     .naviWrapper {
+      position: absolute;
+      inset: 0;
+      z-index: 998;
+      height: 100dvh;
+      padding: calc(17.6rem / 2) calc(20 / 375 * 100%);
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease-out 0.4s;
       @include mq() {
         position: relative;
         width: 100%;
@@ -67,30 +75,20 @@
         background-color: transparent;
         opacity: 1;
       }
-
-      position: absolute;
-      inset: 0;
-      z-index: 998;
-      height: 100dvh;
-      padding: calc(17.6rem / 2) calc(20 / 375 * 100%);
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.3s ease-out 0.4s;
     }
 
     // メニュー
     #navi {
-      @include mq() {
-        visibility: visible;
-        opacity: 1;
-      }
-
       position: relative;
       width: 100%;
       margin: auto;
       visibility: hidden;
       opacity: 0;
       transition: opacity 0.3s ease-out 0.4s;
+      @include mq() {
+        visibility: visible;
+        opacity: 1;
+      }
 
       > li {
         a {

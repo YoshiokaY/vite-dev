@@ -3,6 +3,22 @@
 @use "sass:string";
 @use "variables" as *;
 
+// rem変換
 @function rem($pxSize) {
   @return ($pxSize * 0.1) + rem;
+}
+
+// SP可変サイズ
+@function spSize($spSize: 1) {
+  @return string.unquote("min(#{math.div(100, $spDesign) * $spSize}vw,#{math.div($spSize * 2, 10) + rem})");
+}
+
+// PC可変サイズ
+@function pcSize($pcSize: 1) {
+  @return string.unquote("min(#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize * 1, 10) + rem})");
+}
+
+// CSS変数をRGBA関数で使えるようにする
+@function getColor($color, $alpha: 1) {
+  @return rgba(var(#{$color}), $alpha);
 }

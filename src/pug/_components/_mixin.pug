@@ -1,7 +1,7 @@
 //- 画像出力(PC/SPだしわけ)
 //- 機能：WebPの出しわけコードを一括で出力する
 //- 引数(string)：画像ファイル名（拡張子付き）,alt用テキスト,画像のサイズ,遅延読み込みか否か,ピクチャータグに付けるクラス,デフォルト以外のパス,ブレイクポイント
-mixin picture(img, txt, sizes, lazy="lazy", style, url, max="767")
+mixin picture(img, txt, sizes, loading="lazy", style, url, min="768")
   //- ファイル名と拡張子取得
   - const [imgName, imgType] = img.split(/(?=\.[^.]+$)/);
   //- 画像のサイズを配列で格納
@@ -9,14 +9,14 @@ mixin picture(img, txt, sizes, lazy="lazy", style, url, max="767")
   //- urlが指定されていなければデフォルトのパスを使用
   - const path = url ? url : imgPathLocal;
   picture(class=style && style)
-    //- SP
-    source(media="(max-width:" + max + "px)", srcset=path + imgName + "_sp" + imgType, width=spWidth, height=spHeight)
-    if lazy == "no-lazy"
+    //- PC
+    source(media="(min-width:" + min + "px)", srcset=path + img, width=pcWidth, height=pcHeight)
+    if loading == "no-lazy"
       //- nolazy
-      img(src=path + img, alt=txt, decoding="async", width=pcWidth, height=pcHeight)
+      img(src=path + imgName + "_sp" + imgType, alt=txt, decoding="async", width=spWidth, height=spHeight)
     else
-      //- pc
-      img(src=path + img, alt=txt, decoding="async", loading="lazy", width=pcWidth, height=pcHeight)
+      //- sp
+      img(src=path + imgName + "_sp" + imgType, alt=txt, decoding="async", width=spWidth, height=spHeight)
 
 //- 画像出力
 //- 機能：WebPの出しわけコードを一括で出力する
@@ -76,3 +76,18 @@ mixin setNav(list,pc)
                 a(href=child.link, class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.0rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
       else
         a.relative.block.text-reversal.font-semibold(href=menu.link, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
+
+//- 日付出力
+//- 機能：datetime属性付きのtimeタグを出力する
+//- 引数(string)：任意の日付形式 or 空の場合は現在
+//- <time datetime="YYYY-MM-DD"></time>
+mixin getTime(time)
+  time(datetime=new Date(time).getFullYear() + "-" + (new Date(time).getMonth() + 1).toString().padStart(2, "0") + "-" + new Date(time).getDate().toString().padStart(2, "0")) #{ time }
+
+mixin formatDate(date)
+  - var formattedDate = new Date(date.replace(/年|月|日/g, "/").replace("日", ""));
+  - var year = formattedDate.getFullYear();
+  - var month = String(formattedDate.getMonth() + 1).padStart(2, "0");
+  - var day = String(formattedDate.getDate()).padStart(2, "0");
+
+  time(datetime=`${year}-${month}-${day}`)= date
