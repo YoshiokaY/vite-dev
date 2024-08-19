@@ -3,18 +3,25 @@
 // Vendors
 @use "../../node_modules/@acab/reset.css";
 
-// // Base
-@use "base/*.scss";
+// Base
+@use "base/*";
 
-// // Components
-@use "components/*.scss";
+// Components
+@use "components/*";
 
-// // Layouts
-@use "layouts/*.scss";
+// アコーディオン
+@use "components/option/c_accordion";
 
-// // Pages
-@use "pages/*.scss";
+// モーダル
+@use "components/option/c_modal";
 
+// 共通パーツ
+@use "layouts/*";
+
+// 各ページ
+@use "pages/*";
+
+// Tailwindの読み込み
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
