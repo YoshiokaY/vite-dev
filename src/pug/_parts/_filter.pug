@@ -1,0 +1,41 @@
+- let filter = content.filter ? content.filter : [];
+
+section#sec02.sec-tab
+  .contentInner
+    h2 複数選択フィルター(OR検索)
+    //- p 複数のカテゴリを選択できる。<br>data-filtermode="or"を指定しているが、この記述は無くてもいける。（OR検索を既定値としているため）
+    filter-list(category=filter.cats, all="すべて", visible=3)
+      .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
+        each list in filter.list
+          .border-prime.c_filter_item(class="border-[0.1rem]")
+            +picture(list.img.src, "", list.img.size)
+            .flex(class="gap-[1.6rem]")
+              each cat in list.cat
+                span.cat.bg-prime.text-reversal !{ cat }
+            h3 !{ list.ttl }
+            p !{ list.txt }
+      button.c_filter_more(slot="more") もっと見る
+    //- .filterContainer.js-filterContainer
+    //-   ul.cateKind.js-filterCatList(data-filtermode="or")
+    //-     li
+    //-       input#c02-1(type="checkbox", data-cattag="ker", checked)
+    //-       label(for="c02-1") カエル
+    //-     li
+    //-       input#c02-2(type="checkbox", data-cattag="uprp", checked)
+    //-       label(for="c02-2") ウーパールーパー
+    //-     li
+    //-       input#c02-3(type="checkbox", data-cattag="siuc", checked)
+    //-       label(for="c02-3") セイウチ
+    //-     li
+    //-       input#c02-4(type="checkbox", data-cattag="km", checked)
+    //-       label(for="c02-4") 鴨
+    //-   .dataContainer
+    //-     ul.dataList.js-filterDataList
+    //-       li(data-filter, data-cat-uprp) 私はウパルパ
+    //-       li(data-filter, data-cat-ker) 僕はカエルさん
+    //-       li(data-filter, data-cat-ker) 僕もカエルさん
+    //-       li(data-filter, data-cat-siuc) 僕はウィスキー・おさむです。
+    //-       li(data-filter, data-cat-ker) 僕もカエルさん
+    //-       li(data-filter, data-cat-km) 僕は鴨蔵！YEAH!!!
+    //-       li(data-filter, data-cat-km, data-cat-siuc) 鴨蔵とおさむのちびっこコンビです
+    //-       li(data-filter, data-cat-km, data-cat-siuc, data-cat-ker) カエルさんが仲間に入って、鴨蔵とおさむの３人になりました

@@ -3,7 +3,7 @@
 // コンテナ
 .contentInner {
   width: 100%;
-  max-width: var(--content-width);
+  max-width: rem($containerSize);
   padding: 0;
   margin: auto;
   container: content / inline-size;
