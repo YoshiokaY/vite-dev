@@ -10,9 +10,10 @@ module.exports = {
     "selector-id-pattern": null, // idでkebab-case以外も許容
     "selector-class-pattern": null, // classでkebab-case以外も許容
     "keyframes-name-pattern": null, // keyframesでkebab-case以外も許容
-    "scss/at-function-pattern": null,
+    "scss/at-function-pattern": null, // functionでkebab-case以外も許容
     "scss/at-mixin-pattern": null, // mixinでkebab-case以外も許容
     "scss/dollar-variable-pattern": null, // $変数でkebab-case以外も許容
+    "scss/load-partial-extension": null, // .scss記述許容
     "scss/percent-placeholder-pattern": null, // %placeholderでkebab-case以外も許容
     "scss/at-extend-no-missing-placeholder": null, // @extendで%placeholder以外も許容
     "function-url-quotes": ["always", { severity: "warning" }], // url()内が""で囲まれていなくてもwarningで止める

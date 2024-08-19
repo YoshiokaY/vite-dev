@@ -102,19 +102,17 @@ body {
 
 html {
   overflow: auto;
-  scroll-behavior: smooth;
   font-size: 62.5%;
 }
 
 body {
   width: 100%;
-  overflow: hidden;
-  font: var(--font-shorthand-base-normal);
+  font: var(--font-setting-base);
   // font-feature-settings: "palt";
   color: $colorTxt;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: $bgBody;
+  background-color: $colorBody;
   -webkit-font-smoothing: antialiased;
   backface-visibility: hidden;
 }

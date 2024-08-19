@@ -1,30 +1,33 @@
 -
   common = {
-      head: {
+    head: {
       sitename    : '◯◯◯◯◯◯',
-      dmain       : 'https://www.XXXXX.XX.XX/',
+      domain      : 'https://www.XXXXX.XX.XX/',
       ogp         : 'https://www.XXXXX.XX.XX/_assets/img/ogp.jpg',
-      icon        : '/favicon.ico',
+      favicon     : '/favicon.ico',
+      //- icon        : '/icon.svg',
+      //- touchIcon   : '/apple-touch-icon.png',
       logo        : 'https://www.XXXXX.XX.XX/_assets/img/logo.svg',
       copyright   : 'XXXX',
+      webfont     : 'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900',
       assets      : '/_assets/',
     },
     menu: [
       {
-        link: "/",
-        txt: "トップ",
+        link: '/',
+        txt: 'トップ',
       },
       {
-        link: "/about/",
-        txt: "アバウト",
+        link: '/about/',
+        txt: 'アバウト',
         child: [
           {
-            link: "#",
-            txt: "子メニュー",
+            link: '#',
+            txt: '子メニュー',
           },
           {
-            link: "#",
-            txt: "子メニュー",
+            link: '#',
+            txt: '子メニュー',
           },
         ]
       },

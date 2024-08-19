@@ -5,14 +5,14 @@ section
       li.scrollIn.-each.-up
         button.c_modal_btn(data-href="https://www.youtube.com/watch?v=XhNMziNO8xc") モーダルボタンyoutube
       li.scrollIn.-each.-up
-        button.c_modal_btn(data-href="/img/top/noimage.png") モーダルボタン画像
+        button.c_modal_btn(data-href="/img/top/noimage.jpg") モーダルボタン画像
       li.scrollIn.-each.-up
         button.c_modal_btn.c_btn(aria-controls="modalContent1") モーダルボタン
-    dialog#modalContent1.dialog
+    dialog#modalContent1.c_modal
       .c_modal_content
         .modalBody(tabindex="1")
           h3.modal_ttl タイトル
           figure
-            +imgPc("noimage.png", "仮画像", [800,600])
+            +imgPc("noimage.jpg", "仮画像", [800,600])
           p あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
         button.c_modal_close(aria-label="ウィンドウを閉じる")

@@ -4,7 +4,7 @@
 /* モーダル  */
 
 // ダイアログ要素
-.dialog {
+.c_modal {
   z-index: 1;
   width: 100vw;
   max-width: unset;
@@ -16,41 +16,18 @@
   background: none;
   border: 0;
 
-  &[open] {
-    .c_modal_content {
-      animation: modalFade 1s ease 0s 1 forwards;
-    }
-
-    &::backdrop {
-      opacity: 1;
-    }
-  }
-
   &::backdrop {
-    top: 0;
-    left: 0;
+    inset: 0;
     z-index: -1;
     width: 100%;
     height: 100%;
     margin: auto;
     content: "";
-    background-color: rgba($colorTxt, 0.75);
+    background-color: rgba(#000, 0.75);
     opacity: 0;
     transition: opacity 0.4s;
   }
-}
 
-// モーダル展開時スクロール非活性
-html:has(.dialog[open]) {
-  overflow: hidden;
-
-  body {
-    overflow: auto;
-    scrollbar-gutter: stable;
-  }
-}
-
-.c_modal {
   // 閉じるボタン
   &_close {
     position: absolute;
@@ -86,32 +63,36 @@ html:has(.dialog[open]) {
     width: fit-content;
     max-width: rem($containerSize);
     height: fit-content;
-    max-height: 90vh;
+    max-height: 100vh;
+    max-height: 100dvh;
     padding: 0;
     margin: auto;
     opacity: 0;
     transition: opacity 0.4s;
-    @include mq(sp, $containerSize) {
-      padding: 0 1.6rem;
-    }
-    @include mq(sp) {
-      padding: 0 spSize(16);
-    }
 
-    /* stylelint-disable-next-line no-descending-specificity */
-    &:has(.frameWrapper) {
+    &:has(iframe) {
       width: auto;
     }
 
     figure {
       width: fit-content;
       margin: auto;
-      overflow: auto;
+    }
+
+    iframe {
+      aspect-ratio: 16/9;
     }
   }
 
-  &_inner {
-    position: relative;
+  &[open] {
+    .c_modal_content {
+      animation: modalFade 1s ease 0s 1 forwards;
+    }
+
+    &::backdrop {
+      opacity: 1;
+      transition: opacity 0.4s;
+    }
   }
 }
 
@@ -122,6 +103,16 @@ html:has(.dialog[open]) {
 
   100% {
     opacity: 1;
+  }
+}
+
+// モーダル展開時スクロール非活性
+html:has(dialog[open]) {
+  overflow: hidden;
+
+  body {
+    overflow: auto;
+    scrollbar-gutter: stable;
   }
 }
 

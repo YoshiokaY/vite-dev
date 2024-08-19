@@ -4,29 +4,24 @@
 @use "../../node_modules/@acab/reset.css";
 
 // Base
-@use "base/*.scss";
+@use "base/*";
 
 // Components
-@use "components/*.scss";
-@use "components/utility/*.scss";
-// @forward "components/option/op-bread";
-@forward "components/option/_op-tab";
-@forward "components/option/_op-modal";
-@forward "components/option/_op-accordion";
-// @forward "components/option/_op-flow";
-@forward "components/option/_op-faq";
-// @forward "components/option/_op-news";
-// @forward "components/option/_op-pager";
-// @forward "components/option/_op-form";
-// @forward "components/option/_op-opening";
-// @forward "components/option/_op-loading";
+@use "components/*";
 
-// Layouts
-@use "layouts/*.scss";
+// アコーディオン
+@use "components/option/c_accordion";
 
-// Pages
-@use "pages/*.scss";
+// モーダル
+@use "components/option/c_modal";
 
+// 共通パーツ
+@use "layouts/*";
+
+// 各ページ
+@use "pages/*";
+
+// Tailwindの読み込み
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

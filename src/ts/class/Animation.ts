@@ -28,7 +28,7 @@ export class ScrollAnimation {
       observer.observe(box);
     });
 
-    //監視対象に".is-active"がなければ付与する
+    //監視対象にACTIVEがなければ付与する
     function callback(entries: IntersectionObserverEntry[]) {
       entries.forEach((entry: IntersectionObserverEntry, i: number) => {
         const target = entry.target;
@@ -40,30 +40,5 @@ export class ScrollAnimation {
         }
       });
     }
-    //一文字ずつアニメーションさせるため、該当クラスのテキストを取得して一文字ずつfont（他と干渉しなさそうなタグ）タグでくくる
-    //引数：クラス名を記述
-    //初期値：".typTxt"
-    const typTxt = (className: string = ".typTxt") => {
-      const typTxts = document.querySelectorAll(className) || [];
-      typTxts.forEach((typTxt) => {
-        const text = typTxt.innerHTML;
-        const textWithoutBr = text.replace(/<br>/g, "Γ");
-        // console.log(text);
-        let textbox = "";
-        textWithoutBr?.split("").forEach((t: string, i: number) => {
-          if (t !== " ") {
-            if (t == "Γ") {
-              textbox += "<font class='br'>" + t + "</font>";
-            } else {
-              textbox += "<font><font>" + t + "</font></font>";
-            }
-          } else {
-            textbox += t;
-          }
-        });
-        textbox = textbox.replace("Γ", "<br>");
-        typTxt.innerHTML = textbox;
-      });
-    };
   }
 }

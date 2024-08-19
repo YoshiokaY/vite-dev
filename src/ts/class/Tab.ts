@@ -1,25 +1,37 @@
-// タブ
+//** タブ */
 export class Tab {
-  constructor() {
-    //タブ
-    const btns = document.querySelectorAll(".c_tab_list li button");
+  /**
+   * タブのクラス
+   * @parm {string}
+   */
+  target: string;
+  /**
+   * タブ展開時のクラス
+   * @parm {string}
+   */
+  open: string;
+  constructor(TARGET: string = ".c_tab", OPEN: string = "-open") {
+    this.target = TARGET;
+    this.open = OPEN;
+    const btns = document.querySelectorAll(TARGET + "_list li button");
+
     function onTabClick(e: Event) {
       let event = e.target as HTMLElement;
       // イベントターゲットが含まれるタブコンテンツを取得
-      const parent = event.closest(".c_tab");
-      const tabContents = parent?.querySelectorAll(".c_tab_content");
+      const parent = event.closest(TARGET);
+      const tabContents = parent?.querySelectorAll(TARGET + "_content");
       const tabArr = Array.prototype.slice.call(tabContents);
-      const item = parent?.querySelectorAll(".c_tab_list li button");
+      const item = parent?.querySelectorAll(TARGET + "_list li button");
       const itemArr = Array.prototype.slice.call(item);
       // ボタンとパネルを紐づけるための番号取得
       const index = itemArr.indexOf(e.target);
       // タブボタン切り替え
       itemArr.forEach((el) => {
-        el.classList.remove("-open");
+        el.classList.remove(OPEN);
         el.setAttribute("aria-pressed", "false");
         el.setAttribute("tabindex", "0");
       });
-      event.classList.add("-open");
+      event.classList.add(OPEN);
       event.setAttribute("aria-pressed", "true");
       event.setAttribute("tabindex", "-1");
 

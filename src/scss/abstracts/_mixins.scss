@@ -14,16 +14,16 @@
 // ------------------------------------------------
 @mixin mq($type: pc, $value1: $brakePoint) {
   // １つの値を使って範囲指定する場合
-  $reverse: "";
+  $operator: ">=";
   $widthType: "min";
   @if $type == sp {
     // PC用（spMaxサイズ < w）
-    $reverse: "not";
+    $operator: "<";
   } @else {
     // SP用（w <= spMaxサイズ）
     // そのままでOK
   }
-  @media #{$reverse} screen and (#{$widthType}-width: math.div($value1, 16) + em) {
+  @media screen and (width #{$operator} math.div($value1, 16) + em) {
     @content;
   }
 }
@@ -42,6 +42,19 @@
   &:focus-visible {
     @content;
   }
+}
+
+// SVGマスク
+// ------------------------------------------------
+// extendに登録したsvgアイコンをまsk-imageで出力
+// ------------------------------------------------
+@mixin mask($svg, $color, $size: contain) {
+  @extend %#{$svg};
+
+  background-color: $color;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: $size;
 }
 
 @mixin min-max($min: $viewTablet, $max: $containerSize) {
@@ -133,17 +146,6 @@
   background-image: linear-gradient(to bottom, rgba($tartanColor, 0.5) 0%, rgba($tartanColor, 0.5) 30%, transparent 30%, transparent 33%, rgba($tartanColor, 0.5) 33%, rgba($tartanColor, 0.5) 40%, transparent 40%, transparent 80%, rgba($tartanColor, 0.3) 80%, rgba($tartanColor, 0.3) 96%, transparent 96%, transparent 100%), linear-gradient(to right, rgba($tartanColor, 0.5) 0%, rgba($tartanColor, 0.5) 30%, transparent 30%, transparent 33%, rgba($tartanColor, 0.5) 33%, rgba($tartanColor, 0.5) 40%, transparent 40%, transparent 80%, rgba($tartanColor, 0.3) 80%, rgba($tartanColor, 0.3) 96%, transparent 96%, transparent 100%);
   background-repeat: repeat;
   background-size: $checkSize;
-}
-
-///-----------------maskセット//
-
-@mixin mask($svg, $color, $size: contain) {
-  @extend %#{$svg};
-
-  background-color: $color;
-  mask-repeat: no-repeat;
-  mask-position: center;
-  mask-size: $size;
 }
 
 @mixin bgBorder($borderColor: #fff, $borderHeight: 5) {

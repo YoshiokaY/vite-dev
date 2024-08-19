@@ -19,10 +19,6 @@
     // 開閉アイコン
     &::before,
     &::after {
-      @include mq() {
-        width: 2rem;
-      }
-
       position: absolute;
       inset: 0 1em 0 auto;
       width: spSize(24);
@@ -33,6 +29,9 @@
       transition:
         opacity 0.5s,
         rotate 0.4s;
+    }
+    @include mq() {
+      width: 2rem;
     }
 
     &::after {
