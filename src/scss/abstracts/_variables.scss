@@ -13,7 +13,18 @@ $fontGothic:
   sans-serif;
 $fontMincho: "游明朝体", yumincho, "游明朝", "Yu Mincho", "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN W3", hiraminpron-w3, "ヒラギノ明朝 ProN", "Hiragino Mincho ProN", "ヒラギノ明朝 Pro", "Hiragino Mincho Pro", "HGS明朝E", georgia, times, "Times New Roman", serif;
 
+// 画面サイズ
+$containerSize: 1200; // コンテンツ幅
+$brakePoint: 768; // ブレイクポイント
+$pcDesign: 1366; // PCデザインサイズ
+$spDesign: 375; // SPデザインサイズ
+$logoWidth: 200; // ロゴ幅
+
+// 画像パス
+$imgPath: "/img/";
+
 // フォント設定
+$spFontVw: "true"; // SP時にフォントサイズを可変にする
 $baseFont: $fontNoto;
 $h1: 64, 48; // PCサイズ/SPサイズ
 $h2: 56, 48;
@@ -25,16 +36,6 @@ $largeFontSize: 18, 16;
 $baseFontSize: 16, 15;
 $smallFontSize: 15, 14;
 $xSmallFontSize: 12, 10;
-
-// 画面サイズ
-$containerSize: 1200; // コンテンツ幅
-$brakePoint: 768; // ブレイクポイント
-$pcDesign: 1366; // PCデザインサイズ
-$spDesign: 375; // SPデザインサイズ
-$logoWidth: 200; // ロゴ幅
-
-// 画像パス
-$imgPath: "/img/";
 
 :root {
   // フォント
