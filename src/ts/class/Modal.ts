@@ -1,4 +1,6 @@
 // モーダル
+import { sanitize } from "../utils/util.ts";
+
 export class Modal {
   constructor() {
     //モーダル
@@ -86,11 +88,6 @@ export class Modal {
       //iframeだけ始末
       modal.querySelector(".frameWrapper") && modal.remove();
       html?.classList.remove("-disable");
-    }
-
-    //サニタイズ
-    function sanitize(str: string | null) {
-      return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
     }
 
     //Youtube用

@@ -1,17 +1,10 @@
 @use "../abstracts" as *;
 @use "sass:math";
 
-:root {
-  // --header-height: 10rem;
-  --base-font-size: 1.4rem;
-  @include mq() {
-    --base-font-size: 1.6rem;
-  }
-}
-
 * {
   box-sizing: border-box;
-  scroll-margin-top: var(--header-height);
+  scroll-margin-top: var(--headerHeight);
+  scroll-behavior: smooth;
   font-size: 100%;
 
   &::before,
@@ -109,23 +102,17 @@ body {
 
 html {
   overflow: auto;
-
-  // --header-height: 11rem;
-
-  scroll-behavior: smooth;
   font-size: 62.5%;
 }
 
 body {
   width: 100%;
-  overflow: hidden;
-  font-family: $baseFont;
-  font-size: var(--base-font-size);
+  font: var(--font-setting-base);
   // font-feature-settings: "palt";
   color: $colorTxt;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: $bgBody;
+  background-color: $colorBody;
   -webkit-font-smoothing: antialiased;
   backface-visibility: hidden;
 }
