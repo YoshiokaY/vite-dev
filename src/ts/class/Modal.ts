@@ -1,13 +1,17 @@
-// モーダル
+//** モーダル */
 import { sanitize } from "../utils/util.ts";
 
 export class Modal {
-  constructor() {
-    //モーダル
-    const html = document.querySelector("html");
-    const modalBtn = document.querySelectorAll(".c_modal_btn");
-    // let modal = "";
-    let closes = document.querySelectorAll(".c_modal_close");
+  /**
+   * モーダルのクラス
+   * @parm {string}
+   */
+  target: string;
+
+  constructor(TARGET: string = ".c_modal") {
+    this.target = TARGET; // ターゲット要素
+    const modalBtn = document.querySelectorAll(TARGET + "_btn");
+    let closes = document.querySelectorAll(TARGET + "_close");
 
     modalBtn.forEach((a) => {
       a.addEventListener("click", (e) => {
@@ -25,7 +29,7 @@ export class Modal {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
             const youtube_uri = YOUTUBE.exec(modalHref);
             let dialog = "";
-            dialog += '<dialog class="dialog"><div class="c_modal_content">';
+            dialog += '<dialog class="c_modal"><div class="c_modal_content">';
             //youtubeiframe挿入
             if (youtube_uri) {
               dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
@@ -44,7 +48,7 @@ export class Modal {
               );
             } else {
               //画像用モーダル
-              dialog += `<figure tabindex="1"><img src=${modalHref} decoding="async"></figure>`;
+              dialog += `<figure tabindex="-1"><img src=${modalHref} decoding="async"></figure>`;
             }
             dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
             dialog += "</div></dialog>";
@@ -56,8 +60,6 @@ export class Modal {
 
         //モーダル展開
         modal?.showModal();
-        //htmlのスクロール抑制のためのクラス
-        html?.classList.add("-disable");
 
         //モーダルの使い回し時に呼び出す
         // setModal(modalDate);
@@ -87,7 +89,6 @@ export class Modal {
       modal.close("cancelled");
       //iframeだけ始末
       modal.querySelector(".frameWrapper") && modal.remove();
-      html?.classList.remove("-disable");
     }
 
     //Youtube用
