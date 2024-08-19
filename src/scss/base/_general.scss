@@ -14,7 +14,7 @@
   }
 }
 
-//　PC/SP出しわけ
+// PC/SP出しわけ
 .pcOnly {
   @include mq(sp) {
     display: none;

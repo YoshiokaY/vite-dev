@@ -3,6 +3,29 @@
 @use "sass:string";
 @use "variables" as *;
 
+// rem変換
 @function rem($pxSize) {
   @return ($pxSize * 0.1) + rem;
+}
+
+// SP可変サイズ
+@function spSize($spSize: 1) {
+  $magnification: 1;
+  @if $spDesign < 750 {
+    // SPデザインが等倍だった場合最大サイズを2倍に変更
+    $magnification: 2;
+  } @else {
+    // そのままでOK
+  }
+  @return string.unquote("min(#{math.div(100, $spDesign) * $spSize}vw,#{math.div($spSize * $magnification, 10) + rem})");
+}
+
+// PC可変サイズ
+@function pcSize($pcSize: 1) {
+  @return string.unquote("min(#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize, 10) + rem})");
+}
+
+// CSS変数をRGBA関数で使えるようにする
+@function getColor($color, $alpha: 1) {
+  @return rgba(var(#{$color}), $alpha);
 }
