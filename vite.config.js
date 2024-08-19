@@ -13,18 +13,24 @@ const htmlFiles = globule.find("src/**/*.pug", {
 
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
+  const root = env.VITE_ROOT_PATH;
   const asset = env.VITE_ASSETS_PATH;
+  const relative = env.VITE_ASSETS_RELATIVE;
+  const minify = env.VITE_BUILD_MINIFY;
+  const imagemin = env.VITE_BUILD_IMAGEMIN;
+  const webp = env.VITE_BUILD_WEBP;
   return {
     publicDir: "public", //コピーディレクトリ
     root: "src", //ルートディレクトリ
-    base: "/", //アセットのパス指定(相対パスにする場合は"./")
+    base: relative === "true" ? "./" : "/", //アセットのパス指定(相対パスにする場合は"./")
     server: {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, "htdocs"),
+      outDir: resolve(__dirname, root ? "htdocs/" + root : "htdocs"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
+      minify: minify === "true" ? "esbuild" : false,
       rollupOptions: {
         input: htmlFiles,
         output: {
@@ -41,49 +47,52 @@ export default defineConfig(({ command, mode }) => {
             }
             //ビルド時のCSS名を明記してコントロールする
             if (extType === "css") {
-              return `${asset}/css/style.css`;
+              return `${root && relative === "false" ? root + "/" + asset : asset}/css/style.css`;
             }
-            return `${asset}/${extType}/[name][extname]`;
+            return `${root && relative === "false" ? root + "/" + asset : asset}/${extType}/[name][extname]`;
           },
         },
       },
     },
     plugins: [
       sassGlobImports(),
-      vitePluginPug(),
-      viteImagemin({
-        gifsicle: {
-          optimizationLevel: 7,
-          interlaced: false,
-        },
-        optipng: {
-          optimizationLevel: 7,
-        },
-        mozjpeg: {
-          quality: 80,
-        },
-        pngquant: {
-          quality: [0.8, 0.9],
-          speed: 4,
-        },
-        svgo: {
-          plugins: [
-            {
-              name: "removeViewBox",
+      vitePluginPug(minify === "false" ? false : true),
+      imagemin === "true"
+        ? viteImagemin({
+            gifsicle: {
+              optimizationLevel: 7,
+              interlaced: false,
             },
-            {
-              name: "removeEmptyAttrs",
-              active: false,
+            optipng: {
+              optimizationLevel: 7,
             },
-          ],
-        },
-      }),
-      //webPに変換する場合はコメントアウトを解除する
-      // VitePluginWebpAndPath({
-      //   targetDir: `./htdocs/`,
-      //   imgExtensions: "jpg,png",
-      //   quality: 80,
-      // }),
+            mozjpeg: {
+              quality: 80,
+            },
+            pngquant: {
+              quality: [0.8, 0.9],
+              speed: 4,
+            },
+            svgo: {
+              plugins: [
+                {
+                  name: "removeViewBox",
+                },
+                {
+                  name: "removeEmptyAttrs",
+                  active: false,
+                },
+              ],
+            },
+          })
+        : "",
+      webp === "true"
+        ? VitePluginWebpAndPath({
+            targetDir: `./htdocs/`,
+            imgExtensions: "jpg,png",
+            quality: 80,
+          })
+        : "",
     ],
   };
 });

@@ -2,7 +2,7 @@ import fs from "fs";
 import type { Plugin } from "vite";
 import { compileFile } from "pug";
 
-export const vitePluginPugBuild = (): Plugin => {
+export const vitePluginPugBuild = (minify: boolean): Plugin => {
   const pathMap: Record<string, string> = {};
   return {
     // Vite専用プラグインの命名には「vite-plugin-」のプレフィックスをつけるらしい
@@ -32,8 +32,12 @@ export const vitePluginPugBuild = (): Plugin => {
         // xxxx.html へのリクエストがあった時
         if (pathMap[id]) {
           // もとのファイルが xxxx.pug の時は pug をコンパイルして返す
-          const html = compileFile(pathMap[id])();
-          // const html = compileFile(pathMap[id], { pretty: true })(); // 非圧縮
+          let html = "";
+          if (minify === false) {
+            html = compileFile(pathMap[id], { pretty: true })(); // 非圧縮
+          } else {
+            html = compileFile(pathMap[id])();
+          }
           return html;
         }
         // もとのファイルも xxxx.html の時は xxxx.html の中身をそのまま返す
