@@ -5,6 +5,7 @@ section#sec02.sec-tab
     h2 複数選択フィルター(OR検索)
     //- p 複数のカテゴリを選択できる。<br>data-filtermode="or"を指定しているが、この記述は無くてもいける。（OR検索を既定値としているため）
     filter-list(category=filter.cats, all="すべて", visible=3)
+      ul(slot="catList")
       .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
         each list in filter.list
           .border-prime.c_filter_item(class="border-[0.1rem]")
