@@ -7,13 +7,13 @@ section#sec02.sec-tab
     filter-list(category=filter.cats, all="すべて", visible=3)
       ul(slot="catList")
       .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
-        each list in filter.list
+        each list, i in filter.list
           .border-prime.c_filter_item(class="border-[0.1rem]")
             +picture(list.img.src, "", list.img.size)
             .flex(class="gap-[1.6rem]")
               each cat in list.cat
                 span.cat.bg-prime.text-reversal !{ cat }
-            h3 !{ list.ttl }
+            h3 !{ list.ttl + (i + 1) }
             p !{ list.txt }
       button.c_filter_more(slot="more") もっと見る
     //- .filterContainer.js-filterContainer

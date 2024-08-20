@@ -9,6 +9,8 @@ export class Filter extends LitElement {
   all?: string; // すべて選択必要な場合
   @property()
   visible?: number; // 表示件数
+  @property()
+  or = "false";
   // 選択されたキーワードを保存する配列
   private _filterCat: string[] = [];
   private SHOW_CLASS_NAME = "-visible"; // 表示用クラス
@@ -54,7 +56,7 @@ export class Filter extends LitElement {
           this.all
             ? html`
           <li>
-            <input type="checkbox" @click=${this._handleClick} name="filter" value=${this.all} id="cat0" />
+            <input type=${this.or === "true" ? "radio" : "checkbox"} @click=${this._handleClick} name="filter" value=${this.all} id="cat0" />
             <label for="cat0">${this.all}</label>
           </li>
         `
@@ -66,7 +68,7 @@ export class Filter extends LitElement {
           this.category.map(
             (cat: string, i: number) => html`
             <li>
-              <input type="checkbox" @click=${this._handleClick} name="filter" value=${cat} id="cat${i + 1}" />
+              <input type=${this.or === "true" ? "radio" : "checkbox"} @click=${this._handleClick} name="filter" value=${cat} id="cat${i + 1}" />
               <label for="cat${i + 1}">${cat}</label>
             </li>
           `
@@ -85,27 +87,43 @@ export class Filter extends LitElement {
   _handleClick(e: Event) {
     let target = e.target as HTMLInputElement;
     let keyword = target.value; // 選択カテゴリーのvalu値
+    let cateStr = target.checked ? target.value : ""; // チェック状態のvalue値
 
     if (!this.ALL_CARD_LIST) {
       // データがない場合は何もしない
       return;
     }
-    // 全件表示のチェックボックスを外す
-    const checkAll = this.querySelector("#cat0") as HTMLInputElement;
-    if (checkAll) {
-      checkAll.checked = false;
-    }
-    // 選択中のvalueを配列に格納
-    if (target.checked) {
-      this._filterCat.push(keyword);
+    if (cateStr === this.all) {
+      // 選択したカテゴリーがすべての場合の他のチェックボックスを外す
+      const checkbox = this.querySelectorAll("input");
+      checkbox.forEach((input, i) => {
+        if (i !== 0) {
+          input.checked = false;
+        }
+      });
+      this._filterCat = [];
     } else {
-      // 選択していない値を配列から除去
-      this._filterCat = this._filterCat.filter((k) => k !== keyword);
+      // 全件表示のチェックボックスを外す
+      const checkAll = this.querySelector("#cat0") as HTMLInputElement;
+      if (checkAll) {
+        checkAll.checked = false;
+      }
+      // 選択中のvalueを配列に格納
+      if (target.checked) {
+        // if (this.or === "true") {
+        //   this._filterCat = [];
+        // }
+        this._filterCat.push(keyword);
+      } else {
+        // 選択していない値を配列から除去
+        this._filterCat = this._filterCat.filter((k) => k !== keyword);
+      }
+      // チェックが一件もない場合、全件表示にする
+      if (this._filterCat.length === 0) {
+        this._setCatAll();
+      }
     }
-    // チェックが一件もない場合、全件表示にする
-    if (this._filterCat.length === 0) {
-      this._setCatAll();
-    }
+    console.log(this._filterCat);
     // フィルタリングを実行
     this._filterElements();
   }
@@ -131,7 +149,7 @@ export class Filter extends LitElement {
     }
 
     // moreボタン
-    if (this.MORE_BTN && this.visible) {
+    if (this.MORE_BTN) {
       this._setMoreBtn(showCountNum, matchedCards);
     }
   }
@@ -139,7 +157,6 @@ export class Filter extends LitElement {
   //
   _setMoreBtn(showCountNum: number, matchedCards: any) {
     let MORE_SHOW_NUM: number = this.visible ? this.visible : 0;
-    console.log(MORE_SHOW_NUM);
     // moreボタンの表示/非表示
     this._showMoreBtn(showCountNum, matchedCards.length);
     this.MORE_BTN?.addEventListener("click", () => {
@@ -148,7 +165,6 @@ export class Filter extends LitElement {
         return;
       }
       let maxCount = showCountNum + +MORE_SHOW_NUM; // 表示可能な最大件数
-      console.log(maxCount);
       for (let i = showCountNum; i < maxCount && i < matchedCards.length; i++) {
         matchedCards[i].classList.add(this.SHOW_CLASS_NAME);
         showCountNum++;
@@ -160,6 +176,8 @@ export class Filter extends LitElement {
 
   // moreボタンの表示/非表示
   _showMoreBtn(showCountNum: number, matcheCardNum: number) {
+    console.log(showCountNum);
+    console.log(matcheCardNum);
     if (showCountNum < matcheCardNum) {
       // 表示させる
       this.MORE_BTN?.classList.add(this.SHOW_CLASS_NAME);
