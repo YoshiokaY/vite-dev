@@ -64,18 +64,15 @@ mixin setNav(list,pc)
     li.w-full.relative.block(class="md:flex md:items-center md:w-auto -" + menu.link.slice(1, -1) + (menu.child && menu.comment !== true ? " has-child" : "") + (slug == menu.link.slice(1, -1) ? " -current" : ""))
       if menu.child
         .relative
-          a.relative.block.text-reversal.font-semibold(href=menu.link, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
+          a.relative.block.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopner" : null, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
           button.spAccordion.spOnly.absolute.aspect-square.m-auto(class="h-[2rem] inset-[0_0_0_auto]")
             span.text-transparent.w-full.h-full.block(class="indent-[-999rem] after:bg-reversal before:bg-reversal after:h-[0.2rem] before:h-[0.2rem]") 子メニューを表示します
         ul.subMenu.flex.flex-col(class="md:pt-[1.5rem] md:gap-y-[1.2rem] pt-[3rem] gap-y-[2.4rem] md:bg-black md:w-[200%]")
           each child in menu.child
             li
-              if child.blank == true
-                a(href=child.link, target="_blank", rel="noopener", class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
-              else
-                a(href=child.link, class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.0rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
+              a(href=child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopner" : null, class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
       else
-        a.relative.block.text-reversal.font-semibold(href=menu.link, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
+        a.relative.block.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopner" : null, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
 
 //- 日付出力
 //- 機能：datetime属性付きのtimeタグを出力する

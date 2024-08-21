@@ -1,6 +1,6 @@
 @use "sass:math";
 
-$fontNoto: "Noto Sans JP", "NotoSansJP", "Noto Sans Japanese", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$fontNoto: "Noto Sans JP", "NotoSansJP", "Noto Sans Japanese", sans-serif;
 $fontGothic:
   "Helvetica Neue",
   arial,
@@ -15,6 +15,7 @@ $fontMincho: "游明朝体", yumincho, "游明朝", "Yu Mincho", "ヒラギノ�
 
 // 画面サイズ
 $containerSize: 1200; // コンテンツ幅
+$containerPadding: 16; // コンテンツ余白
 $brakePoint: 768; // ブレイクポイント
 $pcDesign: 1366; // PCデザインサイズ
 $spDesign: 375; // SPデザインサイズ
@@ -38,6 +39,8 @@ $smallFontSize: 15, 14;
 $xSmallFontSize: 12, 10;
 
 :root {
+  // SP時
+
   // フォント
   --font-leading: calc(27 / 15);
   --font-weight-normal: 400;
