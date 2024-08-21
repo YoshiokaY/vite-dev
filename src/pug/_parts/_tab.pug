@@ -1,18 +1,20 @@
-- const tab = ["タブリストA", "タブリストB", "タブリストC"];
+<!-- タブ -->
+- let tab = content["tab"] ? content["tab"] : [];
 
 section(class="my-[3rem]")
   .contentInner
-    h2(class="font-bold md:text-[2.4rem] mb-[2em]") タブ
-    //- タブのラッパー要素（これでくくることで排他的な動作になる）
+    h2.font-bold.text-h2.scrollIn.-up(class="mb-[2.4rem]") タブコンポーネント
+    p(class="mb-[1.6rem]") アクセシビリティを考慮したタブコンポーネントです。<br>aria属性を使うことでキーボード操作や音声読み上げに対応しています。
     .c_tab
       //- タブボタン
-      ul.c_tab_list(class="flex flex-wrap gap-y-[1.6rem] gap-x-[1.4rem] justify-center", role="tablist")
-        each val, index in tab
-          li(class="flex justify-center items-center", role="tab")
-            button(class="w-[100%] md:h-[5.6rem] text-center bg-reversal text-txt no-underline rounded-[999rem] leading-[calc(17/12)] md:leading-[calc(22/16)]", id="tab" + (index + 1), class=index == 0 && "-open", aria-pressed=index == 0 ? "true" : "false", aria-controls="tabpanel" + (index + 1)) !{ val }
+      ul.c_tab_list.grid.grid-cols-3(class="gap-x-[1.6rem] mb-[3.2rem]")
+        each val, i in tab
+          li.flex.justify-center.items-center
+            button.c_btn(class="w-[100%] md:h-[5.6rem] rounded-[999rem]", id="tab" + (i + 1), class=i == 0 && "-open", aria-pressed=i == 0 ? "true" : "false", aria-controls="tabpanel" + (i + 1), tabindex=i == 0 ? "-1" : "0") !{ val.tabList }
       //- タブパネルの中身
-      each val, index in tab
-        if index === 0
-          .c_tab_content(role="tabpanel", id="tabpanel" + (index + 1), tabindex="0", aria-labelledby="tab" + (index + 1)) !{ val }中身
-        else
-          .c_tab_content(role="tabpanel", id="tabpanel" + (index + 1), tabindex="-1", aria-labelledby="tab" + (index + 1), hidden) !{ val }中身
+      each val, i in tab
+        .c_tab_content(role="tabpanel", id="tabpanel" + (i + 1), aria-labelledby="tab" + (i + 1), tabindex=i == 0 ? "0" : "-1", hidden=i == 0 ? null : "hidden")
+          h3.text-h3.font-semibold(class="mb-[1.6rem]") !{ val.tabPanel.ttl }
+          p !{ val.tabPanel.txt }
+
+<!-- /タブ -->

@@ -5,11 +5,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 20rem;
-  height: 5rem;
   color: $colorBtnTxt;
+  text-decoration: none;
   background-color: $colorBtn;
-  border: 0.1rem solid $colorPrime;
+  border: 0.15rem solid $colorPrime;
   @include hover {
     color: $colorBtnTxt_hover;
     background-color: $colorBtn_hover;

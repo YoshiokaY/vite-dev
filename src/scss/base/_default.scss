@@ -68,8 +68,7 @@ summary::-webkit-details-marker {
 }
 
 img {
-  display: block;
-  width: 100%;
+  width: auto;
   height: auto;
 }
 
@@ -122,12 +121,6 @@ body {
   background-color: $colorPrime;
 }
 
-p {
-  + p {
-    margin-top: 1em;
-  }
-}
-
 main {
   min-height: 60vh;
 }
@@ -146,7 +139,7 @@ button {
   }
 }
 
-@include mq(pc) {
+@include mq() {
   a[href^="tel:"] {
     color: inherit !important;
     text-decoration: none !important;

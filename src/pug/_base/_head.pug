@@ -18,12 +18,15 @@ meta(property="og:title", content=head.title)
 meta(property="og:description", content=head.description)
 meta(property="og:url", content=head.url)
 meta(property="og:image", content=site.ogp)
+if site.facebookID
+  meta(property="fb:app_id", content=site.facebookID)
 
 meta(name="twitter:card", content="summary_large_image")
 meta(name="twitter:title", content=head.title)
 meta(name="twitter:description", content=head.description)
 meta(name="twitter:image", content=site.ogp)
-meta(name="twitter:site", content="@" + site.sitename)
+if site.twitterName
+  meta(name="twitter:site", content="@" + site.twitterName)
 
 link(rel="icon", href=site.icon)
 if site.icon
