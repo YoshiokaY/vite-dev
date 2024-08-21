@@ -1,0 +1,25 @@
+@use "../../abstracts" as *;
+@use "sass:math";
+
+/* タブ  */
+
+.c_tab {
+  &_list {
+    button {
+      &[tabindex="-1"] {
+        color: $colorPrime;
+        pointer-events: none;
+        background-color: $colorTxtReversal;
+      }
+    }
+  }
+
+  &_content {
+    transition: opacity 0.6s;
+    animation: fade 0.6s;
+
+    &[hidden] {
+      opacity: 0;
+    }
+  }
+}

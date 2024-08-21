@@ -1,9 +1,13 @@
 <!-- トップページ -->
-section
+section(class="my-[3rem]")
   .contentInner
-    h2.scrollIn.-up.text-h2 タイトルタイトルタイトルタイトルタイトル
-    p.scrollIn.-up あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
-    figure.scrollIn.-up
-      +picture("noimage.jpg", "仮画像", [800,600,800,600])
+    h2.font-bold.text-h2.scrollIn.-up(class="mb-[2.4rem]") 画像のmixin
+    .grid.grid-cols-1(class="gap-[3.2rem] md:grid-cols-2")
+      figure.scrollIn.-up
+        +picture("noimage.jpg", "仮画像", [800,600,800,600])
+        figcaption(class="leading-[1.8]") <span class="font-bold">レスポンシブ対応のmixinです。</span><br>picture要素を使うことで画像の出しわけを行います。PC/SPでファイル名を同じにして、SP画像のみ末尾に_spを入れてください。<br>サイズはPC幅・高さ/SP幅・高さの順で配列に格納してください。<br>デフォルトで遅延読み込みが入っていますがlazy="no-lazy"にすることで解除できます。<br>style=""内にクラスを書くことでスタイルを適応できます。
+      figure.scrollIn.-up
+        +imgPc("noimage.jpg", "仮画像", [800,600], lazy="no-lazy", style="rounded-[8rem]")
+        figcaption(class="leading-[1.8]") <span class="font-bold">レスポンシブ対応しない画像用のmixinです。</span><br>サイズはPC幅・高さの順で配列に格納してください。<br>デフォルトで遅延読み込みが入っていますがlazy="no-lazy"にすることで解除できます。<br>style=""内にクラスを書くことでスタイルを適応できます。
 
 <!--/トップページ -->
