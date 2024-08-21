@@ -2,6 +2,15 @@
 @use "sass:math";
 
 /// -----------------フェードインアニメーション//
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 // 移動距離
 $range: 5rem;
