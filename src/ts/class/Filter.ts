@@ -10,13 +10,16 @@ export class Filter extends LitElement {
   @property()
   visible?: number; // 表示件数
   @property()
-  or = "false";
-  // 選択されたキーワードを保存する配列
-  private _filterCat: string[] = [];
+  type: "checkbox" | "radio" = "checkbox"; // ラジオボタン or チェクボックス
+  @property()
+  search: "AND" | "OR" = "AND"; // AND検索 or OR検索
+  private _filterCat: string[] = []; // 選択されたキーワードを保存する配列
   private SHOW_CLASS_NAME = "-visible"; // 表示用クラス
   private ALL_CARD_LIST = this.querySelectorAll(".c_filter_item");
   private MORE_BTN = this.querySelector(".c_filter_more"); // もっと見るボタン
   private targetElements: Element[] = []; // slotをLigth DOMに格納
+  private _maxCount: number = 0;
+  // private _moreShowNum: number = this.visible ? this.visible : 0;
 
   // DOM描画
   override connectedCallback() {
@@ -50,13 +53,13 @@ export class Filter extends LitElement {
   override render() {
     return html`
     <div class="c_filter">
-      <ul class="c_filter_list grid">
+      <ul class="c_filter_list grid grid-cols-5 mb-[1.6rem] gap-[0.8rem]">
         ${
           // 全件表示が必要な場合描画
           this.all
             ? html`
           <li>
-            <input type=${this.or === "true" ? "radio" : "checkbox"} @click=${this._handleClick} name="filter" value=${this.all} id="cat0" />
+            <input type=${this.type} @click=${this._handleClick} name="filter" value=${this.all} id="cat0" />
             <label for="cat0">${this.all}</label>
           </li>
         `
@@ -68,7 +71,7 @@ export class Filter extends LitElement {
           this.category.map(
             (cat: string, i: number) => html`
             <li>
-              <input type=${this.or === "true" ? "radio" : "checkbox"} @click=${this._handleClick} name="filter" value=${cat} id="cat${i + 1}" />
+              <input type=${this.type} @click=${this._handleClick} name="filter" value=${cat} id="cat${i + 1}" />
               <label for="cat${i + 1}">${cat}</label>
             </li>
           `
@@ -94,14 +97,7 @@ export class Filter extends LitElement {
       return;
     }
     if (cateStr === this.all) {
-      // 選択したカテゴリーがすべての場合の他のチェックボックスを外す
-      const checkbox = this.querySelectorAll("input");
-      checkbox.forEach((input, i) => {
-        if (i !== 0) {
-          input.checked = false;
-        }
-      });
-      this._filterCat = [];
+      this._setCatAll();
     } else {
       // 全件表示のチェックボックスを外す
       const checkAll = this.querySelector("#cat0") as HTMLInputElement;
@@ -110,36 +106,43 @@ export class Filter extends LitElement {
       }
       // 選択中のvalueを配列に格納
       if (target.checked) {
-        // if (this.or === "true") {
-        //   this._filterCat = [];
-        // }
+        // ラジオボタンの時は一度配列を空にする
+        if (this.type === "radio") {
+          this._filterCat = [];
+        }
         this._filterCat.push(keyword);
       } else {
         // 選択していない値を配列から除去
         this._filterCat = this._filterCat.filter((k) => k !== keyword);
       }
-      // チェックが一件もない場合、全件表示にする
-      if (this._filterCat.length === 0) {
-        this._setCatAll();
-      }
+      // フィルタリングを実行
+      this._filterElements();
     }
-    console.log(this._filterCat);
-    // フィルタリングを実行
-    this._filterElements();
+    // チェックが一件もない場合、全件表示にする
+    if (this._filterCat.length === 0) {
+      this._setCatAll();
+    }
   }
   // フィルタリング
-  _filterElements() {
+  _filterElements(all?: boolean) {
     let firstShowNum = this.visible ? this.visible : this.ALL_CARD_LIST.length; // 初期表示件数
     let showCountNum: number = 0; // 現在表示している件数※初期は0件
     let matchedCards: Element[] = []; // 一致した要素の配列
+    this._maxCount = 0;
     this.ALL_CARD_LIST.forEach((card) => {
       // 表示中のデータを一旦非表示
       card.classList.remove(this.SHOW_CLASS_NAME);
-      const cardText = card.textContent?.toLowerCase(); // 要素のカテゴリーを小文字で格納
-      const isMatch = this._filterCat.every((keyword) => cardText?.includes(keyword.toLowerCase())); // 現在選択中のカテゴリーと一致した場合trueを返す
-      // 一致するデータを配列に格納
-      if (isMatch) {
+      if (all) {
         matchedCards.push(card);
+      } else {
+        const cardText = card.textContent?.toLowerCase(); // 要素のカテゴリーを小文字で格納
+
+        // 現在選択中のカテゴリーと一致した場合trueを返す
+        const isMatch = this.search === "OR" ? this._filterCat.some((keyword) => cardText?.includes(keyword.toLowerCase())) : this._filterCat.every((keyword) => cardText?.includes(keyword.toLowerCase()));
+        // 一致するデータを配列に格納
+        if (isMatch) {
+          matchedCards.push(card);
+        }
       }
     });
     // 選択したカテゴリーのデータを表示
@@ -149,14 +152,14 @@ export class Filter extends LitElement {
     }
 
     // moreボタン
-    if (this.MORE_BTN) {
+    if (this.MORE_BTN && this.visible) {
       this._setMoreBtn(showCountNum, matchedCards);
     }
   }
 
   //
   _setMoreBtn(showCountNum: number, matchedCards: any) {
-    let MORE_SHOW_NUM: number = this.visible ? this.visible : 0;
+    let _moreShowNum: number = this.visible ? this.visible : 0;
     // moreボタンの表示/非表示
     this._showMoreBtn(showCountNum, matchedCards.length);
     this.MORE_BTN?.addEventListener("click", () => {
@@ -164,8 +167,8 @@ export class Filter extends LitElement {
         // データがない場合は何もしない
         return;
       }
-      let maxCount = showCountNum + +MORE_SHOW_NUM; // 表示可能な最大件数
-      for (let i = showCountNum; i < maxCount && i < matchedCards.length; i++) {
+      this._maxCount = showCountNum + +_moreShowNum; // 表示可能な最大件数
+      for (let i = showCountNum; i < this._maxCount && i < matchedCards.length; i++) {
         matchedCards[i].classList.add(this.SHOW_CLASS_NAME);
         showCountNum++;
       }
@@ -176,8 +179,6 @@ export class Filter extends LitElement {
 
   // moreボタンの表示/非表示
   _showMoreBtn(showCountNum: number, matcheCardNum: number) {
-    console.log(showCountNum);
-    console.log(matcheCardNum);
     if (showCountNum < matcheCardNum) {
       // 表示させる
       this.MORE_BTN?.classList.add(this.SHOW_CLASS_NAME);
@@ -191,10 +192,17 @@ export class Filter extends LitElement {
   _setCatAll() {
     const checkAll = this.querySelector("#cat0") as HTMLInputElement;
     if (checkAll) {
+      // 選択したカテゴリーがすべての場合の他のチェックボックスを外す
+      const checkbox = this.querySelectorAll("input");
+      checkbox.forEach((input, i) => {
+        if (i !== 0) {
+          input.checked = false;
+        }
+      });
+      this._filterCat = [];
       // チェックをいれる
       checkAll.checked = true;
-      // カスタムイベントでクリックしたことにする
-      (<HTMLElement>checkAll).click();
+      this._filterElements(true);
     }
   }
 
