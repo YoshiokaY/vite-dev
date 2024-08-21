@@ -1,15 +1,20 @@
-<!--アコーディオンコンテンツ -->
+<!-- アコーディオン -->
 
-- const accordion = ["アコーディオン", "アコーディオン", "アコーディオン"];
+- let accordion = content["accordion"] ? content["accordion"] : [];
 
-section
+section(class="my-[3rem]")
   .contentInner
-    h2 アコーディオンコンテンツ
-    each val in accordion
-      details.c_pull.-open(open)
-        summary.c_pull_ttl
-          h3 アコーディオン
-        .c_pull_content(tabindex="1")
-          p あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+    h2.font-bold.text-h2.scrollIn.-up(class="mb-[2.4rem]") アコーディオンコンポーネント
+    p(class="mb-[1.6rem]") アクセシビリティを考慮したモーダルコンポーネントです。<br>details/summary要素を使うことでキーボード操作に対応しています。
+    .grid.grid-cols-1(class="gap-[1.6rem]")
+      each val in accordion
+        .scrollIn.-up.-each
+          //- open属性と.-openを付与することで初期を展開状態にできます
+          details.c_pull(class=val.open == true ? "-open" : "", open=val.open == true ? "open" : null)
+            summary.c_pull_ttl
+              h3.text-xl.font-semibold(class="pb-[1.6rem]") !{ val.ttl }
+            //- JSで開閉時の高さを取得しているので、.c_pull_content内は正確な高さが取得できない要素(marginやlazy、absolute等)は入れないようにしてください。
+            .c_pull_content(tabindex="0")
+              p !{ val.txt }
 
-<!--/キービジュアルコンテンツ -->
+<!-- /アコーディオン -->

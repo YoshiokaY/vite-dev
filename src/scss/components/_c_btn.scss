@@ -14,10 +14,10 @@
   padding: 1em;
   overflow: hidden;
   font-weight: bold;
-  color: var(--color-white);
-  border: 0.15rem solid var(--color-prime);
-  border-radius: var(--radius-base);
-  transition: color var(--transition-base);
+  color: $colorBtnTxt;
+  text-decoration: none;
+  background-color: $colorBtn;
+  border: 0.15rem solid $colorPrime;
 
   &::before,
   &::after {

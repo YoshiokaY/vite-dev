@@ -3,12 +3,11 @@
 // コンテナ
 .contentInner {
   width: 100%;
-  max-width: rem($containerSize);
-  padding: 0;
+  max-width: rem($containerSize + $containerPadding);
+  padding: 0 spSize($containerPadding);
   margin: auto;
-  container: content / inline-size;
-  @include mq(sp, $containerSize) {
-    padding: 0 1.6rem;
+  @include mq() {
+    padding: 0 rem($containerPadding);
   }
   @include mq(sp) {
     padding: 0 spSize(16);
@@ -18,13 +17,13 @@
 // PC/SP出しわけ
 .pcOnly {
   @include mq(sp) {
-    display: none;
+    display: none !important;
   }
 }
 
 .spOnly {
   @include mq() {
-    display: none;
+    display: none !important;
   }
 }
 
