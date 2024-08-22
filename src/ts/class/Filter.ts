@@ -4,34 +4,36 @@ import { property, customElement } from "lit/decorators.js";
 @customElement("filter-list")
 export class Filter extends LitElement {
   @property({ type: Array })
-  category = []; // カテゴリー
+  category = []; // フィルターカテゴリー
   @property()
-  all?: string; // すべて選択必要な場合
+  all?: string; // 全件表示ボタンが必要な場合
   @property()
-  visible?: number; // 表示件数
+  visible?: number; // moreボタンが必要な場合の一度に表示する件数
   @property()
   type: "checkbox" | "radio" = "checkbox"; // ラジオボタン or チェクボックス
   @property()
   search: "AND" | "OR" = "AND"; // AND検索 or OR検索
-  private _filterCat: string[] = []; // 選択されたキーワードを保存する配列
+
   private SHOW_CLASS_NAME = "-visible"; // 表示用クラス
   private ALL_CARD_LIST = this.querySelectorAll(".c_filter_item");
-  private MORE_BTN = this.querySelector(".c_filter_more"); // もっと見るボタン
-  private targetElements: Element[] = []; // slotをLigth DOMに格納
-  private _maxCount: number = 0;
-  // private _moreShowNum: number = this.visible ? this.visible : 0;
+  private _targetElements: Element[] = []; // slotをLigth DOMに格納
+  // フィルタリング用変数
+  private _filterCats: string[] = []; // 選択カテゴリーを保存する配列
+  private _matchedLists: Element[] = []; // 一致した要素の配列
+  private _maxCount: number = 0; // 最大表示件数
+  private _showCountNum: number = 0; // 現在の表示件数
 
   // DOM描画
   override connectedCallback() {
     super.connectedCallback();
-    this.targetElements = [...this.children];
+    this._targetElements = [...this.children];
   }
 
   // 初期描画
   override firstUpdated() {
     // slotがある場合Light DOMに挿入する
     const slots = Filter.findSlots(this.children);
-    for (const child of this.targetElements) {
+    for (const child of this._targetElements) {
       let targetSlot = null;
       if (child.hasAttribute("slot")) {
         const slotName = child.attributes.getNamedItem("slot")?.value;
@@ -44,8 +46,8 @@ export class Filter extends LitElement {
         targetSlot.append(child);
       }
     }
-    this.targetElements = [];
-    // すべて表示の選択肢がある場合、初期選択状態にする
+    this._targetElements = [];
+    // 初期は全件表示状態にする
     this._setCatAll();
   }
 
@@ -54,20 +56,12 @@ export class Filter extends LitElement {
     return html`
     <div class="c_filter">
       <ul class="c_filter_list grid grid-cols-5 mb-[1.6rem] gap-[0.8rem]">
+        <li class=${!this.all ? "txtHidden" : ""}>
+          <input type=${this.type} @click=${this._handleClick} name="filter" value="allCat" id="cat0" />
+          <label for="cat0">${this.all}</label>
+        </li>
         ${
-          // 全件表示が必要な場合描画
-          this.all
-            ? html`
-          <li>
-            <input type=${this.type} @click=${this._handleClick} name="filter" value=${this.all} id="cat0" />
-            <label for="cat0">${this.all}</label>
-          </li>
-        `
-            : html``
-        }
-
-        ${
-          // categoryの分だけフィルタリングボタンを描画
+          // categoryの分だけボタンを描画
           this.category.map(
             (cat: string, i: number) => html`
             <li>
@@ -79,13 +73,20 @@ export class Filter extends LitElement {
         }
       </ul>
       <slot name="content"></slot>
-      <slot name="more"></slot>
+      ${
+        // visibleオプションが設定されている場合にmoreボタン描画
+        this.visible
+          ? html`
+          <button class="c_filter_more" @click=${this._handleMoreButtonClick}>もっと見る</button>
+        `
+          : html``
+      }
     </div>
     `;
   }
 
   // -----------------------------------------
-  // ボタンクリック時のイベントハンドラ
+  // カテゴリー選択時のイベントハンドラ
   // -----------------------------------------
   _handleClick(e: Event) {
     let target = e.target as HTMLInputElement;
@@ -96,7 +97,7 @@ export class Filter extends LitElement {
       // データがない場合は何もしない
       return;
     }
-    if (cateStr === this.all) {
+    if (cateStr === "allCat") {
       this._setCatAll();
     } else {
       // 全件表示のチェックボックスを外す
@@ -106,89 +107,105 @@ export class Filter extends LitElement {
       }
       // 選択中のvalueを配列に格納
       if (target.checked) {
-        // ラジオボタンの時は一度配列を空にする
+        // ラジオボタンの時は吐いた処理にするため一度配列を空にする
         if (this.type === "radio") {
-          this._filterCat = [];
+          this._filterCats = [];
         }
-        this._filterCat.push(keyword);
+        this._filterCats.push(keyword);
       } else {
         // 選択していない値を配列から除去
-        this._filterCat = this._filterCat.filter((k) => k !== keyword);
+        this._filterCats = this._filterCats.filter((k) => k !== keyword);
       }
       // フィルタリングを実行
       this._filterElements();
     }
     // チェックが一件もない場合、全件表示にする
-    if (this._filterCat.length === 0) {
+    if (this._filterCats.length === 0) {
       this._setCatAll();
     }
   }
   // フィルタリング
   _filterElements(all?: boolean) {
     let firstShowNum = this.visible ? this.visible : this.ALL_CARD_LIST.length; // 初期表示件数
-    let showCountNum: number = 0; // 現在表示している件数※初期は0件
-    let matchedCards: Element[] = []; // 一致した要素の配列
-    this._maxCount = 0;
+    this._matchedLists = []; // 配列リセット
+    this._showCountNum = 0; // 現在表示件数リセット
+    this._maxCount = 0; // 最大表示件数リセット
     this.ALL_CARD_LIST.forEach((card) => {
       // 表示中のデータを一旦非表示
       card.classList.remove(this.SHOW_CLASS_NAME);
       if (all) {
-        matchedCards.push(card);
+        this._matchedLists.push(card);
       } else {
-        const cardText = card.textContent?.toLowerCase(); // 要素のカテゴリーを小文字で格納
-
+        let cardTexts: string[] = [];
+        card.querySelectorAll(".c_filter_cat").forEach((cat) => {
+          if (cat.textContent) {
+            // 要素のカテゴリーを小文字で格納
+            cardTexts.push(cat.textContent.toLowerCase());
+          }
+        });
         // 現在選択中のカテゴリーと一致した場合trueを返す
-        const isMatch = this.search === "OR" ? this._filterCat.some((keyword) => cardText?.includes(keyword.toLowerCase())) : this._filterCat.every((keyword) => cardText?.includes(keyword.toLowerCase()));
+        // OR検索の場合は部分一致、AND検索の場合は完全一致
+        const isMatch = this.search === "OR" ? this._filterCats.some((keyword) => cardTexts.includes(keyword.toLowerCase())) : this._filterCats.every((keyword) => cardTexts.includes(keyword.toLowerCase()));
         // 一致するデータを配列に格納
         if (isMatch) {
-          matchedCards.push(card);
+          this._matchedLists.push(card);
         }
       }
     });
     // 選択したカテゴリーのデータを表示
-    for (let i = 0; i < firstShowNum && i < matchedCards.length; i++) {
-      matchedCards[i].classList.add(this.SHOW_CLASS_NAME);
-      showCountNum++;
+    // 現在表示件数を更新
+    for (let i = 0; i < firstShowNum && i < this._matchedLists.length; i++) {
+      this._matchedLists[i].classList.add(this.SHOW_CLASS_NAME);
+      this._showCountNum++;
     }
 
-    // moreボタン
-    if (this.MORE_BTN && this.visible) {
-      this._setMoreBtn(showCountNum, matchedCards);
-    }
-  }
+    console.log(this.querySelector(".c_filter_more"));
 
-  //
-  _setMoreBtn(showCountNum: number, matchedCards: any) {
-    let _moreShowNum: number = this.visible ? this.visible : 0;
     // moreボタンの表示/非表示
-    this._showMoreBtn(showCountNum, matchedCards.length);
-    this.MORE_BTN?.addEventListener("click", () => {
-      if (matchedCards.length < 1) {
-        // データがない場合は何もしない
-        return;
-      }
-      this._maxCount = showCountNum + +_moreShowNum; // 表示可能な最大件数
-      for (let i = showCountNum; i < this._maxCount && i < matchedCards.length; i++) {
-        matchedCards[i].classList.add(this.SHOW_CLASS_NAME);
-        showCountNum++;
-      }
-      // moreボタンの表示/非表示
-      this._showMoreBtn(showCountNum, matchedCards.length);
-    });
+    if (this.visible) {
+      this._showMoreBtn(this._showCountNum, this._matchedLists.length);
+    }
   }
 
-  // moreボタンの表示/非表示
-  _showMoreBtn(showCountNum: number, matcheCardNum: number) {
-    if (showCountNum < matcheCardNum) {
+  // -----------------------------------------
+  // moreクリック時のイベントハンドラ
+  // -----------------------------------------
+  _handleMoreButtonClick = () => {
+    if (this._matchedLists.length < 1) {
+      // データがない場合は何もしない
+      return;
+    }
+    // 表示可能な最大件数
+    if (this.visible) {
+      this._maxCount = this._showCountNum + +this.visible;
+    }
+    // 表示可能な最大件数
+    for (let i = this._showCountNum; i < this._maxCount && i < this._matchedLists.length; i++) {
+      this._matchedLists[i].classList.add(this.SHOW_CLASS_NAME);
+      this._showCountNum++;
+    }
+    // moreボタンの表示/非表示
+    this._showMoreBtn(this._showCountNum, this._matchedLists.length);
+  };
+
+  // -----------------------------------------
+  // moreボタンの表示関数
+  // -----------------------------------------
+  // 現在表示件数が一致件数よりも少ない場合はmoreボタンを表示
+  _showMoreBtn(showCountNum: number, matcheListNum: number) {
+    const MORE_BTN = this.querySelector(".c_filter_more");
+    if (showCountNum < matcheListNum) {
       // 表示させる
-      this.MORE_BTN?.classList.add(this.SHOW_CLASS_NAME);
+      MORE_BTN?.classList.add(this.SHOW_CLASS_NAME);
     } else {
       // 非表示
-      this.MORE_BTN?.classList.remove(this.SHOW_CLASS_NAME);
+      MORE_BTN?.classList.remove(this.SHOW_CLASS_NAME);
     }
   }
 
-  // 全件表示
+  // -----------------------------------------
+  // 全件表示の関数
+  // -----------------------------------------
   _setCatAll() {
     const checkAll = this.querySelector("#cat0") as HTMLInputElement;
     if (checkAll) {
@@ -199,7 +216,7 @@ export class Filter extends LitElement {
           input.checked = false;
         }
       });
-      this._filterCat = [];
+      this._filterCats = [];
       // チェックをいれる
       checkAll.checked = true;
       this._filterElements(true);
