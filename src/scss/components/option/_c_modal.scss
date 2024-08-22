@@ -61,7 +61,7 @@
     position: absolute;
     inset: 0;
     width: fit-content;
-    max-width: rem($containerSize);
+    max-width: rem($containerSize + $containerPadding);
     height: fit-content;
     max-height: 100vh;
     max-height: 100dvh;

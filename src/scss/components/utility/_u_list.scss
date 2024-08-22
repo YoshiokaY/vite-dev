@@ -166,32 +166,4 @@
   }
 }
 
-// -----------------フロートリスト//
-
-.-floatList {
-  width: 100%;
-  margin: 0 auto;
-  overflow: hidden;
-
-  > li {
-    float: left;
-    @include mq() {
-      float: none;
-    }
-  }
-
-  > li + li {
-    margin-left: 2em;
-    @include mq() {
-      margin-left: 0;
-    }
-  }
-
-  &::after {
-    display: block;
-    clear: both;
-    content: "";
-  }
-}
-
 /* /リスト  */

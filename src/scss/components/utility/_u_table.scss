@@ -82,7 +82,7 @@ table {
 
 ///-----------------SP時縦積み//
 
-@include mq() {
+@include mq(sp) {
   .-resTable {
     th,
     td {
@@ -94,7 +94,7 @@ table {
 }
 
 ///-----------------SP時スクロール//
-@include mq() {
+@include mq(sp) {
   .scrollTable {
     position: relative;
     width: 100%;
