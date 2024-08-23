@@ -12,12 +12,12 @@ header.l_header
       else
         .headerLogo(class="md:w-[clamp(11rem,56%,17.4rem)] md:ml-[min(8%,2.4rem)] w-[12.3rem]")
           a.block(href="/") ヘッダー
-      nav.headerNavi.flex.justify-end.relative(class="gap-[6.4rem]")
+      nav.headerNavi.flex.justify-end.relative(class="gap-[6.4rem] max-md:before:bg-prime")
         h2.txtHidden グローバルナビゲーション
-        button.ac_menu.aspect-square.absolute.m-auto(class="z-[999] h-[4rem] md:hidden inset-[0_1.5rem_0_auto]")
-          span.absolute.m-auto.inset-0.bg-txt.text-transparent(class="indent-[-999rem] w-[2.8rem] h-[0.2rem] after:bg-txt before:bg-txt after:h-[0.2rem] before:h-[0.2rem]") メニューを開く
+        button.ac_menu(class="h-[2.8rem]")
+          span.bg-txt(class="h-[0.2rem] after:bg-txt before:bg-txt after:h-[0.2rem] before:h-[0.2rem]") メニューを開く
         .naviWrapper
-          .overflow-y-auto.h-full(class="md:overflow-y-visible")
+          .h-full(class="max-md:overflow-y-auto")
             ul#navi.flex.flex-col.items-center(class="md:flex-row md:gap-[4.6rem] md:justify-end gap-[calc(9.6rem/2)]")
               +setNav(menus)
           button.closeBtn.txtHidden メニューを閉じる

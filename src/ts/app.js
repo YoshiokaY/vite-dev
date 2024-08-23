@@ -3,7 +3,7 @@ import { Modal } from "./class/Modal";
 import { Hamburger } from "./class/Hamburger";
 import { ScrollAnimation } from "./class/Animation";
 import { Tab } from "./class/Tab";
-import { getHeader } from "./utils/util";
+// import { getHeader } from "./utils/util";
 
 window.addEventListener("DOMContentLoaded", () => {
   new Modal(); // モーダル
@@ -14,5 +14,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
-  getHeader(); // 固定ヘッダー
+  // getHeader(); // 固定ヘッダー
 });
