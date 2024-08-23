@@ -20,7 +20,6 @@
       aspect-ratio: 1 / 1;
       margin: auto;
       content: "";
-      background-color: #000;
       border-radius: 50%;
       opacity: 0;
       transition:
@@ -33,8 +32,22 @@
     }
     // ハンバーガーボタン
     .ac_menu {
+      position: absolute;
+      inset: 0 0 0 auto;
+      z-index: 999;
+      aspect-ratio: 1/1;
+      margin: auto;
+      @include mq() {
+        display: none;
+      }
+
       > span {
-        transition: background-color 0.4s;
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        color: transparent;
+        text-indent: -999rem;
+        transition: background-color $easing;
 
         &::before,
         &::after {
@@ -44,7 +57,7 @@
           width: 100%;
           margin: auto;
           content: "";
-          transition: rotate 0.4s;
+          transition: rotate $easing;
         }
 
         &::after {
@@ -84,7 +97,6 @@
       margin: auto;
       visibility: hidden;
       opacity: 0;
-      transition: opacity 0.3s ease-out 0.4s;
       @include mq() {
         visibility: visible;
         opacity: 1;
@@ -92,6 +104,8 @@
 
       > li {
         a {
+          position: relative;
+          display: block;
           // 下線/矢印
           &::before {
             @include mq() {
@@ -131,8 +145,23 @@
         }
         /// -----------------サブメニュー//
         &.has-child {
+          @include mq(sp) {
+            overflow: hidden;
+          }
+
           .spAccordion {
+            position: absolute;
+            inset: 0 0 0 auto;
+            aspect-ratio: 1/1;
+            margin: auto;
+
             > span {
+              display: block;
+              width: 100%;
+              height: 100%;
+              color: transparent;
+              text-indent: -999rem;
+
               &::before,
               &::after {
                 position: absolute;
@@ -141,7 +170,7 @@
                 width: 100%;
                 margin: auto;
                 content: "";
-                transition: rotate 0.4s;
+                transition: rotate $easing;
               }
 
               &::before {
@@ -162,22 +191,21 @@
           > ul.subMenu {
             @include mq() {
               position: absolute;
-              inset: 0 0 auto;
+              inset: 0 0 auto -50%;
+              width: 200%;
               overflow: visible;
               visibility: hidden;
               opacity: 0;
               transition:
                 top 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
-                opacity 0.4s;
+                opacity $easing;
             }
             @include mq(sp) {
               position: relative;
               height: 0;
               max-height: none;
               visibility: hidden;
-              transition:
-                height 0.4s,
-                opacity 0.4s;
+              transition: height $easing opacity $easing;
 
               &.-open {
                 height: var(--subHeaderHeight);
@@ -233,14 +261,14 @@
       .ac_menu {
         span {
           background-color: transparent;
-          transition: background-color 0.4s;
+          transition: background-color $easing;
 
           &::before,
           &::after {
             top: 0;
             bottom: 0;
             background-color: $colorTxtReversal;
-            transition: rotate 0.4s;
+            transition: rotate $easing;
             rotate: 45deg;
           }
 

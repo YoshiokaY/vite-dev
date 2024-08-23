@@ -46,7 +46,7 @@
 
 // SVGマスク
 // ------------------------------------------------
-// extendに登録したsvgアイコンをまsk-imageで出力
+// extendに登録したsvgアイコンをmask-imageで出力
 // ------------------------------------------------
 @mixin mask($svg, $color, $size: contain) {
   @extend %#{$svg};

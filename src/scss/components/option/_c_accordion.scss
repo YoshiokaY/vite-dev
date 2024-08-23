@@ -6,7 +6,7 @@
 .c_pull {
   height: var(--pullHeightClosed, auto);
   overflow: hidden;
-  transition: height 0.25s;
+  transition: height $easing;
   // タイトル部分
   .c_pull_ttl {
     position: relative;
@@ -23,8 +23,7 @@
       margin: auto;
       content: "";
       background-color: $colorPrime;
-      transition: opacity 0.5s;
-      transition: rotate 0.4s;
+      transition: rotate $easing;
       transform-origin: center;
     }
 
