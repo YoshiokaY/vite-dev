@@ -24,8 +24,3 @@
 @function pcSize($pcSize: 1) {
   @return string.unquote("min(#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize, 10) + rem})");
 }
-
-// CSS変数をRGBA関数で使えるようにする
-@function getColor($color, $alpha: 1) {
-  @return rgba(var(#{$color}), $alpha);
-}

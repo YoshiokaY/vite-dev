@@ -1,6 +1,7 @@
 @use "sass:map";
 @use "sass:math";
 @use "sass:string";
+@use "sass:list";
 @use "variables" as *;
 
 // メディアクエリ
@@ -15,7 +16,6 @@
 @mixin mq($type: pc, $value1: $brakePoint) {
   // １つの値を使って範囲指定する場合
   $operator: ">=";
-  $widthType: "min";
   @if $type == sp {
     // PC用（spMaxサイズ < w）
     $operator: "<";
@@ -46,7 +46,7 @@
 
 // SVGマスク
 // ------------------------------------------------
-// extendに登録したsvgアイコンをまsk-imageで出力
+// extendに登録したsvgアイコンをmask-imageで出力
 // ------------------------------------------------
 @mixin mask($svg, $color, $size: contain) {
   @extend %#{$svg};
@@ -55,4 +55,27 @@
   mask-repeat: no-repeat;
   mask-position: center;
   mask-size: $size;
+}
+
+// フォントサイズ
+// ------------------------------------------------
+// PC/SPを一括で出力
+// 引数：PC,SP
+// ------------------------------------------------
+@mixin fontsize($pcSize: list.nth($base, 1), $spSize: $pcSize) {
+  $magnification: 1;
+  @if $spDesign < 750 {
+    // SPデザインが等倍だった場合最大サイズを2倍に変更
+    $magnification: 2;
+  } @else {
+    // そのままでOK
+  }
+  @if $spFontVw == "true" {
+    font-size: string.unquote("min(#{math.div(100, $spDesign) * $spSize}vw,#{math.div($spSize * $magnification, 10) + rem})");
+  } @else {
+    font-size: #{math.div($spSize, 10) + rem};
+  }
+  @include mq() {
+    font-size: #{math.div($pcSize, 10) + rem};
+  }
 }

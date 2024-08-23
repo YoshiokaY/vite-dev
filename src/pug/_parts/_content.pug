@@ -10,4 +10,10 @@ section(class="my-[3rem]")
         +imgPc("noimage.jpg", "仮画像", [800,600], lazy="no-lazy", style="rounded-[8rem]")
         figcaption(class="leading-[1.8]") <span class="font-bold">レスポンシブ対応しない画像用のmixinです。</span><br>サイズはPC幅・高さの順で配列に格納してください。<br>デフォルトで遅延読み込みが入っていますがlazy="no-lazy"にすることで解除できます。<br>style=""内にクラスを書くことでスタイルを適応できます。
 
+      a.textLink(href="#") リンクテキスト
+
+    p <span class="scrollIn">.scrollInを付与することで交差オブザーバーを使用したフェードインアニメーションがつきます。</span><br>また<span class="scrollIn -up">.-up</span> <span class="scrollIn -down">.-down</span> <span class="scrollIn -left">.-left</span> <span class="scrollIn -right">.-right</span> で方向を指定できます。<br><span class="scrollIn -each">.-eachを付けるとつけている兄弟要素でディレイさせられます。</span><br><span class="scrollIn -each">移動距離や所要時間はsrc/scss/components/_u_anima.scssで設定できます。</span>
+
+    p <span class="scroll">.scrollのみの場合は-activeがつくだけなので、オリジナルのアニメーションやjsの発火はこちらを使用してください。</span>
+
 <!--/トップページ -->
