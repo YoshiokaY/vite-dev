@@ -107,8 +107,8 @@ html {
 body {
   width: 100%;
   font: var(--font-setting-base);
+  font-feature-settings: var(--font-feature-settings);
   color: $colorTxt;
-  // font-feature-settings: "palt";
   letter-spacing: var(--font-tracking);
   word-wrap: break-word;
   overflow-wrap: break-word;
