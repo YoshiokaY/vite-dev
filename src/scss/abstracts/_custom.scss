@@ -8,6 +8,9 @@
   --size-container: #{$containerSize}; // コンテナサイズ
   --size-logo: #{$logoWidth}; // ロゴサイズ
 
+  // line-heightの上下の余白をマージンから消す(mariginに指定)
+  --leading-trim: calc((1em - 1lh) / 2);
+
   // フォント
   --font-family-base: #{$baseFont};
   --font-feature-settings: "pkna" on, "palt" on, "pwid" on;

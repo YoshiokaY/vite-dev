@@ -33,7 +33,7 @@
 // キーボードフォーカスとホバーを一括で設定する
 // ------------------------------------------------
 @mixin hover() {
-  @media (hover: hover) {
+  @media (any-hover: hover) {
     &:hover {
       @content;
     }
