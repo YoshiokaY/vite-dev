@@ -125,7 +125,6 @@ button {
   text-decoration: none;
 
   &:focus-visible {
-    border: 0;
     outline: solid 0.2rem $colorPrime;
     outline-offset: 0.3rem;
     box-shadow: none;
