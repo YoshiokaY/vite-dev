@@ -68,8 +68,9 @@ summary::-webkit-details-marker {
 }
 
 img {
-  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 100%;
 }
 
 figure,
@@ -79,14 +80,6 @@ picture {
   margin: 0;
   line-height: 1;
   text-align: center;
-
-  img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 100%;
-    vertical-align: middle;
-  }
 
   figcaption {
     margin: auto;
