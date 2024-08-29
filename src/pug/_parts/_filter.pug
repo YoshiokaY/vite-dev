@@ -1,19 +1,23 @@
 <!-- フィルター -->
 - let filter = content.filter ? content.filter : [];
 
-section#sec02.sec-tab
+section(class="py-[8rem]")
   .contentInner
-    h2(class="max-md:text-red") フィルタリングコンポーネント
-    p カテゴリーを選択して要素の絞り込みを行うWeb Componentsです。
-    ul.list-disc(class="pl-[1em]")
+    h2.text-h2.font-bold(class="mb-[1em]") フィルタリングコンポーネント
+    p(class="mb-[1em]") カテゴリーを選択して要素の絞り込みを行うWeb Componentsです。
+    ul.list-disc(class="pl-[1em] mb-[2em]")
       li category属性にフィルタリングするカテゴリーを配列で入れます。記述がない場合、子要素が表示されるだけになります。
-      li 子要素に実際にフィルタリングを行うコンテンツを入れます。その際、.c_filter_cat要素にそれぞれカテゴリーを入れてください。※フィルタリングのテキストと一致させる必要があります。
-      li visibleオプションに数値を指定することで表示件数を設定できます。※もっと見るボタンを押すことで設定件数ずつ表示。
-      li type属性を"radio"にすることで単一絞り込みになります。※デフォルトはcheckbox。
-      li search属性を"OR"にすることでOR検索になります。※デフォルトはAND検索。
-      li all属性で全件表示ボタンのテキストを変更できます。初期と一つも選択がない場合も全件表示になります。
+      li 実際にフィルタリングを行う要素はslotに入れることでどんな構造でも使い回しが可能です。<br>※ただし、.c_filter_catをつけた要素にフィルタリングのテキストと一致するカテゴリーを記述する必要があります。
+      li visibleオプションに数値を指定することで表示件数を設定できます。<br>※もっと見るボタンを押すことで設定件数ずつ表示。
+      li typeオプションを"radio"にすることで単一絞り込みになります。<br>※デフォルトはcheckbox。
+      li searchオプションを"OR"にすることでOR検索になります。<br>※デフォルトはAND検索。
+      li allオプションで全件表示ボタンのテキストを変更できます。一つも選択がない場合、初期状態も全件表示になります。
 
-    filter-list(category=filter.cats, all="すべて", search="OR")
+    h3.text-h3(class="mb-[1em]") フィルタリングコンポーネント
+    .bg-gray(class="mb-[5rem] p-[1em]")
+      code &lt;filter-list category="[&quot;札幌&quot;,&quot;東京&quot;,&quot;京都&quot;,&quot;男性&quot;,&quot;女性&quot;,&quot;EGM&quot;,&quot;EGK&quot;,&quot;EGN&quot;,&quot;EGH&quot;]" all="すべて" visible="3" type="checkbox" search="AND"><br>&lt;slot name="content"><br>&lt;!-- フィルタリングする要素を子要素として記述 --&gt;<br>&lt;/slot&gt;<br>&lt;/filter-list&gt;
+
+    filter-list(category=filter.cats, all="すべて", visible=3)
       .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
         each list, i in filter.list
           .border-prime.c_filter_item(class="border-[0.1rem]")
