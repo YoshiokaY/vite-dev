@@ -3,7 +3,7 @@
 // コンテナ
 .contentInner {
   width: 100%;
-  max-width: rem($containerSize + $containerPadding);
+  max-width: rem($containerSize + $containerPadding * 2);
   padding: 0 spSize($containerPadding);
   margin: auto;
   @include mq() {

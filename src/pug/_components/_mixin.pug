@@ -55,24 +55,30 @@ mixin setBread(levels)
             span(itemprop="name") #{ level[0] }
             meta(itemprop="position", content!=count)
 
-//- Gナビ
-mixin setNav(list,pc)
+//- ナビゲーションメニュー出力
+//- 機能：子メニューや外部リンクなどの条件分岐をループ処理して出力する
+//- 引数(string[])：commonのメニューを入れる
+//- <time datetime="YYYY-MM-DD"></time>
+mixin setNav(list)
   each menu in list
-    //- デザイン違うのでメニューごとにページ名のクラス付与
-    //- 子メニュー持ちに専用クラス付与
-    //- 現在ページにcurrentクラス付与
+    //- デザイン違う場合に備えてメニューごとにページ名のクラス付与
+    //- 子メニュー持ちにhas-childクラス付与
+    //- 現在ページに-currentクラス付与
     li.w-full.relative.block(class="md:flex md:items-center md:w-auto -" + menu.link.slice(1, -1) + (menu.child && menu.comment !== true ? " has-child" : "") + (slug == menu.link.slice(1, -1) ? " -current" : ""))
+      .relative
+        //- ブランクがtrueの時target="_blank"とrel="noopner"を付与
+        a.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopner" : null, class="md:text-prime md:py-[0.5em]") !{ menu.txt }
+        //- 子メニューがある場合SP用の開閉ボタンを描画
+        if menu.child
+          button.spAccordion.spOnly(class="h-[2rem]")
+            span.text-transparent(class="after:bg-reversal before:bg-reversal after:h-[0.2rem] before:h-[0.2rem]") 子メニューを表示します
+      //- 子メニューがある場合描画
       if menu.child
-        .relative
-          a.relative.block.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopner" : null, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
-          button.spAccordion.spOnly.absolute.aspect-square.m-auto(class="h-[2rem] inset-[0_0_0_auto]")
-            span.text-transparent.w-full.h-full.block(class="indent-[-999rem] after:bg-reversal before:bg-reversal after:h-[0.2rem] before:h-[0.2rem]") 子メニューを表示します
-        ul.subMenu.flex.flex-col(class="md:pt-[1.5rem] md:gap-y-[1.2rem] pt-[3rem] gap-y-[2.4rem] md:bg-black md:w-[200%]")
+        ul.subMenu.flex.flex-col(class="md:p-[1.6rem_0.4rem] gap-[0.8rem] md:bg-second")
           each child in menu.child
             li
-              a(href=child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopner" : null, class="md:text-reversal text-[#555555] md:text-[1.4rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em] leading-[1.6]") !{ child.txt }
-      else
-        a.relative.block.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopner" : null, class="md:text-txt md:text-[1.2rem] text-[2.8rem] tracking-[0.08em] md:py-[0.5em]") !{ menu.txt }
+              //- ブランクがtrueの時target="_blank"とrel="noopner"を付与
+              a.text-sm.text-reversal(href=child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopner" : null, class="md:text-prime md:pb-[0.8rem]") !{ child.txt }
 
 //- 日付出力
 //- 機能：datetime属性付きのtimeタグを出力する

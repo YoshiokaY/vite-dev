@@ -68,8 +68,9 @@ summary::-webkit-details-marker {
 }
 
 img {
-  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 100%;
 }
 
 figure,
@@ -79,14 +80,6 @@ picture {
   margin: 0;
   line-height: 1;
   text-align: center;
-
-  img {
-    width: auto;
-    max-width: 100%;
-    height: auto;
-    max-height: 100%;
-    vertical-align: middle;
-  }
 
   figcaption {
     margin: auto;
@@ -107,8 +100,9 @@ html {
 body {
   width: 100%;
   font: var(--font-setting-base);
-  // font-feature-settings: "palt";
+  font-feature-settings: var(--font-feature-settings);
   color: $colorTxt;
+  letter-spacing: var(--font-tracking);
   word-wrap: break-word;
   overflow-wrap: break-word;
   background-color: $colorBody;
@@ -129,10 +123,8 @@ a,
 button {
   color: inherit;
   text-decoration: none;
-  transition: 0.3s;
 
   &:focus-visible {
-    border: 0;
     outline: solid 0.2rem $colorPrime;
     outline-offset: 0.3rem;
     box-shadow: none;

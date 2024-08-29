@@ -1,6 +1,12 @@
 @use "../abstracts" as *;
 
-/* ボタン  */
+/* ボタン */
+
+// ボタン
+$colorBtn: $colorPrime; // 背景色
+$colorBtnTxt: $colorTxtReversal; // 文字色
+$colorBtn_hover: $colorBtnTxt; // ホバー時背景
+$colorBtnTxt_hover: $colorBtn; // ホバー時文字色
 
 .c_btn {
   position: relative;

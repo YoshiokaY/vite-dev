@@ -17,5 +17,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
-  getHeader(); // 固定ヘッダー
+  // getHeader(); // 固定ヘッダー
 });

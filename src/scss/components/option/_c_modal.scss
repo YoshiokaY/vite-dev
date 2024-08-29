@@ -7,10 +7,7 @@
 .c_modal {
   z-index: 1;
   width: 100vw;
-  max-width: unset;
-  height: 100vh;
   height: 100dvh;
-  max-height: unset;
   padding: 0;
   margin: auto;
   background: none;
@@ -25,14 +22,13 @@
     content: "";
     background-color: rgba(#000, 0.75);
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity $easing;
   }
 
   // 閉じるボタン
   &_close {
     position: absolute;
-    top: -4.5rem;
-    right: 0;
+    inset: -4.5rem 0 auto auto;
     z-index: 999;
     width: 4rem;
     height: 4rem;
@@ -63,12 +59,11 @@
     width: fit-content;
     max-width: rem($containerSize + $containerPadding);
     height: fit-content;
-    max-height: 100vh;
     max-height: 100dvh;
     padding: 0;
     margin: auto;
     opacity: 0;
-    transition: opacity 0.4s;
+    transition: opacity $easing;
 
     &:has(iframe) {
       width: auto;
@@ -86,23 +81,13 @@
 
   &[open] {
     .c_modal_content {
-      animation: modalFade 1s ease 0s 1 forwards;
+      animation: fade 1s ease 0s 1 forwards;
     }
 
     &::backdrop {
       opacity: 1;
-      transition: opacity 0.4s;
+      transition: opacity $easing;
     }
-  }
-}
-
-@keyframes modalFade {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
   }
 }
 
