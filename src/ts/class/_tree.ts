@@ -26,25 +26,17 @@
 //       // カメラを作成
 //       const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 
-//       // DirectionalLight: 並行に照らすライト
-//       // 第一引数：色、第二引数:強度
-//       const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
-//       // ライトをあてる方向を指定できる
-//       // x,y,z軸をそれぞれ設定し、そこから原点(0,0,0)に向かってライトが照らされる
-//       directionalLight.position.set(0, 10, 10);
-//       // 原点(0,0,0)に向かって照らすのではなくズラしたいときはtargetを使う
-//       directionalLight.target.position.set(5, 0, 0);
-
 //       // ジオメトリー作成
 //       const geometry = new THREE.BoxGeometry(20, 20, 20);
 
 //       // テクスチャー用の画像を非同期で読み込む
-//       const img = this.fetchData("/_assets/img/top/sample.png");
+//       let img = null;
+//       img = this.fetchData("/_assets/img/top/sample.png");
 //       // 画像が読み込めた場合の処理(Promise型で返ってくるのでthen()でResultの値を取り出す)
 //       img
 //         .then((img) => {
-//           // const material = new THREE.MeshBasicMaterial({ map: img });
-//           const material = new THREE.MeshStandardMaterial({ color: 0x3fff9d, roughness: 0 });
+//           const material = new THREE.MeshBasicMaterial({ map: img });
+//           // const material = new THREE.MeshLambertMaterial({ color: 0x3fff9d });
 
 //           // メッシュを作成
 //           const mesh = new THREE.Mesh(geometry, material);
@@ -98,7 +90,68 @@
 //           camera.updateProjectionMatrix();
 //         }
 //       }
+//       let mouse: THREE.Vector2;
+//       let raycaster: THREE.Raycaster;
+//       let clickFlg = false;
+//       setControll();
+
+//       function setControll() {
+//         //マウス座標管理用のベクトル
+//         mouse = new THREE.Vector2();
+
+//         //レイキャストを生成
+//         raycaster = new THREE.Raycaster();
+//         canvas?.addEventListener("mousemove", handleMouseMove);
+
+//         //マウスイベントを登録
+//         canvas?.addEventListener("click", handleClick);
+
+//         function handleMouseMove(event: { currentTarget: any; clientX: number; clientY: number }) {
+//           const element = event.currentTarget;
+
+//           //canvas上のマウスのXY座標
+//           const x = event.clientX - element.offsetLeft;
+//           const y = event.clientY - element.offsetTop;
+
+//           //canvasの幅と高さを取得
+//           const w = element.offsetWidth;
+//           const h = element.offsetHeight;
+
+//           //マウス座標を-1〜1の範囲に変換
+//           mouse.x = (x / w) * 2 - 1;
+//           mouse.y = -(y / h) * 2 + 1;
+//         }
+//         function handleClick(event: any) {
+//           console.log("クリックしたよ");
+//           console.log(clickFlg);
+//           if (clickFlg) {
+//             console.log("オブジェクトをクリック");
+//             camera.position.z = 10;
+//           }
+//         }
+//       }
+//       rendering();
+//       function rendering() {
+//         requestAnimationFrame(rendering);
+
+//         //マウス位置からまっすぐに伸びる光線ベクトルを生成
+//         raycaster.setFromCamera(mouse, camera);
+
+//         //光線と交差したオブジェクトを取得
+//         const intersects = raycaster.intersectObjects(scene.children, false);
+
+//         //光線と交差したオブジェクトがある場合
+//         if (intersects.length > 0) {
+//           clickFlg = true;
+//           //交差したオブジェクトを取得
+//           // const obj = intersects[0].object;
+//         } else {
+//           clickFlg = false;
+//         }
+//         renderer.render(scene, camera);
+//       }
 //     }
+//     //canvasを取得
 //   }
 //   async fetchData(url: string) {
 //     const texLoader = new THREE.TextureLoader();

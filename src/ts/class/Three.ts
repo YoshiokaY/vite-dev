@@ -1,23 +1,31 @@
 //** ThreeSlide */
-import test from "node:test";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+// glslファイルの読み込み
+import vertexShader from "./glsl/vertex.glsl?raw";
+import fragmentShader from "./glsl/fragment.glsl?raw";
+
+// gsapの読み込み
+import { gsap } from "gsap";
+
 export class Three {
   constructor() {
-    // サイズを指定
+    // canvasの設定
+    const target = document.getElementById("myCanvas");
+    const canvas = target?.querySelector("canvas");
     const width = 960;
     const height = 540;
 
-    // レンダラーを作成
-    const target = document.getElementById("myCanvas");
-    const canvas = target?.querySelector("canvas");
     if (canvas) {
+      // レンダラーを作成
       const renderer = new THREE.WebGLRenderer({
         canvas: canvas,
       });
+      // アスペクト比
       renderer.setPixelRatio(window.devicePixelRatio);
+      // canvasサイズ
       renderer.setSize(width, height);
-      // 背景色を変更する
+      // 背景色
       renderer.setClearColor(0xffffff);
 
       // シーンを作成
@@ -28,52 +36,75 @@ export class Three {
 
       // ジオメトリー作成
       const geometry = new THREE.BoxGeometry(20, 20, 20);
+      // const geometry = new THREE.PlaneGeometry(20, 20);
 
       // テクスチャー用の画像を非同期で読み込む
       let img = null;
+      let img2 = null;
+
       img = this.fetchData("/_assets/img/top/sample.png");
+      img2 = this.fetchData("/_assets/img/top/sample01.png");
       // 画像が読み込めた場合の処理(Promise型で返ってくるのでthen()でResultの値を取り出す)
       img
         .then((img) => {
-          const material = new THREE.MeshBasicMaterial({ map: img });
-          // const material = new THREE.MeshLambertMaterial({ color: 0x3fff9d });
+          img2.then((img2) => {
+            const material = new THREE.ShaderMaterial({
+              uniforms: {
+                uTexFirst: { value: img },
+                uTexSecond: { value: img2 },
+                uProgress: { value: 0 },
+                uNoiseScale: { value: new THREE.Vector2(2, 2) },
+              },
+              vertexShader,
+              fragmentShader,
+            });
+            // const material = new THREE.MeshBasicMaterial({ map: img });
+            // const material = new THREE.MeshLambertMaterial({ color: 0x3fff9d });
 
-          // メッシュを作成
-          const mesh = new THREE.Mesh(geometry, material);
-          // 3D空間にメッシュを追加
-          scene.add(mesh);
+            // メッシュを作成
+            const mesh = new THREE.Mesh(geometry, material);
 
-          // カメラ、キャンバスのDOMエレメント
-          const control = new OrbitControls(camera, renderer.domElement);
-          // 3. もし慣性が必要ならenableDamping、もしくはautoRotateをtrueにする
-          control.enableDamping = true;
-          control.autoRotate = true;
+            // 3D空間にメッシュを追加
+            scene.add(mesh);
 
-          camera.position.z = 50;
+            // マウスコントロール
+            const control = new OrbitControls(camera, renderer.domElement);
+            // もし慣性が必要ならenableDamping、もしくはautoRotateをtrueにする
+            control.enableDamping = true;
+            control.autoRotate = true;
 
-          function animate() {
-            // 4. enableDampingをtrueにした場合は、updateする
-            control.update();
-            requestAnimationFrame(animate);
-            mesh.rotation.x = mesh.rotation.x + 0.01;
-            mesh.rotation.y += 0.01;
+            // サイズ感
+            camera.position.z = 50;
 
-            renderer.render(scene, camera);
-          }
-          animate();
+            // アニメーション
+            function animate() {
+              // enableDampingをtrueにした場合は、updateする
+              control.update();
+              requestAnimationFrame(animate);
+              mesh.rotation.x = mesh.rotation.x + 0.01;
+              mesh.rotation.y += 0.01;
+
+              renderer.render(scene, camera);
+            }
+            animate();
+
+            // クリックイベントでアニメーション発火
+            canvas.addEventListener("click", () => {
+              // gsapを使用してGLSLのシェーダーファイルを利用した画像の切り替えを行う。
+              gsap.to(material.uniforms.uProgress, {
+                value: !Boolean(material.uniforms.uProgress.value),
+                duration: 1.0,
+                ease: "Power2.inOut",
+              });
+            });
+          });
         })
         .catch((error) => {
           console.log(error);
           return;
         });
-      // mapを使ってtextureを設定
 
-      // 初期化のために実行
-
-      onResize();
-      // リサイズイベント発生時に実行
-      window.addEventListener("resize", onResize);
-
+      // canvasをレスポンシブ対応させる
       function onResize() {
         if (target) {
           // サイズを取得
@@ -81,7 +112,6 @@ export class Three {
           const height = target.clientHeight;
 
           // レンダラーのサイズを調整する
-
           renderer.setPixelRatio(window.devicePixelRatio);
           renderer.setSize(width, height);
 
@@ -90,10 +120,15 @@ export class Three {
           camera.updateProjectionMatrix();
         }
       }
+      // ウィンドウ初期化のために実行
+      onResize();
+      // リサイズイベント発生時に実行
+      window.addEventListener("resize", onResize);
+
+      // オブジェクトのクリックイベントを取得する関数
       let mouse: THREE.Vector2;
       let raycaster: THREE.Raycaster;
       let clickFlg = false;
-      setControll();
 
       function setControll() {
         //マウス座標管理用のベクトル
@@ -101,11 +136,9 @@ export class Three {
 
         //レイキャストを生成
         raycaster = new THREE.Raycaster();
+
+        // マウスの座標取得
         canvas?.addEventListener("mousemove", handleMouseMove);
-
-        //マウスイベントを登録
-        canvas?.addEventListener("click", handleClick);
-
         function handleMouseMove(event: { currentTarget: any; clientX: number; clientY: number }) {
           const element = event.currentTarget;
 
@@ -121,6 +154,9 @@ export class Three {
           mouse.x = (x / w) * 2 - 1;
           mouse.y = -(y / h) * 2 + 1;
         }
+
+        // クリックイベント
+        canvas?.addEventListener("click", handleClick);
         function handleClick(event: any) {
           console.log("クリックしたよ");
           console.log(clickFlg);
@@ -130,7 +166,9 @@ export class Three {
           }
         }
       }
-      rendering();
+      setControll();
+
+      // ポインタの先に光源を設定し、オブジェクトと交差したらtrueを返す関数
       function rendering() {
         requestAnimationFrame(rendering);
 
@@ -150,9 +188,11 @@ export class Three {
         }
         renderer.render(scene, camera);
       }
+      rendering();
     }
-    //canvasを取得
   }
+
+  // 非同期でテクスチャ用の画像を読み込む
   async fetchData(url: string) {
     const texLoader = new THREE.TextureLoader();
     try {
