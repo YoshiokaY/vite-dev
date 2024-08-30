@@ -42,6 +42,7 @@ export class Three {
       let img = null;
       let img2 = null;
 
+      // テクスチャ用画像を非同期で読み込む
       img = this.fetchData("/_assets/img/top/sample.png");
       img2 = this.fetchData("/_assets/img/top/sample01.png");
       // 画像が読み込めた場合の処理(Promise型で返ってくるのでthen()でResultの値を取り出す)
@@ -89,106 +90,109 @@ export class Three {
             animate();
 
             // クリックイベントでアニメーション発火
-            canvas.addEventListener("click", () => {
-              // gsapを使用してGLSLのシェーダーファイルを利用した画像の切り替えを行う。
-              gsap.to(material.uniforms.uProgress, {
-                value: !Boolean(material.uniforms.uProgress.value),
-                duration: 1.0,
-                ease: "Power2.inOut",
-              });
-            });
+            // canvas.addEventListener("click", () => {
+            //   // gsapを使用してGLSLのシェーダーファイルを利用した画像の切り替えを行う。
+            //   gsap.to(material.uniforms.uProgress, {
+            //     value: !Boolean(material.uniforms.uProgress.value),
+            //     duration: 1.0,
+            //     ease: "Power2.inOut",
+            //   });
+            // });
+            // canvasをレスポンシブ対応させる
+            function onResize() {
+              if (target) {
+                // サイズを取得
+                const width = target.clientWidth;
+                const height = target.clientHeight;
+
+                // レンダラーのサイズを調整する
+                renderer.setPixelRatio(window.devicePixelRatio);
+                renderer.setSize(width, height);
+
+                // カメラのアスペクト比を正す
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+              }
+            }
+            // ウィンドウ初期化のために実行
+            onResize();
+            // リサイズイベント発生時に実行
+            window.addEventListener("resize", onResize);
+
+            // オブジェクトのクリックイベントを取得する関数
+            let mouse: THREE.Vector2;
+            let raycaster: THREE.Raycaster;
+            let clickFlg = false;
+
+            function setControll() {
+              //マウス座標管理用のベクトル
+              mouse = new THREE.Vector2();
+
+              //レイキャストを生成
+              raycaster = new THREE.Raycaster();
+
+              // マウスの座標取得
+              canvas?.addEventListener("mousemove", handleMouseMove);
+              function handleMouseMove(event: { currentTarget: any; clientX: number; clientY: number }) {
+                const element = event.currentTarget;
+
+                //canvas上のマウスのXY座標
+                const x = event.clientX - element.offsetLeft;
+                const y = event.clientY - element.offsetTop;
+
+                //canvasの幅と高さを取得
+                const w = element.offsetWidth;
+                const h = element.offsetHeight;
+
+                //マウス座標を-1〜1の範囲に変換
+                mouse.x = (x / w) * 2 - 1;
+                mouse.y = -(y / h) * 2 + 1;
+              }
+
+              // クリックイベント
+              canvas?.addEventListener("click", handleClick);
+              function handleClick(event: any) {
+                console.log("クリックしたよ");
+                console.log(clickFlg);
+                if (clickFlg) {
+                  console.log("オブジェクトをクリック");
+                  gsap.to(material.uniforms.uProgress, {
+                    value: !Boolean(material.uniforms.uProgress.value),
+                    duration: 1.0,
+                    ease: "Power2.inOut",
+                  });
+                }
+              }
+            }
+            setControll();
+
+            // ポインタの先に光源を設定し、オブジェクトと交差したらtrueを返す関数
+            function rendering() {
+              requestAnimationFrame(rendering);
+
+              //マウス位置からまっすぐに伸びる光線ベクトルを生成
+              raycaster.setFromCamera(mouse, camera);
+
+              //光線と交差したオブジェクトを取得
+              const intersects = raycaster.intersectObjects(scene.children, false);
+
+              //光線と交差したオブジェクトがある場合
+              if (intersects.length > 0) {
+                clickFlg = true;
+                //交差したオブジェクトを取得
+                // const obj = intersects[0].object;
+              } else {
+                clickFlg = false;
+              }
+              renderer.render(scene, camera);
+            }
+            rendering();
           });
         })
         .catch((error) => {
           console.log(error);
           return;
         });
-
-      // canvasをレスポンシブ対応させる
-      function onResize() {
-        if (target) {
-          // サイズを取得
-          const width = target.clientWidth;
-          const height = target.clientHeight;
-
-          // レンダラーのサイズを調整する
-          renderer.setPixelRatio(window.devicePixelRatio);
-          renderer.setSize(width, height);
-
-          // カメラのアスペクト比を正す
-          camera.aspect = width / height;
-          camera.updateProjectionMatrix();
-        }
-      }
-      // ウィンドウ初期化のために実行
-      onResize();
-      // リサイズイベント発生時に実行
-      window.addEventListener("resize", onResize);
-
-      // オブジェクトのクリックイベントを取得する関数
-      let mouse: THREE.Vector2;
-      let raycaster: THREE.Raycaster;
-      let clickFlg = false;
-
-      function setControll() {
-        //マウス座標管理用のベクトル
-        mouse = new THREE.Vector2();
-
-        //レイキャストを生成
-        raycaster = new THREE.Raycaster();
-
-        // マウスの座標取得
-        canvas?.addEventListener("mousemove", handleMouseMove);
-        function handleMouseMove(event: { currentTarget: any; clientX: number; clientY: number }) {
-          const element = event.currentTarget;
-
-          //canvas上のマウスのXY座標
-          const x = event.clientX - element.offsetLeft;
-          const y = event.clientY - element.offsetTop;
-
-          //canvasの幅と高さを取得
-          const w = element.offsetWidth;
-          const h = element.offsetHeight;
-
-          //マウス座標を-1〜1の範囲に変換
-          mouse.x = (x / w) * 2 - 1;
-          mouse.y = -(y / h) * 2 + 1;
-        }
-
-        // クリックイベント
-        canvas?.addEventListener("click", handleClick);
-        function handleClick(event: any) {
-          console.log("クリックしたよ");
-          console.log(clickFlg);
-          if (clickFlg) {
-            console.log("オブジェクトをクリック");
-            camera.position.z = 10;
-          }
-        }
-      }
-      setControll();
-
-      // ポインタの先に光源を設定し、オブジェクトと交差したらtrueを返す関数
-      function rendering() {
-        requestAnimationFrame(rendering);
-
-        //マウス位置からまっすぐに伸びる光線ベクトルを生成
-        raycaster.setFromCamera(mouse, camera);
-
-        //光線と交差したオブジェクトを取得
-        const intersects = raycaster.intersectObjects(scene.children, false);
-
-        //光線と交差したオブジェクトがある場合
-        if (intersects.length > 0) {
-          clickFlg = true;
-          //交差したオブジェクトを取得
-          // const obj = intersects[0].object;
-        } else {
-          clickFlg = false;
-        }
-        renderer.render(scene, camera);
-      }
-      rendering();
     }
   }
 
