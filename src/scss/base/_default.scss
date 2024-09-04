@@ -13,6 +13,18 @@
   }
 }
 
+// 視差効果を明示的に切っている場合のフォールバック
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 input::-moz-focus-inner {
   padding: 0;
   margin: 0;
@@ -99,6 +111,7 @@ html {
 
 body {
   width: 100%;
+  overflow: hidden;
   font: var(--font-setting-base);
   font-feature-settings: var(--font-feature-settings);
   color: $colorTxt;
@@ -116,7 +129,7 @@ body {
 }
 
 main {
-  min-height: 60vh;
+  min-height: 70vh;
 }
 
 a,
@@ -129,6 +142,10 @@ button {
     outline-offset: 0.3rem;
     box-shadow: none;
   }
+}
+
+[tabindex="-1"]:focus-visible {
+  outline: none !important;
 }
 
 @include mq() {
