@@ -30,13 +30,12 @@ export class ScrollAnimation {
 
     //監視対象にACTIVEがなければ付与する
     function callback(entries: IntersectionObserverEntry[]) {
-      entries.forEach((entry: IntersectionObserverEntry, i: number) => {
+      entries.forEach((entry: IntersectionObserverEntry) => {
         const target = entry.target;
         if (entry.isIntersecting && !target.classList.contains(ACTIVE)) {
-          const delay = i * 100;
           setTimeout(() => {
             target.classList.add(ACTIVE);
-          }, delay);
+          }, 5);
         }
       });
     }
