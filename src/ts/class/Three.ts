@@ -89,15 +89,6 @@ export class Three {
             }
             animate();
 
-            // クリックイベントでアニメーション発火
-            // canvas.addEventListener("click", () => {
-            //   // gsapを使用してGLSLのシェーダーファイルを利用した画像の切り替えを行う。
-            //   gsap.to(material.uniforms.uProgress, {
-            //     value: !Boolean(material.uniforms.uProgress.value),
-            //     duration: 1.0,
-            //     ease: "Power2.inOut",
-            //   });
-            // });
             // canvasをレスポンシブ対応させる
             function onResize() {
               if (target) {
