@@ -46,7 +46,7 @@ $xs: 12, 10;
   --font-leading: calc(27 / 15);
   --font-tracking: 0;
   --font-weight-normal: 400;
-  --font-feature-settings: "pkna" on, "palt" on, "pwid" on;
+  --font-feature-settings: normal; // "pkna" on, "palt" on, "pwid" on;
 
   // カラー（使用する際はtxtやprimeなどの形で記述。tailwindも同様）
   --color-txt: #463e2c; // テキストカラー
