@@ -32,13 +32,9 @@
     }
 
     &:focus-visible {
-      outline: 0;
+      outline: solid 0.3rem $colorPrime;
+      outline-offset: -0.3rem;
       box-shadow: none;
-
-      &::after {
-        outline: solid 0.3rem $colorPrime;
-        outline-offset: 0.2rem;
-      }
     }
   }
   // 展開時の状態
