@@ -41,8 +41,8 @@ export class Tab {
         tab.setAttribute("tabindex", "-1");
       });
       tabArr[index].removeAttribute("hidden");
-      tabArr[index].setAttribute("tabindex", "0");
-      // tabArr[index].focus();
+      // フォーカスしてもスクロールはしない
+      tabArr[index].focus({ preventScroll: true });
     }
 
     btns.forEach((btn) => {
