@@ -12,9 +12,9 @@ section(class="my-[3rem]")
           //- open属性と.-openを付与することで初期を展開状態にできます
           details.c_pull(class=val.open == true ? "-open" : "", open=val.open == true ? "open" : null)
             summary.c_pull_ttl
-              h3.text-xl.font-semibold(class="pb-[1.6rem]") !{ val.ttl }
+              h3.text-xl.font-semibold !{ val.ttl }
             //- JSで開閉時の高さを取得しているので、.c_pull_content内は正確な高さが取得できない要素(marginやlazy、absolute等)は入れないようにしてください。
-            .c_pull_content(tabindex="0")
+            .c_pull_content(tabindex="-1", class="pt-[1.6rem]")
               p !{ val.txt }
 
 <!-- /アコーディオン -->

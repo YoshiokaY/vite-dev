@@ -61,6 +61,7 @@ export class Accordion {
           // アニメーション完了後にopen属性を削除。（CSS側のアニメーション時間+少しだけ余裕をもたせている）
           setTimeout(() => {
             target.open = false;
+            content.focus({ preventScroll: true });
           }, SPEED + OFFSET_TIME);
         }
       });

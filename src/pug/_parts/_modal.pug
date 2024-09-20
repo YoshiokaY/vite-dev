@@ -18,7 +18,7 @@ section(class="my-[3rem]")
         //- ボタンで使用したaria-controlsと同じIDを入れることで対象を展開できます。
         dialog.c_modal(id="modalContent" + (i + 1))
           .c_modal_content
-            .modalBody(tabindex="1")
+            .modalBody(tabindex="-1")
               h3.modal_ttl !{ val.modalContent.ttl }
               figure
                 +imgPc(val.modalContent.img.src, val.modalContent.img.alt, val.modalContent.img.size)

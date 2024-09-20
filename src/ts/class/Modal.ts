@@ -29,7 +29,7 @@ export class Modal {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
             const youtube_uri = YOUTUBE.exec(modalHref);
             let dialog = "";
-            dialog += '<dialog class="c_modal"><div class="c_modal_content">';
+            dialog += '<dialog class="c_modal"><div class="c_modal_content" tabindex="-1">';
             //youtubeiframe挿入
             if (youtube_uri) {
               dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
@@ -48,7 +48,7 @@ export class Modal {
               );
             } else {
               //画像用モーダル
-              dialog += `<figure tabindex="-1"><img src=${modalHref} decoding="async"></figure>`;
+              dialog += `<figure><img src=${modalHref} decoding="async"></figure>`;
             }
             dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
             dialog += "</div></dialog>";
