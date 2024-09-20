@@ -19,6 +19,7 @@
   "devDependencies": {
     "@acab/reset.css": "^0.8.0",
     "@axe-core/puppeteer": "^4.10.0",
+    "@macropygia/vite-plugin-imagemin-cache": "^0.1.4",
     "@markuplint/pug-parser": "^4.6.5",
     "@prettier/plugin-pug": "^3.0.0",
     "@types/jquery": "^3.5.30",
@@ -45,7 +46,6 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.4",
     "vite": "^5.4.0",
-    "vite-plugin-imagemin": "^0.6.1",
     "vite-plugin-sass-glob-import": "^3.0.2",
     "vite-plugin-webp-and-path": "^0.1.4"
   }
