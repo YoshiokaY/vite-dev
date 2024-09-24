@@ -14,10 +14,9 @@ dist-ssr
 .cache
 .vite
 
-result.csv
-
-check/diff/*
-check/screenshot/*
+check/*
+!check/check.ts
+!check/check.config.ts
 
 
 # Editor directories and files
@@ -28,3 +27,7 @@ check/screenshot/*
 *.njsproj
 *.sln
 *.sw?
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
