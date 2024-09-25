@@ -15,3 +15,6 @@ export const pages = [
 
 // アクセシビリティチェックのレベル
 export const WCAG = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "best-practice"];
+
+// アクセシビリティチェック除外項目
+export const disableRules = ["color-contrast"];

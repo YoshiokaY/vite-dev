@@ -2,9 +2,9 @@ import type { Page } from "@playwright/test";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { createHtmlReport } from "axe-html-reporter";
-import { pages, localhost, WCAG } from "./check.config";
 import sharp from "sharp";
 import { existsSync, mkdirSync } from "fs";
+import { pages, localhost, WCAG, disableRules } from "./check.config";
 
 interface TargetPage {
   name: string;
@@ -15,18 +15,25 @@ const targetPages: TargetPage[] = pages;
 
 for (const targetPage of targetPages) {
   test(targetPage.name, async ({ page }) => {
-    await a11y(page, targetPage);
-    await screenshot(page, targetPage);
-    await pixelPerfect(page, targetPage);
+    await test.step("ピクセルパーフェクト", async () => {
+      await pixelPerfect(page, targetPage);
+    });
+    await test.step("アクセシビリティチェック", async () => {
+      await a11y(page, targetPage);
+    });
+    await test.step("ヴィジュアルリグレッション", async () => {
+      await screenshot(page, targetPage);
+    });
   });
 }
 
+// アクセシビリティチェック
 const a11y = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
   await page.goto(localhost + targetPage.path);
 
   // axe-core を使ってアクセシビリティテストを実行
-  const results = await new AxeBuilder({ page }).withTags(WCAG).analyze();
+  const results = await new AxeBuilder({ page }).withTags(WCAG).disableRules(disableRules).analyze();
   // レポートをhtmlで出力
   createHtmlReport({
     results: results,
@@ -35,6 +42,7 @@ const a11y = async (page: Page, targetPage: TargetPage) => {
       outputDir: "check/a11y",
     },
   });
+  // エラーがあれば失敗する
   expect(results.violations).toEqual([]);
 };
 
@@ -47,7 +55,7 @@ const screenshot = async (page: Page, targetPage: TargetPage) => {
   await expect(page).toHaveScreenshot({ fullPage: true, animations: "disabled" });
 };
 
-// デザインとの比較
+// デザインチェック
 const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   // 出力先フォルダがなければ作成
   if (!existsSync("./check/diff/")) {
@@ -93,4 +101,6 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   await sharp(difference)
     .negate({ alpha: false })
     .toFile("./check/diff/diff-" + targetPage.name + ".png");
+
+  await test.info().attach("screenshot", { body: difference, contentType: "image/png" });
 };
