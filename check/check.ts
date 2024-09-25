@@ -3,9 +3,8 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { createHtmlReport } from "axe-html-reporter";
 import { pages, localhost, WCAG } from "./check.config";
-import fs from "fs";
-import { PNG } from "pngjs";
-import pixelmatch from "pixelmatch";
+import sharp from "sharp";
+import { existsSync, mkdirSync } from "fs";
 
 interface TargetPage {
   name: string;
@@ -16,8 +15,8 @@ const targetPages: TargetPage[] = pages;
 
 for (const targetPage of targetPages) {
   test(targetPage.name, async ({ page }) => {
-    // await a11y(page, targetPage);
-    // await screenshot(page, targetPage);
+    await a11y(page, targetPage);
+    await screenshot(page, targetPage);
     await pixelPerfect(page, targetPage);
   });
 }
@@ -39,7 +38,7 @@ const a11y = async (page: Page, targetPage: TargetPage) => {
   expect(results.violations).toEqual([]);
 };
 
-// VRT
+// VRT（前回との比較）
 const screenshot = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
   await page.goto(localhost + targetPage.path);
@@ -48,37 +47,50 @@ const screenshot = async (page: Page, targetPage: TargetPage) => {
   await expect(page).toHaveScreenshot({ fullPage: true, animations: "disabled" });
 };
 
-const pixelPerfect = async (page: Page, targetPage: TargetPage, designImagePath?: string) => {
+// デザインとの比較
+const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
+  // 出力先フォルダがなければ作成
+  if (!existsSync("./check/diff/")) {
+    mkdirSync("./check/diff/");
+  }
+
   await page.goto(localhost + targetPage.path);
-  await page.screenshot({ path: "./check/screenshot/" + targetPage.name + ".png", fullPage: true, animations: "disabled" });
-  // expect(await page.screenshot({ path: "./check/screenshot/" + targetPage.name + ".png", fullPage: true, animations: "disabled" })).toMatchSnapshot("./check/design/" + targetPage.name + ".png");
+  const screenshot = await page.screenshot({ path: "./check/screenshot/" + targetPage.name + ".png", fullPage: true, animations: "disabled" });
+  const screenshotImage = sharp(screenshot);
 
-  // // スクリーンショットをPNG画像に変換
-  // const img1 = PNG.sync.read(screenshot);
-  // const img2 = PNG.sync.read(fs.readFileSync(designImagePath));
+  // デザイン画像参照
+  const designFilePath = "./check/design/" + targetPage.name + ".png";
+  const designImage = sharp(designFilePath);
+  const designImageMetaData = await designImage.metadata();
+  // デザイン画像のサイズ取得
+  const designImageSize = {
+    width: designImageMetaData.width,
+    height: designImageMetaData.height,
+  };
 
-  // // 画像のサイズを合わせる
-  // const { width, height } = img1;
-  // if (img2.width !== width || img2.height !== height) {
-  //   throw new Error('Image dimensions do not match');
-  // }
+  // スクリーンショットをデザイン画像のサイズにリサイズ
+  const resizedScreenshot = await screenshotImage
+    .resize({
+      width: designImageSize.width,
+      height: designImageSize.height,
+      position: "left top",
+      withoutEnlargement: true,
+    })
+    .toBuffer();
 
-  // // 差分を格納する配列
-  // const diff = new PNG({ width, height });
+  // デザイン画像とスクリーンショット画像を重ねて差の絶対値で差分を検出
+  const difference = await designImage
+    .composite([
+      {
+        input: resizedScreenshot,
+        blend: "difference",
+        gravity: "northwest",
+      },
+    ])
+    .toBuffer();
 
-  // // Pixelmatch を使用して画像を比較
-  // const numDiffPixels = pixelmatch(img1.data, img2.data, diff.data, width, height, { threshold: 0.1 });
-
-  // // 差分画像を生成 (Resemble.js を利用)
-  // const data = await resemble(screenshot).compareTo(designImagePath).ignoreColors().onComplete((data) => {
-  //   fs.writeFileSync('diff.png', data.getBuffer());
-  // });
-
-  // // 差分の割合を計算
-  // const diffPercent = (numDiffPixels / (width * height)) * 100;
-
-  // if (diffPercent > 5) {
-  //   console.error('Images are not similar');
-  //   // テストを失敗させる
-  // }
+  // ネガ反転してファイル出力
+  await sharp(difference)
+    .negate({ alpha: false })
+    .toFile("./check/diff/diff-" + targetPage.name + ".png");
 };
