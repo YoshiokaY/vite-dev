@@ -15,6 +15,9 @@ const targetPages: TargetPage[] = pages;
 
 for (const targetPage of targetPages) {
   test(targetPage.name, async ({ page }) => {
+    await test.step("コンソールエラーチェック", async () => {
+      await consoleCheck(page, targetPage);
+    });
     await test.step("ピクセルパーフェクト", async () => {
       await pixelPerfect(page, targetPage);
     });
@@ -22,7 +25,7 @@ for (const targetPage of targetPages) {
       await a11y(page, targetPage);
     });
     await test.step("ヴィジュアルリグレッション", async () => {
-      await screenshot(page, targetPage);
+      await vrtCheck(page, targetPage);
     });
   });
 }
@@ -30,7 +33,8 @@ for (const targetPage of targetPages) {
 // アクセシビリティチェック
 const a11y = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
-  await page.goto(localhost + targetPage.path);
+  await page.goto(localhost + targetPage.path, { waitUntil: "load" });
+  await page.waitForTimeout(2000);
 
   // axe-core を使ってアクセシビリティテストを実行
   const results = await new AxeBuilder({ page }).withTags(WCAG).disableRules(disableRules).analyze();
@@ -47,7 +51,7 @@ const a11y = async (page: Page, targetPage: TargetPage) => {
 };
 
 // VRT（前回との比較）
-const screenshot = async (page: Page, targetPage: TargetPage) => {
+const vrtCheck = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
   await page.goto(localhost + targetPage.path);
 
@@ -62,7 +66,8 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
     mkdirSync("./check/diff/");
   }
 
-  await page.goto(localhost + targetPage.path);
+  await page.goto(localhost + targetPage.path, { waitUntil: "load" });
+  await page.waitForTimeout(2000);
   const screenshot = await page.screenshot({ path: "./check/screenshot/" + targetPage.name + ".png", fullPage: true, animations: "disabled" });
   const screenshotImage = sharp(screenshot);
 
@@ -103,4 +108,27 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
     .toFile("./check/diff/diff-" + targetPage.name + ".png");
 
   await test.info().attach("screenshot", { body: difference, contentType: "image/png" });
+};
+
+// コンソールエラー
+const consoleCheck = async (page: Page, targetPage: TargetPage) => {
+  const messages: Array<string> = [];
+  const client = await page.context().newCDPSession(page);
+
+  await client.send("Runtime.enable");
+  client.on("Runtime.exceptionThrown", (payload) => {
+    messages.push(payload.exceptionDetails.exception?.description || "no description");
+  });
+
+  // test.configで設定したチェック対象のページを参照
+  await page.goto(localhost + targetPage.path, { waitUntil: "load" });
+  await page.waitForTimeout(2000);
+
+  //
+  messages.forEach((message, i) => {
+    test.info().annotations.push({ type: "console error" + i, description: message });
+  });
+
+  // エラーがあれば失敗する
+  expect(messages).toEqual([]);
 };
