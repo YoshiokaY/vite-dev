@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import { localhost } from "./check.config";
 
 export default defineConfig({
   testDir: "check",
@@ -14,7 +15,7 @@ export default defineConfig({
   },
   webServer: {
     command: "npm start",
-    url: "http://localhost:5173/",
+    url: localhost,
     reuseExistingServer: !process.env.CI,
     stdout: "pipe",
     stderr: "pipe",

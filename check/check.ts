@@ -4,12 +4,23 @@ import AxeBuilder from "@axe-core/playwright";
 import { createHtmlReport } from "axe-html-reporter";
 import sharp from "sharp";
 import { existsSync, mkdirSync } from "fs";
-import { pages, localhost, WCAG, disableRules } from "./check.config";
+import { pages, localhost, WCAG, disableRules } from "../check.config";
 
 interface TargetPage {
   name: string;
   path: string;
 }
+
+// デザイン画像が格納しているディレクトリ
+const DESIGN_DIR = "./check/design/";
+// スクリーンショットを格納するディレクトリ
+const SCREENSHOT_DIR = "./check/screenshot/";
+// 差分ファイルを出力する格納するディレクトリ
+const DIFF_DIR = "./check/diff/";
+// a11yファイルを出力する格納するディレクトリ
+const a11y_DIR = "./check/a11y/";
+// 画像の拡張子
+const unit = ".png";
 
 const targetPages: TargetPage[] = pages;
 
@@ -43,7 +54,7 @@ const a11y = async (page: Page, targetPage: TargetPage) => {
     results: results,
     options: {
       reportFileName: "a11y-report-" + targetPage.name + ".html",
-      outputDir: "check/a11y",
+      outputDir: a11y_DIR,
     },
   });
   // エラーがあれば失敗する
@@ -62,17 +73,17 @@ const vrtCheck = async (page: Page, targetPage: TargetPage) => {
 // デザインチェック
 const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   // 出力先フォルダがなければ作成
-  if (!existsSync("./check/diff/")) {
-    mkdirSync("./check/diff/");
+  if (!existsSync(DIFF_DIR)) {
+    mkdirSync(DIFF_DIR);
   }
 
   await page.goto(localhost + targetPage.path, { waitUntil: "load" });
   await page.waitForTimeout(2000);
-  const screenshot = await page.screenshot({ path: "./check/screenshot/" + targetPage.name + ".png", fullPage: true, animations: "disabled" });
+  const screenshot = await page.screenshot({ path: SCREENSHOT_DIR + targetPage.name + unit, fullPage: true, animations: "disabled" });
   const screenshotImage = sharp(screenshot);
 
   // デザイン画像参照
-  const designFilePath = "./check/design/" + targetPage.name + ".png";
+  const designFilePath = DESIGN_DIR + targetPage.name + unit;
   const designImage = sharp(designFilePath);
   const designImageMetaData = await designImage.metadata();
   // デザイン画像のサイズ取得
@@ -105,7 +116,7 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   // ネガ反転してファイル出力
   await sharp(difference)
     .negate({ alpha: false })
-    .toFile("./check/diff/diff-" + targetPage.name + ".png");
+    .toFile(DIFF_DIR + "diff-" + targetPage.name + unit);
 
   await test.info().attach("screenshot", { body: difference, contentType: "image/png" });
 };

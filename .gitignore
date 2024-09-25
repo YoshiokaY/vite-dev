@@ -16,7 +16,8 @@ dist-ssr
 
 check/*
 !check/check.ts
-!check/check.config.ts
+!check/design
+check/design/*
 
 
 # Editor directories and files
