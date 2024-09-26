@@ -1,25 +1,24 @@
-const prettier = require("eslint-config-prettier");
+const globals = require("globals");
+const pluginJs = require("@eslint/js");
+const eslintConfigPrettier = require("eslint-config-prettier");
 
 module.exports = [
+  pluginJs.configs.recommended,
+  eslintConfigPrettier,
   {
-    files: ["**/*.js"],
-    ignores: ["**/*.config.js"],
     languageOptions: {
-      ecmaVersion: 2021,
-      sourceType: "module",
       globals: {
-        browser: true,
-        node: true,
-        commonjs: true,
-        jquery: true,
+        ...globals.browser,
+        ...globals.node,
+        ...globals.commonjs,
+        ...globals.es2024,
+        ...globals.jquery,
       },
-      parserOptions: {
-        sourceType: "module",
-      },
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
     rules: {
       "no-console": "warn",
     },
   },
-  prettier,
 ];
