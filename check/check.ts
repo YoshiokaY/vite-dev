@@ -20,7 +20,9 @@ const DIFF_DIR = "./check/diff/";
 // a11yファイルを出力する格納するディレクトリ
 const a11y_DIR = "./check/a11y/";
 // 画像の拡張子
-const unit = ".png";
+const UNIT = ".png";
+// ページ読み込みの待機時間
+const TIME = 2000;
 
 const targetPages: TargetPage[] = pages;
 
@@ -45,7 +47,6 @@ for (const targetPage of targetPages) {
 const a11y = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
   await page.goto(localhost + targetPage.path, { waitUntil: "load" });
-  await page.waitForTimeout(2000);
 
   // axe-core を使ってアクセシビリティテストを実行
   const results = await new AxeBuilder({ page }).withTags(WCAG).disableRules(disableRules).analyze();
@@ -58,13 +59,15 @@ const a11y = async (page: Page, targetPage: TargetPage) => {
     },
   });
   // エラーがあれば失敗する
-  expect(results.violations).toEqual([]);
+  expect.soft(results.violations).toEqual([]);
 };
 
 // VRT（前回との比較）
 const vrtCheck = async (page: Page, targetPage: TargetPage) => {
   // test.configで設定したチェック対象のページを参照
-  await page.goto(localhost + targetPage.path);
+  await page.goto(localhost + targetPage.path, { waitUntil: "load" });
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(TIME); // スクロール完了までwait
 
   // 前回と今回のスクリーンショットの比較を行う
   await expect(page).toHaveScreenshot({ fullPage: true, animations: "disabled" });
@@ -77,36 +80,39 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
     mkdirSync(DIFF_DIR);
   }
 
+  // デザイン画像参照
+  const designFilePath = DESIGN_DIR + targetPage.name + UNIT;
+  const designImage = sharp(designFilePath);
+
   await page.goto(localhost + targetPage.path, { waitUntil: "load" });
-  await page.waitForTimeout(2000);
-  const screenshot = await page.screenshot({ path: SCREENSHOT_DIR + targetPage.name + unit, fullPage: true, animations: "disabled" });
+
+  // ページの一番下までスクロールする
+  await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(TIME);
+
+  // スクリーンショット撮影
+  const screenshot = await page.screenshot({ path: SCREENSHOT_DIR + targetPage.name + UNIT, fullPage: true, animations: "disabled" });
   const screenshotImage = sharp(screenshot);
 
-  // デザイン画像参照
-  const designFilePath = DESIGN_DIR + targetPage.name + unit;
-  const designImage = sharp(designFilePath);
-  const designImageMetaData = await designImage.metadata();
-  // デザイン画像のサイズ取得
-  const designImageSize = {
-    width: designImageMetaData.width,
-    height: designImageMetaData.height,
+  // スクリーンショットのサイズを取得
+  const ssImageMetaData = await screenshotImage.metadata();
+  const ssImageSize = {
+    width: ssImageMetaData.width,
+    height: ssImageMetaData.height,
   };
 
-  // スクリーンショットをデザイン画像のサイズにリサイズ
-  const resizedScreenshot = await screenshotImage
-    .resize({
-      width: designImageSize.width,
-      height: designImageSize.height,
-      position: "left top",
-      withoutEnlargement: true,
-    })
-    .toBuffer();
+  // スクリーンショットに合わせてデザイン画像をリサイズ
+  const resizedImage = await designImage.resize({
+    width: ssImageSize.width,
+    position: "left top",
+    withoutEnlargement: true,
+  });
 
   // デザイン画像とスクリーンショット画像を重ねて差の絶対値で差分を検出
-  const difference = await designImage
+  const difference = await resizedImage
     .composite([
       {
-        input: resizedScreenshot,
+        input: screenshot,
         blend: "difference",
         gravity: "northwest",
       },
@@ -116,7 +122,7 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   // ネガ反転してファイル出力
   await sharp(difference)
     .negate({ alpha: false })
-    .toFile(DIFF_DIR + "diff-" + targetPage.name + unit);
+    .toFile(DIFF_DIR + "diff-" + targetPage.name + UNIT);
 
   await test.info().attach("screenshot", { body: difference, contentType: "image/png" });
 };
@@ -133,13 +139,13 @@ const consoleCheck = async (page: Page, targetPage: TargetPage) => {
 
   // test.configで設定したチェック対象のページを参照
   await page.goto(localhost + targetPage.path, { waitUntil: "load" });
-  await page.waitForTimeout(2000);
+  await page.waitForTimeout(TIME);
 
-  //
+  // エラー内容
   messages.forEach((message, i) => {
     test.info().annotations.push({ type: "console error" + i, description: message });
   });
 
   // エラーがあれば失敗する
-  expect(messages).toEqual([]);
+  expect.soft(messages).toEqual([]);
 };

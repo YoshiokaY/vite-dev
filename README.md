@@ -48,9 +48,9 @@ npm run preview
 http://localhost:4173
 
 ### チェック
-#### 初回のみ
+#### 更新した場合
 ```sh
-npm run check:first
+npm run check:update
 ```
 #### 通常
 ```sh
@@ -67,23 +67,32 @@ npm run report
 1. `src/scss/abstracts/_variables.scss`を編集して案件ごとの色やフォントの設定を変更します。
 1. `src/pug/_base/_common.pug`を編集して、案件ごとの共通要素を入力します。
 1. `src/pug/index.pug`、`src/scss/style.scss`、`src/ts/app.js`またはその読み込みファイルを編集します。（以下ページごとに繰り返し）
+1. `check.config.ts`を編集して案件ごとのチェック設定を入力し、チェック実行します。（以下、エラーがなくなるまで繰り返し）
 
 
 ## 機能
 
-- [Pug](https://pugjs.org/api/getting-started.html)
-  参考 URL：https://zenn.dev/yend724/articles/20220408-tfq16buha8ctdzp7#pug%E3%82%92%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B
-- [Sass](https://sass-lang.com/) ([dart-sass](https://github.com/sass/dart-sass))
+- HTML
+  - [Pug](https://pugjs.org/api/getting-started.html)
+    参考 URL：https://zenn.dev/yend724/articles/20220408-tfq16buha8ctdzp7#pug%E3%82%92%E4%BD%BF%E3%81%88%E3%82%8B%E3%82%88%E3%81%86%E3%81%AB%E3%81%99%E3%82%8B
+- CSS
+  - [Sass](https://sass-lang.com/) ([dart-sass](https://github.com/sass/dart-sass))
   参考 URL：https://zenn.dev/sutobu000/articles/fef3959195cda5
   - [PostCSS](https://postcss.org/)
   - [TailwindCSS](https://tailwindcss.com/)
   - [Autoprefixer](https://github.com/postcss/autoprefixer)
-- [imagemin](https://github.com/imagemin/imagemin)
+- image
+  - [imagemin](https://github.com/imagemin/imagemin)
   - [webP](https://github.com/rei990/vite-plugin-webp-and-path)
-- [Stylelint](https://stylelint.io/)
-- [ESLint](https://eslint.org/)
-- [Markuplint](https://markuplint.dev/ja/)
-- [Prettier](https://prettier.io/)
+- lint
+  - [Stylelint](https://stylelint.io/)
+  - [ESLint](https://eslint.org/)
+  - [Markuplint](https://markuplint.dev/ja/)
+  - [Prettier](https://prettier.io/)
+- check
+  - [playwright](https://playwright.dev/)
+  - [Axe](https://www.deque.com/axe/)
+
 
 ## HTML - Pug
 
@@ -133,12 +142,12 @@ npm run report
 ## CSS - TailwindCSS / SASS
 
 - 頭に`_`が付いていない`scss`ファイルをエントリーポイントにビルドします。
-- 従来通りDart Sassで記述をサポートしています。
+- 従来通りDart Sassでの記述をサポートしています。
 - Tailwindをサポートしていますので、sassと並行で活用してください。
-- Sassの変数、及びTailwindの変数はCSSのカスタムプロパティで統一しています。
+- 色や文字サイズなどの変数は`src/scss/abstracts/_variables.scss`で設定した値をSassとTailwindの両方で使用できるようになっていますので案件ごとに設定してください。
 - glob記法をサポートしているので、各scssファイルの一括読み込みや除外が可能です。
 - リセットスタイルは従来のものからアクセシビリティが考慮された`@acab/reset.css`に変更しています。
-- アクセシビリティ担保のためサイズ指定には`rem`を使用しています。（`px`だとブラウザ設定で文字サイズを変更していても固定になる。また、文字だけ大きくなって表示が崩れるのを防ぐ）
+- アクセシビリティ担保のためサイズ指定には`rem`を使用しています。（`px`だとブラウザ設定で文字サイズを変更していても固定になってしまう。また、文字だけ大きくなって表示が崩れるため）
 - いちいち計算するのがめんどくさいのでデフォルトでは`1px＝0.1rem`です。必要に応じて変更してください。
 - SPの文字サイズはデフォルトで`rem`を使用していますがどの端末でも同じ見え方にしたい場合は`src/scss/abstracts/_variables.scss`の`$spFontVw`を`"true"`にしてください。
 - Tailwindとの相性が悪いのでPurge CSSは入っていません。不要な記述は適宜削除かコメントアウトしてください。
@@ -198,27 +207,28 @@ npm run report
 
 
 ## 画像圧縮 - imagemin
-
 - デフォルトで`*.jpg`, `*.jpeg`, `*.png`, `*.gif`, `*.svg` を圧縮します。不要の場合は`.env`の`VITE_BUILD_IMAGEMIN`を`false`に設定してください。
 - 圧縮率を変える場合は`vite.config.cjs` を編集してください。
-- デフォルトで`*.jpg`, `*.png`をwebPに変換し、ビルド後の拡張子も自動で置き換えます。不要の場合は`.env`の`VITE_BUILD_WEBP`を`false`に設定してください。
+
+### webP変換
+- `*.jpg`, `*.png`ファイルをwebPに変換し、ビルド後の拡張子も自動で置き換えます。不要の場合は`.env`の`VITE_BUILD_WEBP`を`false`に設定してください。
+※現状では外部ファイルなど絶対パスで記述しているパスも全て変換してしまうため、運用面でのフォローが必要です。
 
 
-## 静的アセット
-
-### publicフォルダ
+## publicフォルダ
 ogp画像などドメイン付きの絶対パスで指定しているものやdata属性に入れてjsで表示させているような画像はviteが使用していないものと判断してビルドされません。
-そのため`public`フォルダにディレクトリ構造ごと入れて参照するようにしてください。
+そのため`public`フォルダに本番と同じディレクトリ構造で格納してください。
+参照する際は`public`の部分は不要なのでその直下からのパスを記述してください。
 
-#### 画像フォルダのディレクトリ構造を保つ方法
+### 画像フォルダのディレクトリ構造を保つ方法
 デフォルトではimgフォルダ内の画像はディレクトリ構造を無視して一括で出力されます。
 
-##### 例
+#### 例
 `/src/img/tokyo/` `/src/img/osaka/`に格納されているファイルが全て`/htdocs/_assets/img/`直下に出力され、参照先も自動で書き換えられます。
 
 使用していないダミー画像や差し替え前の画像など不要なファイルが納品に紛れ込むリスクを避けることができますが、その反面ビルド後はimgフォルダ内ディレクトリを作ることができません。
-ビルド後も画像のディレクトリ構造を保ちたい場合は`/src/img/`ではなく、publicフォルダにビルド時のルートからのディレクトリ構造を保って（先の例の場合は`/_assets/img/tokyo/`　`/_assets/img/osaka/`）入れます。
-その際、src内のパスはpublicを参照するように（※ただし`public`の部分は不要なのでその直下からのパスを）記述してください。パスはビルド時に自動で置き換わります。
+ビルド後も画像のディレクトリ構造を保ちたい場合は`/src/img/`ではなく、publicフォルダに本番と同じディレクトリ構造で格納（先の例の場合は`/_assets/img/tokyo/`　`/_assets/img/osaka/`）します。
+その際、src内のパスはpublicを参照するように（※ただし`public`の部分は不要なのでその直下からのパスを）記述してください。
 
 
 ## ビルド
@@ -238,6 +248,32 @@ ogp画像などドメイン付きの絶対パスで指定しているものやda
 
 ## 構文チェック - Stylelint / ESLint / MarkupLint
 設定したルールに沿って警告・エラーをコンソールに出力します。
+
+
+## E2Eテスト - playwright / axe 
+playwrightを使用した自動テストを実行します。
+チェック項目の設定は`check.config.ts`で行います。
+
+### テスト項目
+- コンソールエラーチェック
+- アクセシビリティチェック
+- ピクセルパーフェクトチェック
+- ビジュアルリグレッションテスト
+
+### アクセシビリティチェック
+`check.config.ts`でチェックのレベルを設定できるほか、除外したいルールを設定できます。
+※JIS:X8341-3:2016はWCAG2.1相当になります
+
+### ピクセルパーフェクトチェック
+`check/design`にデザイン画像を格納してください。
+その際、各ファイル名は`check.config.ts`で設定したページ名と合わせてください。
+
+### ビジュアルリグレッションテスト
+前回と今回の画面差分を検出することで、意図しない表示変更がないか確認できます。
+差分があって然る場合は下記コマンドでクリーンショットを更新します。
+```sh
+npm run check:update
+```
 
 
 ## 注意点
@@ -263,10 +299,13 @@ ogp画像などドメイン付きの絶対パスで指定しているものやda
 
 ### 1.5.0 (2024-10)
 
-- `＠axe-core/playwright` によるアクセシビリティチェックを実装
+- `Axe` によるアクセシビリティチェックを実装
 - `playwright` によるコンソールエラーチェックを実装
-- `playwright` によるヴィジュアルリグレッションテストとピクセルパーフェクトチェックを実装
+- `playwright` によるVRTとピクセルパーフェクトチェックを実装
 - その他軽微なFB対応
 
+
 ## 実装予定
+- GitHubActionでチェックとリンターの自動実行
+- webp変換の除外ルール
 - WP開発用にゆうじさんのdocker環境マージ
