@@ -11,7 +11,7 @@ const htmlFiles = globule.find("src/**/*.pug", {
   ignore: ["src/**/_*.pug"],
 });
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const root = env.VITE_ROOT_PATH;
   const asset = env.VITE_ASSETS_PATH;

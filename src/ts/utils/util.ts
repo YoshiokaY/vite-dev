@@ -35,7 +35,7 @@ export const setScroll = () => {
       threshold: 0,
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (!showFlag) {
