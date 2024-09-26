@@ -1,11 +1,19 @@
 name: CI
-on:
-  push:
-    branches: [develop]
-  pull_request:
-    branches: [develop]
+on: [pull_request]
 jobs:
-  ci:
+  eslint:
+    name: eslint
     runs-on: ubuntu-latest
     steps:
-      - run: echo "こんにちは"
+      - uses: actions/checkout@v1
+      - name: npm install
+        run: npm install
+      - name: eslint review
+        uses: reviewdog/action-eslint@v1
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          eslint_flags: "./**/*.{vue,ts,js}"
+          fail_on_error: "true"
+      - name: eslint
+        run: npm run lint
