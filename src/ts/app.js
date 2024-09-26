@@ -16,6 +16,3 @@ window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
   // getHeader(); // 固定ヘッダー
 });
-
-const heder = document.getElementById("header");
-heder.innerHegiht;

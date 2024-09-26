@@ -10,7 +10,8 @@
     "check:update": "playwright test --update-snapshots",
     "check": "playwright test",
     "report": "playwright show-report check/report",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "markup": "markuplint -f JSON htdocs/**/**.html --fix --config .markuplintrc"
   },
   "browserslist": [
     "last 2 version",
