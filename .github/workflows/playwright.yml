@@ -28,5 +28,4 @@ jobs:
       - name: npm install
         run: npm install
       - name: Run Markuplint
-        run: |
-          ./markuplint-check.sh
+        run: sh ./markuplint-check.sh
