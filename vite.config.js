@@ -54,6 +54,13 @@ export default defineConfig(({ mode }) => {
         },
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
     plugins: [
       sassGlobImports(),
       vitePluginPug(minify === "false" ? false : true),
