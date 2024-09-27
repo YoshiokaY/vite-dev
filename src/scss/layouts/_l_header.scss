@@ -205,7 +205,9 @@
               height: 0;
               max-height: none;
               visibility: hidden;
-              transition: height $easing opacity $easing;
+              transition:
+                height $easing,
+                opacity $easing;
 
               &.-open {
                 height: var(--subHeaderHeight);
