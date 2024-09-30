@@ -27,15 +27,15 @@ export default defineConfig(({ mode }) => {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, root ? "htdocs/" + root : "htdocs"),
+      outDir: resolve(__dirname, relative === "true" ? "htdocs/" + root : "htdocs"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
       minify: minify === "true" ? "esbuild" : false,
       rollupOptions: {
         input: htmlFiles,
         output: {
-          entryFileNames: `${asset}/js/[name].js`,
-          chunkFileNames: `${asset}/js/[name].js`,
+          entryFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
+          chunkFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
           assetFileNames: (assetInfo) => {
             let extType = assetInfo.name.split(".")[1];
             //Webフォントファイルの振り分け

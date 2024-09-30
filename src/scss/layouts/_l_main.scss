@@ -1,2 +1,6 @@
 @use "../abstracts" as *;
 @use "sass:math";
+
+#main {
+  padding-top: var(--headerHeight);
+}

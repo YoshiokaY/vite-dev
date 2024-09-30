@@ -78,7 +78,7 @@ mixin setNav(list)
           each child in menu.child
             li
               //- ブランクがtrueの時target="_blank"とrel="noopener"を付与
-              a.text-sm.text-reversal(href=child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopener" : null, class="md:text-prime md:pb-[0.8rem]") !{ child.txt }
+              a.text-sm.text-reversal(href=child.anchor && slug !== "top" ? "/" + child.link : child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopener" : null, class="md:text-prime md:pb-[0.8rem]") !{ child.txt }
 
 //- 日付出力
 //- 機能：datetime属性付きのtimeタグを出力する
