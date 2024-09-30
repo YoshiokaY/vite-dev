@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 import vitePluginPug from "./plugins/vite-plugin-pug";
 import globule from "globule";
 import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
-import VitePluginWebpAndPath from "vite-plugin-webp-and-path";
+import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
 
 // pugを検索（_から始まるものは除外）
