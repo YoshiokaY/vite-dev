@@ -4,8 +4,8 @@
 * {
   box-sizing: border-box;
   font-size: 100%;
-  scroll-margin-top: var(--headerHeight);
-  scroll-behavior: smooth;
+  // scroll-margin-top: var(--headerHeight);
+  // scroll-behavior: smooth;
 
   &::before,
   &::after {
