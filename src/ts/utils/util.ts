@@ -16,16 +16,16 @@ export const getHeader = () => {
   }
 };
 
-// 固定ヘッダーやトップに戻るボタンなど、スクロールしたら何かする場合
+// トップに戻るボタンなど、スクロールしたら何かする場合
 export const setScroll = () => {
   const header = document.querySelector("header");
   const topBtn = document.querySelector("#toTop") as HTMLElement;
-  let showFlag: boolean = false;
   if (header) {
     // トリガー要素を挿入
     const scrollTrigger = document.createElement("div");
+    const headerHeight = header?.clientHeight;
     scrollTrigger.id = "scrollTrigger";
-    scrollTrigger.style.top = String(header.clientHeight / 2) + "px";
+    scrollTrigger.style.top = String(headerHeight) + "px";
     scrollTrigger.style.position = "absolute";
     header.parentNode?.insertBefore(scrollTrigger, header.nextSibling);
     // 交差オブザーバーの設定
@@ -37,23 +37,14 @@ export const setScroll = () => {
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (!showFlag) {
-            showFlag = true;
-            // ヘッダーを固定する
-            // header?.classList.remove("-fixed");
-            // トップに戻るボタンを表示する
-            if (topBtn) {
-              topBtn.style.bottom = "-200px";
-            }
+        if (!entry.isIntersecting) {
+          // トップに戻るボタンを表示する
+          if (topBtn) {
+            topBtn.style.bottom = "-200px";
           }
         } else {
-          if (!showFlag) {
-            showFlag = false;
-            // header?.classList.add("-fixed");
-            if (topBtn) {
-              topBtn.style.bottom = "200px";
-            }
+          if (topBtn) {
+            topBtn.style.bottom = "200px";
           }
         }
       });

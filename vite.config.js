@@ -3,7 +3,7 @@ import { defineConfig, loadEnv } from "vite";
 import vitePluginPug from "./plugins/vite-plugin-pug";
 import globule from "globule";
 import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
-import VitePluginWebpAndPath from "vite-plugin-webp-and-path";
+import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
 
 // pugを検索（_から始まるものは除外）
@@ -27,15 +27,15 @@ export default defineConfig(({ mode }) => {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, root ? "htdocs/" + root : "htdocs"),
+      outDir: resolve(__dirname, relative === "true" ? "htdocs/" + root : "htdocs"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
       minify: minify === "true" ? "esbuild" : false,
       rollupOptions: {
         input: htmlFiles,
         output: {
-          entryFileNames: `${asset}/js/[name].js`,
-          chunkFileNames: `${asset}/js/[name].js`,
+          entryFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
+          chunkFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
           assetFileNames: (assetInfo) => {
             let extType = assetInfo.name.split(".")[1];
             //Webフォントファイルの振り分け

@@ -67,7 +67,7 @@ mixin setNav(list)
     li.w-full.relative.block(class="md:flex md:items-center md:w-auto -" + menu.link.slice(1, -1) + (menu.child && menu.comment !== true ? " has-child" : "") + (slug == menu.link.slice(1, -1) ? " -current" : ""))
       .relative
         //- ブランクがtrueの時target="_blank"とrel="noopener"を付与
-        a.text-reversal.font-semibold(href=menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopener" : null, class="md:text-prime md:py-[0.5em]") !{ menu.txt }
+        a.text-reversal.font-semibold(href=menu.anchor === true && slug !== "top" ? "/" + menu.link : menu.link, target=menu.blank ? "_blank" : null, rel=menu.blank ? "noopener" : null, class="md:text-prime md:py-[0.5em]") !{ menu.txt }
         //- 子メニューがある場合SP用の開閉ボタンを描画
         if menu.child
           button.spAccordion.spOnly(class="h-[2rem]")
@@ -78,7 +78,7 @@ mixin setNav(list)
           each child in menu.child
             li
               //- ブランクがtrueの時target="_blank"とrel="noopener"を付与
-              a.text-sm.text-reversal(href=child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopener" : null, class="md:text-prime md:pb-[0.8rem]") !{ child.txt }
+              a.text-sm.text-reversal(href=child.anchor === true && slug !== "top" ? "/" + child.link : child.link, target=child.blank ? "_blank" : null, rel=child.blank ? "noopener" : null, class="md:text-prime md:pb-[0.8rem]") !{ child.txt }
 
 //- 日付出力
 //- 機能：datetime属性付きのtimeタグを出力する
