@@ -11,10 +11,13 @@ node_modules
 dist
 dist-ssr
 *.local
+.cache
+.vite
 
-result.csv
-
-check
+check/*
+!check/check.ts
+!check/design
+check/design/*
 
 
 # Editor directories and files
@@ -25,3 +28,7 @@ check
 *.njsproj
 *.sln
 *.sw?
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

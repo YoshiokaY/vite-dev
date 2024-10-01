@@ -3,9 +3,9 @@
 
 * {
   box-sizing: border-box;
-  scroll-margin-top: var(--headerHeight);
-  scroll-behavior: smooth;
   font-size: 100%;
+  // scroll-margin-top: var(--headerHeight);
+  // scroll-behavior: smooth;
 
   &::before,
   &::after {
@@ -146,6 +146,7 @@ button {
 
 [tabindex="-1"]:focus-visible {
   outline: none !important;
+  box-shadow: none;
 }
 
 @include mq() {

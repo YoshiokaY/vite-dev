@@ -54,13 +54,13 @@ export class Hamburger {
       const SPEED: number = 250;
 
       ac.forEach((btn) => {
-        btn?.addEventListener("click", (e) => {
+        btn?.addEventListener("click", () => {
           const subMenu = btn.closest("div")?.nextElementSibling as HTMLElement;
           if (!openFlg) {
             subMenu.classList.add("-open"); // クラスの追加
             btn.classList.add("-open");
 
-            let height = subMenu.offsetHeight; //高さ取得
+            const height = subMenu.offsetHeight; //高さ取得
             subMenu.style.setProperty(HEIGHT, "0"); //アニメーション開始用の0
 
             // open付与から少しだけ遅らせた方が動作が安定する

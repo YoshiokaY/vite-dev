@@ -205,7 +205,9 @@
               height: 0;
               max-height: none;
               visibility: hidden;
-              transition: height $easing opacity $easing;
+              transition:
+                height $easing,
+                opacity $easing;
 
               &.-open {
                 height: var(--subHeaderHeight);
@@ -296,6 +298,14 @@
     .headerLogo {
       filter: invert(1);
     }
+  }
+
+  &.-fixed {
+    position: fixed;
+    top: 0;
+    z-index: 5;
+    width: 100%;
+    background-color: $colorBody;
   }
 }
 

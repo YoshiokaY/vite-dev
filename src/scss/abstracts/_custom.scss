@@ -13,7 +13,6 @@
 
   // フォント
   --font-family-base: #{$baseFont};
-  --font-feature-settings: "pkna" on, "palt" on, "pwid" on;
   --font-setting-base: var(--font-weight-normal) var(--font-size-base) / var(--font-leading) var(--font-family-base);
   // SP時のフォントサイズにvwを使用
   @if $spFontVw == "true" {

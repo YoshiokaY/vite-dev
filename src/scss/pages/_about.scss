@@ -2,4 +2,30 @@
 
 /* アバウト */
 
+.bg {
+  background: url($imgPath + "top/noimage.jpg");
+}
+
+.text-box {
+  &-ttl {
+    margin-bottom: 0.5em;
+    font-size: $text-h3;
+    color: $colorPrime;
+  }
+
+  &-txt {
+    font-size: $text-lg;
+
+    &-span {
+      font-size: $text-xl;
+      color: $colorTxtReversal;
+      background-color: $colorPrime;
+    }
+
+    &-span--blue {
+      color: $colorThird;
+    }
+  }
+}
+
 /* /アバウト */

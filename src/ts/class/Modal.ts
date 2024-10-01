@@ -15,7 +15,7 @@ export class Modal {
 
     modalBtn.forEach((a) => {
       a.addEventListener("click", (e) => {
-        let event = e.currentTarget as HTMLElement;
+        const event = e.currentTarget as HTMLElement;
         //ボタンに紐づいたモーダルを開くためにaria-contorolからID取得
         let modalID: string | null = sanitize(event?.getAttribute("aria-controls") || "");
         let modal = document.getElementById(modalID) as HTMLDialogElement;
@@ -24,13 +24,13 @@ export class Modal {
           modal = document.getElementById(modalID) as HTMLDialogElement;
         } else {
           //画像・動画の場合
-          let modalHref = sanitize(event.getAttribute("data-src")); // アセットのアドレス
-          let modalAlt = sanitize(event.getAttribute("data-alt")); // alt属性
+          const modalHref = sanitize(event.getAttribute("data-src")); // アセットのアドレス
+          const modalAlt = sanitize(event.getAttribute("data-alt")); // alt属性
           if (!targetNext) {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
             const youtube_uri = YOUTUBE.exec(modalHref);
             let dialog = "";
-            dialog += '<dialog class="c_modal"><div class="c_modal_content">';
+            dialog += '<dialog class="c_modal"><div class="c_modal_content" tabindex="-1">';
             //youtubeiframe挿入
             if (youtube_uri) {
               dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
@@ -49,7 +49,7 @@ export class Modal {
               );
             } else {
               //画像用モーダル
-              dialog += `<figure tabindex="-1"><img src=${modalHref} decoding="async"></figure>`;
+              dialog += `<figure><img src=${modalHref} decoding="async" alt=${modalAlt}></figure>`;
             }
             dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
             dialog += "</div></div></dialog>";
@@ -78,7 +78,7 @@ export class Modal {
         });
 
         modal?.addEventListener("click", (e) => {
-          let event = e.target as HTMLElement;
+          const event = e.target as HTMLElement;
           if (event === modal) {
             closeModal(modal);
           }
@@ -89,20 +89,22 @@ export class Modal {
     function closeModal(modal: HTMLDialogElement) {
       modal.close("cancelled");
       //iframeだけ始末
-      modal.querySelector(".frameWrapper") && modal.remove();
+      if (modal.querySelector(".frameWrapper")) {
+        modal.remove();
+      }
     }
 
     //Youtube用
-    function setFrame(target: any) {
+    function setFrame(target: string) {
       return '<div class="frameWrapper"><iframe frameborder="0" allow="autoplay; fullscreen" src="' + target + '"/></div>';
     }
 
     function parseQueryParams(params: string) {
-      var pairs = decodeURI(params.split("#")[0]).split("&");
-      var obj = new Map();
-      var p;
+      const pairs = decodeURI(params.split("#")[0]).split("&");
+      const obj = new Map();
+      let p;
 
-      for (var i = 0, n = pairs.length; i < n; i++) {
+      for (let i = 0, n = pairs.length; i < n; i++) {
         if (!pairs[i]) {
           continue;
         }

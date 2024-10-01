@@ -2,8 +2,8 @@ import { resolve } from "path";
 import { defineConfig, loadEnv } from "vite";
 import vitePluginPug from "./plugins/vite-plugin-pug";
 import globule from "globule";
-import viteImagemin from "vite-plugin-imagemin";
-import VitePluginWebpAndPath from "vite-plugin-webp-and-path";
+import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
+import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
 
 // pugを検索（_から始まるものは除外）
@@ -11,7 +11,7 @@ const htmlFiles = globule.find("src/**/*.pug", {
   ignore: ["src/**/_*.pug"],
 });
 
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
   const root = env.VITE_ROOT_PATH;
   const asset = env.VITE_ASSETS_PATH;
@@ -27,15 +27,15 @@ export default defineConfig(({ command, mode }) => {
       host: true,
     },
     build: {
-      outDir: resolve(__dirname, root ? "htdocs/" + root : "htdocs"),
+      outDir: resolve(__dirname, relative === "true" ? "htdocs/" + root : "htdocs"),
       emptyOutDir: true, //ビルド時出力先フォルダをクリーンアップするか
       assetsInlineLimit: 0, //画像をインライン化するサイズ
       minify: minify === "true" ? "esbuild" : false,
       rollupOptions: {
         input: htmlFiles,
         output: {
-          entryFileNames: `${asset}/js/[name].js`,
-          chunkFileNames: `${asset}/js/[name].js`,
+          entryFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
+          chunkFileNames: `${root ? root + "/" + asset : asset}/js/[name].js`,
           assetFileNames: (assetInfo) => {
             let extType = assetInfo.name.split(".")[1];
             //Webフォントファイルの振り分け
@@ -54,35 +54,42 @@ export default defineConfig(({ command, mode }) => {
         },
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
     plugins: [
       sassGlobImports(),
       vitePluginPug(minify === "false" ? false : true),
       imagemin === "true"
-        ? viteImagemin({
-            gifsicle: {
-              optimizationLevel: 7,
-              interlaced: false,
-            },
-            optipng: {
-              optimizationLevel: 7,
-            },
-            mozjpeg: {
-              quality: 80,
-            },
-            pngquant: {
-              quality: [0.8, 0.9],
-              speed: 4,
-            },
-            svgo: {
-              plugins: [
-                {
-                  name: "removeViewBox",
-                },
-                {
-                  name: "removeEmptyAttrs",
-                  active: false,
-                },
-              ],
+        ? imageminPlugin({
+            cacheDir: ".cache",
+            concurrency: 4,
+            plugins: {
+              optipng: {
+                optimizationLevel: 7,
+              },
+              mozjpeg: {
+                quality: 80,
+              },
+              pngquant: {
+                quality: [0.8, 0.9],
+                speed: 4,
+              },
+              svgo: {
+                plugins: [
+                  {
+                    name: "removeViewBox",
+                  },
+                  {
+                    name: "removeEmptyAttrs",
+                    active: false,
+                  },
+                ],
+              },
             },
           })
         : "",

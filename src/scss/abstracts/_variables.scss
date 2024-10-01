@@ -46,15 +46,15 @@ $xs: 12, 10;
   --font-leading: calc(27 / 15);
   --font-tracking: 0;
   --font-weight-normal: 400;
-  --font-feature-settings: "pkna" on, "palt" on, "pwid" on;
+  --font-feature-settings: normal; // "pkna" on, "palt" on, "pwid" on;
 
   // カラー（使用する際はtxtやprimeなどの形で記述。tailwindも同様）
   --color-txt: #463e2c; // テキストカラー
   --color-reversal: #fff; // テキスト反転
   --color-gray: #d6d4d0; // グレースケール
   --color-prime: #463e2c; // プライムカラー
-  --color-second: #dfdccd; // セカンドカラー
-  --color-third: #e5e3df; // サードカラー
+  --color-second: red; // セカンドカラー
+  --color-third: blue; // サードカラー
   --color-body: #fff; //  ボディカラー
   --color-higilight: #f8f8f7; // ハイライト背景
 

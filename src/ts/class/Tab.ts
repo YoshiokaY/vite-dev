@@ -16,7 +16,7 @@ export class Tab {
     const btns = document.querySelectorAll(TARGET + "_list li button");
 
     function onTabClick(e: Event) {
-      let event = e.target as HTMLElement;
+      const event = e.target as HTMLElement;
       // イベントターゲットが含まれるタブコンテンツを取得
       const parent = event.closest(TARGET);
       const tabContents = parent?.querySelectorAll(TARGET + "_content");
@@ -41,8 +41,8 @@ export class Tab {
         tab.setAttribute("tabindex", "-1");
       });
       tabArr[index].removeAttribute("hidden");
-      tabArr[index].setAttribute("tabindex", "0");
-      // tabArr[index].focus();
+      // フォーカスしてもスクロールはしない
+      tabArr[index].focus({ preventScroll: true });
     }
 
     btns.forEach((btn) => {
