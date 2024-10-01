@@ -8,10 +8,10 @@ section(class="my-[3rem]")
     ul.grid.grid-cols-3(class="gap-[1.6rem]")
       each val, i in modal
         li.scrollIn.-up.-each
-          //- data-hrefに画像、もしくはyoutubu動画のurlを入れることで自動でモーダルになります。
+          //- data-srcに画像、もしくはyoutubu動画のurlを入れることで自動でモーダルになります。
           //- ここで指定する画像は追跡から漏れるのでpublicフォルダに格納する必要があります。
           //- aria-controlsにIDを入れることで対象を展開するモーダルになります。
-          button.c_modal_btn.c_btn(class="h-[5.6rem] w-[100%] rounded-[99rem]", data-href=val.btn.href ? val.btn.href : null, aria-controls=val.modalContent ? "modalContent" + (i + 1) : null) !{ val.btn.txt }
+          button.c_modal_btn.c_btn(class="h-[5.6rem] w-[100%] rounded-[99rem]", data-src=val.btn.href ? val.btn.href : null, aria-controls=val.modalContent ? "modalContent" + (i + 1) : null) !{ val.btn.txt }
 
     each val, i in modal
       if val.modalContent

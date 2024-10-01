@@ -24,10 +24,11 @@ export class Modal {
           modal = document.getElementById(modalID) as HTMLDialogElement;
         } else {
           //画像・動画の場合
-          const modalHref = sanitize(event.getAttribute("data-href"));
+          const modalSrc = sanitize(event.getAttribute("data-src")); // アセットのアドレス
+          const modalAlt = sanitize(event.getAttribute("data-alt")); // alt属性
           if (!targetNext) {
             const YOUTUBE = /(youtube(-nocookie)?\.com|youtu\.be)\/(watch\?v=|v\/|u\/|embed\/?)?([\w-]{11})(.*)?/i;
-            const youtube_uri = YOUTUBE.exec(modalHref);
+            const youtube_uri = YOUTUBE.exec(modalSrc);
             let dialog = "";
             dialog += '<dialog class="c_modal"><div class="c_modal_content" tabindex="-1">';
             //youtubeiframe挿入
@@ -48,7 +49,7 @@ export class Modal {
               );
             } else {
               //画像用モーダル
-              dialog += `<figure><img src=${modalHref} decoding="async"></figure>`;
+              dialog += `<figure><img src=${modalSrc} decoding="async" alt=${modalAlt}></figure>`;
             }
             dialog += '<button class="c_modal_close"><span class="txtHidden">モーダルウィンドウを閉じる</span></button>';
             dialog += "</div></dialog>";
