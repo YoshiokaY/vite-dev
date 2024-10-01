@@ -11,9 +11,9 @@
     "require-datetime": true,
     "no-empty-palpable-content": true,
     "doctype": "always",
-    "ineffective-attr": false,
+    "ineffective-attr": true,
     "use-list": true,
-    "no-default-value": false,
+    "no-default-value": true,
     "required-element": true,
     "required-h1": true,
     "case-sensitive-tag-name": true,
@@ -28,11 +28,36 @@
     "deprecated-attr": true,
     "placeholder-label-option": true,
     "label-has-control": true,
-    "invalid-attr": false,
+    "invalid-attr": true,
     "require-accessible-name": true,
-    "no-boolean-attr-value": false,
-    "required-attr": false,
+    "no-boolean-attr-value": true,
+    "required-attr": true,
     "wai-aria": true,
     "permitted-contents": true
-  }
+  },
+  "nodeRules": [
+    {
+      "selector": "meta,head",
+      "rules": {
+        "invalid-attr": false,
+        "required-attr": false
+      }
+    }
+  ],
+  "pretenders": [
+    {
+      "selector": "List",
+      "as": "ul"
+    },
+    {
+      "selector": "ListItem",
+      "as": "li"
+    },
+    {
+      "selector": "Slot",
+      "as": {
+        "element": "slot"
+      }
+    }
+  ]
 }

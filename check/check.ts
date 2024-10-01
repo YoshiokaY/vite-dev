@@ -18,7 +18,7 @@ const SCREENSHOT_DIR = "./check/screenshot/";
 // 差分ファイルを出力する格納するディレクトリ
 const DIFF_DIR = "./check/diff/";
 // a11yファイルを出力する格納するディレクトリ
-const a11y_DIR = "./check/a11y/";
+const a11y_DIR = "./check/a11y";
 // 画像の拡張子
 const UNIT = ".png";
 // ページ読み込みの待機時間

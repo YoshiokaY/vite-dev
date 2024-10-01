@@ -15,4 +15,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
+  const hoge = document.getElementById("hoge").innerText;
+  console.log(hoge);
 });
