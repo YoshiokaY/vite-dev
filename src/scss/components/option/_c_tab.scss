@@ -7,9 +7,9 @@
   &_list {
     button {
       &[tabindex="-1"] {
-        color: $colorPrime;
+        color: $color-prime;
         pointer-events: none;
-        background-color: $colorTxtReversal;
+        background-color: $color-reversal;
       }
     }
   }

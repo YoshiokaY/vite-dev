@@ -10,7 +10,7 @@
   &-ttl {
     margin-bottom: 0.5em;
     font-size: $text-h3;
-    color: $colorPrime;
+    color: $color-prime;
   }
 
   &-txt {
@@ -18,12 +18,12 @@
 
     &-span {
       font-size: $text-xl;
-      color: $colorTxtReversal;
-      background-color: $colorPrime;
+      color: $color-reversal;
+      background-color: $color-prime;
     }
 
     &-span--blue {
-      color: $colorThird;
+      color: $color-third;
     }
   }
 }

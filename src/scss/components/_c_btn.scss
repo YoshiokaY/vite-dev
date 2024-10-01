@@ -3,8 +3,8 @@
 /* ボタン */
 
 // ボタン
-$colorBtn: $colorPrime; // 背景色
-$colorBtnTxt: $colorTxtReversal; // 文字色
+$colorBtn: $color-prime; // 背景色
+$colorBtnTxt: $color-reversal; // 文字色
 $colorBtn_hover: $colorBtnTxt; // ホバー時背景
 $colorBtnTxt_hover: $colorBtn; // ホバー時文字色
 
@@ -15,7 +15,7 @@ $colorBtnTxt_hover: $colorBtn; // ホバー時文字色
   color: $colorBtnTxt;
   text-decoration: none;
   background-color: $colorBtn;
-  border: 0.15rem solid $colorPrime;
+  border: 0.15rem solid $color-prime;
   transition:
     background-color $easing,
     color $easing;

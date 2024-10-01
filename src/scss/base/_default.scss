@@ -114,18 +114,18 @@ body {
   overflow: hidden;
   font: var(--font-setting-base);
   font-feature-settings: var(--font-feature-settings);
-  color: $colorTxt;
+  color: $color-txt;
   letter-spacing: var(--font-tracking);
   word-wrap: break-word;
   overflow-wrap: break-word;
-  background-color: $colorBody;
+  background-color: $color-body;
   -webkit-font-smoothing: antialiased;
   backface-visibility: hidden;
 }
 
 ::selection {
-  color: $colorTxtReversal;
-  background-color: $colorPrime;
+  color: $color-reversal;
+  background-color: $color-prime;
 }
 
 main {
@@ -138,7 +138,7 @@ button {
   text-decoration: none;
 
   &:focus-visible {
-    outline: solid 0.2rem $colorPrime;
+    outline: solid 0.2rem $color-prime;
     outline-offset: 0.3rem;
     box-shadow: none;
   }
