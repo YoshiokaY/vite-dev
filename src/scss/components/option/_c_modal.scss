@@ -36,7 +36,7 @@
     appearance: none;
 
     &:focus-visible {
-      outline-color: $colorTxtReversal;
+      outline-color: $color-reversal;
     }
 
     &::before,
@@ -48,7 +48,7 @@
       height: 3.5rem;
       margin: auto;
       content: "";
-      background-color: $colorTxtReversal;
+      background-color: $color-reversal;
       rotate: -45deg;
     }
 
