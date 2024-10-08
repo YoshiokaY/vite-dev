@@ -61,6 +61,18 @@ export class Modal {
 
         //モーダル展開
         modal?.showModal();
+        const content = modal.querySelector(TARGET + "_content") as HTMLElement;
+        setTimeout(() => {
+          // ターゲットにフォーカスを移動
+          content?.focus({ preventScroll: true });
+          // アクティブな要素がターゲット要素でない場合
+          if (document.activeElement !== content) {
+            // ターゲット要素のtabindexを一時的に-1に設定
+            content?.setAttribute("tabindex", "-1");
+            // 再度フォーカスを設定
+            content?.focus({ preventScroll: true });
+          }
+        }, 0);
 
         //モーダルの使い回し時に呼び出す
         // setModal(modalDate);
