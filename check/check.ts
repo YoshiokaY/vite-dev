@@ -83,33 +83,27 @@ const pixelPerfect = async (page: Page, targetPage: TargetPage) => {
   // デザイン画像参照
   const designFilePath = DESIGN_DIR + targetPage.name + UNIT;
   const designImage = sharp(designFilePath);
-
+  // デザインのサイズを取得
+  const designImageMetaData = await designImage.metadata();
+  const designImageSize = {
+    width: designImageMetaData.width,
+    height: designImageMetaData.height,
+  };
+  // デザインサイズでブラウザを表示
+  await page.setViewportSize({ width: Number(designImageSize.width), height: Number(designImageSize.height) });
   await page.goto(localhost + targetPage.path, { waitUntil: "load" });
 
-  // ページの一番下までスクロールする
+  // アニメーションの発火のためページの一番下までスクロールする
   await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+  await page.waitForTimeout(TIME);
+  await page.evaluate(() => window.scrollTo(0, 0));
   await page.waitForTimeout(TIME);
 
   // スクリーンショット撮影
   const screenshot = await page.screenshot({ path: SCREENSHOT_DIR + targetPage.name + UNIT, fullPage: true, animations: "disabled" });
-  const screenshotImage = sharp(screenshot);
-
-  // スクリーンショットのサイズを取得
-  const ssImageMetaData = await screenshotImage.metadata();
-  const ssImageSize = {
-    width: ssImageMetaData.width,
-    height: ssImageMetaData.height,
-  };
-
-  // スクリーンショットに合わせてデザイン画像をリサイズ
-  const resizedImage = await designImage.resize({
-    width: ssImageSize.width,
-    position: "left top",
-    withoutEnlargement: true,
-  });
 
   // デザイン画像とスクリーンショット画像を重ねて差の絶対値で差分を検出
-  const difference = await resizedImage
+  const difference = await designImage
     .composite([
       {
         input: screenshot,
