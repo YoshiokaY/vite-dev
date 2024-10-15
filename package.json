@@ -11,7 +11,8 @@
     "check": "playwright test",
     "report": "playwright show-report check/report",
     "lint": "eslint . --fix",
-    "markup": "markuplint -f JSON htdocs/**/**.html --fix --config .markuplintrc"
+    "markup": "markuplint -f JSON htdocs/**/**.html --fix --config .markuplintrc",
+    "e2e": "playwright test --config playwright.github.ts"
   },
   "browserslist": [
     "last 2 version",
