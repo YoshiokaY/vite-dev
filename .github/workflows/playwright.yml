@@ -29,3 +29,23 @@ jobs:
         run: npm install
       - name: Run Markuplint
         run: sh ./markuplint-check.sh
+  axe:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "21.6.2"
+      - name: npm install
+        run: npm install
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npm run axe
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
