@@ -31,15 +31,15 @@ for (const targetPage of targetPages) {
     await test.step("コンソールエラーチェック", async () => {
       await consoleCheck(page, targetPage);
     });
-    // await test.step("ピクセルパーフェクト", async () => {
-    //   await pixelPerfect(page, targetPage);
-    // });
+    await test.step("ピクセルパーフェクト", async () => {
+      await pixelPerfect(page, targetPage);
+    });
     await test.step("アクセシビリティチェック", async () => {
       await a11y(page, targetPage);
     });
-    // await test.step("ヴィジュアルリグレッション", async () => {
-    //   await vrtCheck(page, targetPage);
-    // });
+    await test.step("ヴィジュアルリグレッション", async () => {
+      await vrtCheck(page, targetPage);
+    });
   });
 }
 
