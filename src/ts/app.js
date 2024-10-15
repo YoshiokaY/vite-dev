@@ -18,4 +18,5 @@ window.addEventListener("load", () => {
 });
 
 const hoge = document.getElementById("hoge");
-console.log(hoge);
+const hogeHeight = hoge;
+document.documentElement.style.setProperty("--hogeHeight", `${hoge.clientHeight}px`);
