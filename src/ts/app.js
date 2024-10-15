@@ -17,5 +17,5 @@ window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
 });
 
-const hoge = document.getElementById("hoge");
-console.log(hoge.clientHeight);
+// const hoge = document.getElementById("hoge");
+// console.log(hoge);
