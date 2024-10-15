@@ -16,7 +16,3 @@ window.addEventListener("DOMContentLoaded", () => {
 window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
 });
-
-const hoge = document.getElementById("hoge");
-const hogeHeight = hoge;
-document.documentElement.style.setProperty("--hogeHeight", `${hoge.clientHeight}px`);
