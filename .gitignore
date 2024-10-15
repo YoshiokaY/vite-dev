@@ -16,6 +16,7 @@ dist-ssr
 
 check/*
 !check/check.ts
+!check/check.auto.ts
 !check/design
 check/design/*
 
