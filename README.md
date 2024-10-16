@@ -304,12 +304,11 @@ npm run check:update
 - `playwright` によるVRTとピクセルパーフェクトチェックを実装
 - その他軽微なFB対応
 
-### 1.5.3 (2024-10)
+### 1.5.5 (2024-10)
 
 - webp変換の除外ルール
 - GitHubActionでeslintとmarkuplintの自動チェック
 - その他軽微なFB対応
 
 ## 実装予定
-- GitHubActionでplaywrightの自動実行
 - WP開発用にゆうじさんのdocker環境マージ
