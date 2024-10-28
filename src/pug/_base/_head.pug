@@ -41,7 +41,7 @@ include ./_jsonLd
 if site.webfont
   link(rel="preconnect", href="https://fonts.googleapis.com")
   link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin)
-  link(href=site.font, rel="stylesheet")
+  link(href=site.webfont, rel="stylesheet")
 
 link(rel="stylesheet", href="/scss/style.scss")
 script(type="module", src="/ts/app.js", defer)
