@@ -25,9 +25,9 @@ $logoWidth: 200; // ロゴ幅
 $imgPath: "/img/";
 
 // フォント設定
-$spFontVw: "false"; // SP時にフォントサイズを可変にする
+$spFontVw: "false"; // SP時にフォントサイズを可変(vw)にする
 $baseFont: $fontNoto;
-// PCサイズ/SPサイズ (使用する際はtext-*の形で記述。tailwindも同様)
+// PCサイズ/SPサイズ (使用する際はtext-ｈ1やtext-xmの形で記述。tailwindも同様)
 $h1: 64, 40;
 $h2: 44, 36;
 $h3: 36, 28;
@@ -48,7 +48,7 @@ $xs: 12, 10;
   --font-weight-normal: 400;
   --font-feature-settings: normal; // "pkna" on, "palt" on, "pwid" on;
 
-  // カラー（使用する際はtxtやprimeなどの形で記述。tailwindも同様）
+  // カラー（使用する際はcolor-txtやcolor-primeなどの形で記述。tailwindhは使用するクラスに合わせて-txtや-prime）
   --color-txt: #463e2c; // テキストカラー
   --color-reversal: #fff; // テキスト反転
   --color-gray: #d6d4d0; // グレースケール

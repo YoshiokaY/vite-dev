@@ -14,16 +14,16 @@
       justify-content: center;
       width: 100%;
       height: 5.6rem;
-      color: $colorTxtReversal;
-      background-color: $colorPrime;
-      border: 0.15rem solid $colorPrime;
+      color: $color-reversal;
+      background-color: $color-prime;
+      border: 0.15rem solid $color-prime;
       border-radius: 999rem;
       transition:
         background-color 0.4s,
         color 0.4s;
       @include hover() {
-        color: $colorPrime;
-        background-color: $colorTxtReversal;
+        color: $color-prime;
+        background-color: $color-reversal;
       }
     }
 
@@ -35,8 +35,8 @@
 
       &:checked {
         + label {
-          color: $colorPrime;
-          background-color: $colorTxtReversal;
+          color: $color-prime;
+          background-color: $color-reversal;
         }
       }
     }
@@ -50,17 +50,17 @@
     max-width: 24rem;
     height: 5.6rem;
     margin: 1.6rem auto;
-    color: $colorTxtReversal;
+    color: $color-reversal;
     text-align: center;
-    background-color: $colorPrime;
-    border: 0.15rem solid $colorPrime;
+    background-color: $color-prime;
+    border: 0.15rem solid $color-prime;
     border-radius: 999rem;
     transition:
       background-color 0.4s,
       color 0.4s;
     @include hover() {
-      color: $colorPrime;
-      background-color: $colorTxtReversal;
+      color: $color-prime;
+      background-color: $color-reversal;
     }
   }
 

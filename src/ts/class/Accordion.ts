@@ -49,6 +49,15 @@ export class Accordion {
           // open付与から少しだけ遅らせた方が動作が安定する
           setTimeout(() => {
             accordion.classList.add("-open"); // クラスの追加
+            // ターゲットにフォーカスを移動
+            content?.focus({ preventScroll: true });
+            // アクティブな要素がターゲット要素でない場合
+            if (document.activeElement !== content) {
+              // ターゲット要素のtabindexを一時的に-1に設定
+              content?.setAttribute("tabindex", "-1");
+              // 再度フォーカスを設定
+              content?.focus({ preventScroll: true });
+            }
           }, OFFSET_TIME);
         } else if (target.open) {
           // 初期状態で開いているアコーディオンもアニメーションするように、閉じるときにもセット
@@ -61,7 +70,6 @@ export class Accordion {
           // アニメーション完了後にopen属性を削除。（CSS側のアニメーション時間+少しだけ余裕をもたせている）
           setTimeout(() => {
             target.open = false;
-            content.focus({ preventScroll: true });
           }, SPEED + OFFSET_TIME);
         }
       });

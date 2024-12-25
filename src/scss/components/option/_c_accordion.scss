@@ -25,10 +25,7 @@
       height: 0.2rem;
       margin: auto;
       content: "";
-      background-color: $colorPrime;
-    }
-    @include mq() {
-      width: 2rem;
+      background-color: $color-prime;
       transition: rotate $easing;
       transform-origin: center;
     }
@@ -38,7 +35,7 @@
     }
 
     &:focus-visible {
-      outline: solid 0.3rem $colorPrime;
+      outline: solid 0.3rem $color-prime;
       outline-offset: -0.3rem;
       box-shadow: none;
     }

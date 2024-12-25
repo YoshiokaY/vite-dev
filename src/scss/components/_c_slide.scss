@@ -18,7 +18,7 @@
     color: transparent;
     text-indent: -9999px;
     cursor: pointer;
-    background: $colorPrime;
+    background: $color-prime;
     border: 0;
     border-radius: 50%;
     transition: opacity 0.4s;
@@ -28,7 +28,7 @@
       position: absolute;
       inset: 0;
       margin: auto;
-      fill: $colorTxtReversal;
+      fill: $color-reversal;
     }
     @include mq() {
       width: spSize(40);
@@ -92,12 +92,12 @@
           height: 0.7rem;
           margin: auto;
           content: "";
-          background-color: $colorTxtReversal;
+          background-color: $color-reversal;
           border-radius: 50%;
           @include mq() {
             width: spSize(7);
             height: spSize(7);
-            background-color: $colorTxt;
+            background-color: $color-txt;
           }
         }
       }
@@ -115,7 +115,7 @@
         inset: 0;
         margin: auto;
         fill: none;
-        stroke: $colorTxtReversal;
+        stroke: $color-reversal;
         // stroke-dasharray: 0, 2.5rem * 3.14 * 2;
         stroke-dasharray: 0, calc(24 * 3.14);
         stroke-width: 0.05rem;
@@ -147,7 +147,7 @@
       .pagerBar {
         width: 0;
         height: 0.1rem;
-        background: $colorPrime;
+        background: $color-prime;
         transition: width 400ms ease;
       }
     }

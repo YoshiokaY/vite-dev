@@ -42,7 +42,7 @@
         width: 0.8rem;
         height: 0.8rem;
         content: "";
-        background-color: $colorThird;
+        background-color: $color-third;
         border-radius: 50%;
       }
     }
@@ -69,7 +69,7 @@
         height: 1.5rem;
         content: "";
         background: transparent;
-        border: 0.2rem solid $colorTxt;
+        border: 0.2rem solid $color-txt;
       }
 
       &::after {
@@ -78,8 +78,8 @@
         width: 1.6rem;
         height: 0.5rem;
         margin: auto;
-        border-bottom: 2px solid $colorTxt;
-        border-left: 2px solid $colorTxt;
+        border-bottom: 2px solid $color-txt;
+        border-left: 2px solid $color-txt;
         transform: rotate(-60deg);
         transform-origin: left;
       }

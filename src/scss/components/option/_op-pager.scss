@@ -37,7 +37,7 @@
         background-color 0.4s;
       @include hover {
         color: #fff;
-        background-color: $colorThird;
+        background-color: $color-third;
       }
       @include mq() {
         width: spSize(32);
@@ -52,7 +52,7 @@
         font-weight: normal;
         color: #fff;
         pointer-events: none;
-        background-color: $colorThird;
+        background-color: $color-third;
       }
     }
 
@@ -87,7 +87,7 @@
 
         width: 0.5rem;
         height: 1.2rem;
-        background-color: $colorThird;
+        background-color: $color-third;
         mask-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%224.795%22%20height%3D%2212%22%20viewBox%3D%220%200%204.795%2012%22%3E%20%3Cpath%20id%3D%22%E3%83%91%E3%82%B9_14%22%20data-name%3D%22%E3%83%91%E3%82%B9%2014%22%20d%3D%22M3.128%2C6%2C0%2C12H1.641L4.795%2C6%2C1.641%2C0H0Z%22%20fill%3D%22%23d33080%22%2F%3E%3C%2Fsvg%3E");
         mask-repeat: no-repeat;
         mask-position: center;

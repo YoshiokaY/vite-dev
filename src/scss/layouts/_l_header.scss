@@ -4,7 +4,7 @@
 /* ヘッダー */
 .l_header {
   height: 20rem;
-  border: 0.4rem solid $colorPrime;
+  border: 0.4rem solid $color-prime;
 
   .headerLogo {
     z-index: 999;
@@ -115,14 +115,14 @@
               height: 0.2rem;
               margin: auto;
               content: "";
-              background-color: $colorPrime;
+              background-color: $color-prime;
               transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
               rotate: none;
             }
           }
           @include hover {
             @include mq() {
-              color: $colorPrime;
+              color: $color-prime;
 
               &::before {
                 width: 100%;
@@ -269,7 +269,7 @@
           &::after {
             top: 0;
             bottom: 0;
-            background-color: $colorTxtReversal;
+            background-color: $color-reversal;
             transition: rotate $easing;
             rotate: 45deg;
           }
@@ -305,7 +305,7 @@
     top: 0;
     z-index: 5;
     width: 100%;
-    background-color: $colorBody;
+    background-color: $color-body;
   }
 }
 

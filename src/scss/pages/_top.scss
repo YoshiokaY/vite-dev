@@ -8,7 +8,7 @@
 
   // :hoverと:focus-visibleを一括で出力できます
   @include hover() {
-    color: $colorSecond;
+    color: $color-second;
   }
 
   // "pc" or "sp"でPC時（>=）、SP時（<）になります。デフォルトではPC時の表示。

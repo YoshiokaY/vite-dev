@@ -74,7 +74,7 @@ $time: 1s;
       height: 101%;
       margin: auto;
       content: "" !important;
-      background: $colorTxt;
+      background: $color-txt;
       transform-origin: right;
     }
 
@@ -85,7 +85,7 @@ $time: 1s;
     }
 
     &.-active {
-      color: $colorTxt;
+      color: $color-txt;
       transition: color 0s;
       transition-delay: 0.5s;
 
@@ -215,7 +215,7 @@ $time: 1s;
       height: 101%;
       margin: auto;
       content: "" !important;
-      background: $colorTxt;
+      background: $color-txt;
       transform-origin: right;
     }
 
@@ -226,7 +226,7 @@ $time: 1s;
     }
 
     &.-active {
-      color: $colorTxt;
+      color: $color-txt;
       transition: color 0s;
       transition-delay: 0.5s;
 
@@ -590,7 +590,7 @@ $time: 1s;
 //   display: block;
 //   width: fit-content;
 //   overflow: hidden;
-//   border: 0.2rem solid $colorPrime;
+//   border: 0.2rem solid $color-prime;
 
 //   i {
 //     position: absolute;

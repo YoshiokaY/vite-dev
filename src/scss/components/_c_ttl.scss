@@ -11,7 +11,7 @@
 
   &::before {
     margin-right: 0.1em;
-    color: $colorPrime;
+    color: $color-prime;
     content: counter(number, decimal-leading-zero) "."; // lower-alpha
     counter-increment: number 1;
     @include fontsize(32, 24);

@@ -26,9 +26,9 @@
     clip-path: polygon(92% 0%, 100% 50%, 92% 100%, 0 100%, 0 0);
     font-weight: bold;
     line-height: calc(24 / 20);
-    color: $colorTxtReversal;
+    color: $color-reversal;
     text-align: center;
-    background-color: $colorPrime;
+    background-color: $color-prime;
     border-radius: 0.3rem;
     @include fontsize(20, 16);
     @include mq() {
@@ -51,7 +51,7 @@
   &::before {
     bottom: 0.7rem;
     height: 0.2rem;
-    background-color: $colorPrime;
+    background-color: $color-prime;
     @include mq() {
       bottom: 0;
       left: spSize(5);
@@ -62,7 +62,7 @@
 
   &::after {
     height: 1.6rem;
-    border: 0.2rem solid $colorPrime;
+    border: 0.2rem solid $color-prime;
     border-width: 0 0.2rem;
     @include mq() {
       width: spSize(12);
@@ -124,7 +124,7 @@
       }
 
       &::before {
-        color: $colorPrime;
+        color: $color-prime;
         content: "STEP." counter(number, decimal-leading-zero);
         counter-increment: number 1;
       }
@@ -138,7 +138,7 @@
         height: 0.2rem;
         margin: auto;
         content: "";
-        background-color: $colorPrime;
+        background-color: $color-prime;
         @include mq() {
           width: spSize(16);
         }
@@ -173,7 +173,7 @@
       height: 0;
       margin: auto;
       content: "";
-      border-color: $colorPrime transparent transparent transparent;
+      border-color: $color-prime transparent transparent transparent;
       border-style: solid;
       border-width: 30px 25px 0;
     }
@@ -185,7 +185,7 @@
     margin-right: 0.5em;
     font-size: 1.8rem;
     line-height: 1;
-    color: $colorPrime;
+    color: $color-prime;
     letter-spacing: 0;
     vertical-align: baseline;
 
@@ -212,7 +212,7 @@
       &::after {
         inset: 0 -19% 0 auto;
         margin: auto;
-        border-color: transparent transparent transparent $colorPrime;
+        border-color: transparent transparent transparent $color-prime;
         border-width: 50.5px 0 50.5px 25px;
       }
     }

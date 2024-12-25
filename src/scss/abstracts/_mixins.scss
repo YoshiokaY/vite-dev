@@ -117,7 +117,7 @@
 }
 
 ///-----------------boxshadow//
-@mixin boxShadow($color: rgba($colorTxt, 0.25)) {
+@mixin boxShadow($color: rgba($color-txt, 0.25)) {
   box-shadow: 0 2.5rem 2rem -2rem $color;
 }
 
@@ -135,13 +135,13 @@
 }
 
 ///-----------------文字マーカー//
-@mixin textMarker($color: $colorPrime, $position: 75%) {
+@mixin textMarker($color: $color-prime, $position: 75%) {
   line-height: 1.2 !important;
-  background: linear-gradient(transparent 75%, $colorPrime 75%) !important;
+  background: linear-gradient(transparent 75%, $color-prime 75%) !important;
 }
 
 ///-----------------縁文字//
-@mixin fillText($fillWidth: 1px, $fillColor: $colorTxtReversal) {
+@mixin fillText($fillWidth: 1px, $fillColor: $color-reversal) {
   text-shadow:
     $fillWidth $fillWidth 0 $fillColor,
     -$fillWidth $fillWidth 0 $fillColor,
@@ -156,7 +156,7 @@
 }
 
 ///-----------------gradation//
-@mixin gradation($color: $colorPrime, $color2: $colorSecond, $border: 50%) {
+@mixin gradation($color: $color-prime, $color2: $color-second, $border: 50%) {
   background: $color;
   background: linear-gradient(to right, $color $border, $color2 $border);
 }

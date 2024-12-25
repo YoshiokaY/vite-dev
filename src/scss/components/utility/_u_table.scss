@@ -180,13 +180,13 @@ table {
 //       padding: 8px;
 //       text-align: center;
 //       letter-spacing: 0.27em;
-//       color: $colorTxtReversal;
-//       background: lighten($colorPrime, 0);
+//       color: $color-reversal;
+//       background: lighten($color-prime, 0);
 //     }
 //   }
 //   tbody {
 //     tr {
-//       border-bottom: .1rem solid $colorPrime;
+//       border-bottom: .1rem solid $color-prime;
 //     }
 //     th, td {
 //       padding: 10px;
@@ -200,10 +200,10 @@ table {
 //       letter-spacing: 0.15em;
 //     }
 //     td {
-//       color: $colorPrime;
+//       color: $color-prime;
 //       span {
 //         // font-weight: normal;
-//         color: $colorTxt;
+//         color: $color-txt;
 //       }
 //     }
 //   }
