@@ -1,0 +1,22 @@
+extends ../_base/_layout
+
+block vars
+  include ./_contents
+  - let slug = "about";
+  - let head = about["head"];
+  - let content = about["content"];
+  - let imgPath = "/img/";
+  - let imgPathLocal = "/img/" + slug + "/";
+
+block contents
+  guide-tour
+    button(slot="c_help_btn") ヘルプボタン
+    .c_help_txt(slot="help01")
+      p 資料の送付方法を選択してください
+    .c_help_txt(slot="help02")
+      p 名前を入力してください
+    .c_help_txt(slot="help03")
+      p 名前のふりがなを平がなで入力してください
+    .c_help_txt(slot="help04")
+      p メールアドレスを入力してください
+  include ./_parts/_form.html

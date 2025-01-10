@@ -121,19 +121,6 @@
   box-shadow: 0 2.5rem 2rem -2rem $color;
 }
 
-///-----------------fontsize//
-
-@mixin fontsize($pcSize: nth($baseFontSize, 1), $spSize: $pcSize) {
-  // font-size: string.unquote(
-  //   "clamp(#{math.div($spSize, 10) + rem},#{math.div(100, $pcDesign) * $pcSize}vw,#{math.div($pcSize, 10) + rem})"
-  // );
-  font-size: #{math.div($pcSize, 10) + rem};
-  // font-size: math.div(100, $pcDesign) * $pcSize + vw;
-  @include mq() {
-    font-size: string.unquote("clamp(#{math.div($spSize, 10) + rem},#{math.div(100, $spDesign) * $spSize}vw,#{math.div($pcSize, 10) + rem})");
-  }
-}
-
 ///-----------------文字マーカー//
 @mixin textMarker($color: $color-prime, $position: 75%) {
   line-height: 1.2 !important;

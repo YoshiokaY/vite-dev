@@ -1,0 +1,690 @@
+@use "../abstracts" as *;
+
+header.-relative {
+  position: relative !important;
+}
+
+.inquiryMain {
+  min-height: inherit;
+}
+
+.bnrContent {
+  padding: 80px 0 88px;
+  border-top: 1px solid $color-prime;
+}
+
+.formContent {
+  input,
+  button,
+  select,
+  textarea {
+    font: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    outline: none;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    display: none;
+  }
+
+  input[type="submit"],
+  input[type="button"],
+  label,
+  button,
+  select {
+    cursor: pointer;
+  }
+
+  select::-ms-expand {
+    display: none;
+  }
+}
+
+.formContainer {
+  position: relative;
+  margin-bottom: 60px;
+
+  .btnStyle {
+    height: 60px;
+    margin: auto;
+    font-weight: 600;
+    border-radius: 6px;
+  }
+}
+
+.formTable {
+  margin-bottom: 40px;
+  border: 1px solid $color-prime;
+
+  tr {
+    border: 1px solid $color-prime;
+  }
+
+  .-disabled {
+    display: none;
+  }
+
+  th {
+    position: relative;
+    width: 326px;
+    padding: 29px 24px;
+    font-weight: bold;
+    line-height: 1;
+    text-align: left;
+    vertical-align: top;
+    background-color: $color-second;
+    background-clip: padding-box;
+    border-right: 1px solid $color-prime;
+
+    &::before {
+      padding: 0.1em 0.3em;
+      margin: auto;
+      margin-right: 0.5em;
+      line-height: 1;
+      color: $color-second;
+      vertical-align: unset;
+      content: "任意";
+      background-color: $color-reversal;
+      border: 1px solid $color-prime;
+      border-radius: 3px;
+    }
+
+    &.required {
+      &::before {
+        color: $color-reversal;
+        content: "必須";
+        background-color: $color-second;
+        border-color: $color-second;
+      }
+    }
+
+    small {
+      display: block;
+      margin-top: 0.5em;
+    }
+
+    label {
+      font-weight: bold;
+    }
+  }
+
+  td {
+    padding: 14px 24px 14px 40px;
+
+    &.-vertical {
+      label {
+        display: block;
+
+        &:not(:last-of-type) {
+          margin-bottom: 30px;
+        }
+      }
+    }
+
+    .inputMsg {
+      margin-top: 0.2em;
+    }
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    max-width: 560px;
+    height: 50px;
+    padding: 0.3em 1em;
+    border: 1px solid $color-prime;
+    border-radius: 3px;
+    outline: none;
+
+    &:focus {
+      border-color: $color-txt;
+    }
+  }
+
+  select {
+    width: 100%;
+    max-width: 340px;
+    height: 50px;
+    padding-right: 49px;
+    padding-left: 20px;
+    border: 1px solid $color-prime;
+  }
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  input[type="radio"] + label {
+    position: relative;
+    padding: 0 0 0 40px;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      display: block;
+      margin: auto;
+      content: "";
+    }
+
+    &::after {
+      left: 0;
+      width: 30px;
+      height: 30px;
+      border: 1px solid $color-prime;
+      border-radius: 50%;
+    }
+
+    &::before {
+      left: 7px;
+      width: 16px;
+      height: 16px;
+      background: $color-second;
+      border-radius: 50%;
+      opacity: 0;
+    }
+  }
+
+  input[type="radio"]:checked + label {
+    font-weight: bold;
+  }
+
+  input[type="radio"]:checked + label::before {
+    opacity: 1;
+  }
+
+  label[for="mailing"],
+  label[for="otherzip"] {
+    margin-left: 76px;
+  }
+
+  .selectBox {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    max-width: 340px;
+    height: 50px;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
+      width: 49px;
+      height: 100%;
+      margin: auto;
+      content: "";
+      background: $color-second;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: 19.6px;
+      bottom: 0;
+      width: 12px;
+      height: 12px;
+      margin: auto;
+      content: "";
+      border-right: 3px solid $color-reversal;
+      border-bottom: 3px solid $color-reversal;
+      transform: rotate(45deg);
+      transform-origin: center;
+    }
+  }
+
+  .half {
+    display: flex;
+    gap: 0 60px;
+    justify-content: flex-start;
+
+    label,
+    input,
+    span {
+      display: flex;
+      align-items: center;
+    }
+
+    label {
+      width: 2em;
+      min-width: 2.2em;
+      margin-right: 8px;
+      font-weight: bold;
+    }
+
+    input {
+      max-width: 200px;
+      height: 50px;
+    }
+  }
+
+  .zipcode {
+    display: block;
+
+    label {
+      display: table;
+      margin-bottom: 0.2em;
+      font-weight: bold;
+      table-layout: fixed;
+    }
+
+    .zipCodeContainer {
+      display: inline-block;
+      max-width: 350px;
+    }
+
+    input {
+      display: inline-block;
+      max-width: 340px;
+      height: 50px;
+    }
+
+    small {
+      display: inline-block;
+      width: 54%;
+      padding-left: 14px;
+      font-size: 1.2rem;
+      vertical-align: top;
+
+      a {
+        display: block;
+        margin-bottom: 0.5em;
+        font-size: 1.4rem;
+        text-decoration: underline !important;
+      }
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: 28px;
+    }
+  }
+
+  .policyCheckBox {
+    display: table;
+    margin-top: 0.5em;
+    text-align: left;
+    table-layout: fixed;
+
+    input[type="checkbox"] {
+      position: absolute;
+      appearance: none;
+      background: none;
+      border: 0;
+
+      &:focus-visible {
+        border-color: transparent;
+      }
+
+      &:checked ~ label {
+        &::after {
+          position: absolute;
+          top: 2px;
+          bottom: 0;
+          left: 10px;
+          display: block;
+          width: 10px;
+          height: 16px;
+          content: "";
+          border: 1px solid $color-second;
+          border-width: 0 2px 2px 0;
+          transform: rotate(40deg);
+        }
+
+        &::before {
+          border-color: $color-prime;
+        }
+      }
+    }
+
+    label {
+      position: relative;
+      display: block;
+      padding-left: 38px;
+      font-weight: bold;
+
+      &::before {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        display: block;
+        width: 30px;
+        height: 30px;
+        margin: auto;
+        content: "";
+        border: 1px solid $color-prime;
+        border-radius: 3px;
+      }
+    }
+  }
+
+  .policyLink {
+    color: $color-second !important;
+    text-decoration: underline !important;
+  }
+}
+
+.inquiry_tel {
+  padding: 32px;
+  background: $color-second;
+  border: 1px solid $color-prime;
+}
+
+.inquiry_tel_text {
+  @include fontsize(24, 34);
+
+  margin-bottom: 0.5em !important;
+  font-weight: bold;
+  line-height: 1;
+  color: $color-prime;
+
+  img {
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+}
+
+a[href^="tel:"].telLink {
+  font-weight: bold;
+  line-height: 1;
+  color: $color-prime !important;
+  vertical-align: middle;
+
+  img {
+    vertical-align: unset;
+  }
+}
+
+.inquiry_span {
+  @include fontsize(18, 27);
+
+  width: 100%;
+  padding: 0.5em 1em;
+  margin-left: 15.8px;
+  font-weight: bold;
+  line-height: 1;
+  color: $color-second;
+  vertical-align: middle;
+  background: $color-reversal;
+}
+
+.inquiry_company {
+  margin: 60px auto 100px;
+}
+
+.infoBox {
+  padding: 30px 0;
+  background-attachment: fixed;
+
+  strong {
+    display: block;
+    text-align: center;
+  }
+
+  .telLink2 {
+    margin-left: 1.5em;
+
+    img {
+      margin-right: 0.1em;
+      vertical-align: middle;
+      filter: brightness(0);
+    }
+  }
+}
+
+.confirmModal {
+  display: none;
+
+  &.-open {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    display: block;
+    width: 100%;
+    height: 100vh;
+    animation: modalFadeIn 0.3s;
+
+    .bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: 1s;
+    }
+  }
+}
+@keyframes modalFadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.confContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  max-width: 1200px;
+  height: 80%;
+  padding: 0 20px;
+  overflow: auto;
+  background: #fff;
+  border-top: 1px solid $color-prime;
+  transform: translate(-50%, -50%);
+
+  .conf_ttl {
+    @include fontsize(24, 32);
+
+    display: block;
+    padding: 2.3em 0 1em;
+    font-weight: bold;
+    text-align: center;
+
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+
+  .formTable {
+    max-width: 800px;
+    margin: 0 auto;
+
+    th {
+      @include fontsize(14, 26);
+
+      width: 213px;
+      padding: 22px 25px;
+
+      &::before,
+      &::after {
+        content: none;
+      }
+    }
+
+    td {
+      @include fontsize(18, 32);
+    }
+  }
+
+  .submitContainer {
+    display: flex;
+    gap: 0 30px;
+    justify-content: center;
+    padding-bottom: 82px;
+    margin-top: 40px;
+  }
+
+  .cancelBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 55px;
+    font-weight: 600;
+    text-decoration: none !important;
+    border-radius: 6px;
+    box-shadow: 0 4px 0 0 $color-txt;
+
+    &:hover {
+      box-shadow: 0 4px 0 0 transparent;
+      transition: 0.1s;
+      transform: translateY(4px);
+    }
+  }
+
+  .btnStyle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+}
+
+.thanksContent {
+  padding: 80px 0 0;
+  border-top: 1px solid $color-prime;
+
+  .thanks_ttl {
+    @include fontsize(36, 44);
+
+    display: block;
+    padding-bottom: 0.3em;
+    font-weight: 600;
+    text-align: left;
+    border-bottom: 1px solid $color-second;
+
+    &::before,
+    &::after {
+      content: none;
+    }
+  }
+
+  .btnStyle {
+    margin-top: 80px;
+  }
+}
+
+.inquiry_contact {
+  padding: 60px 0;
+  margin-top: 80px;
+
+  strong {
+    font-size: 2.4rem;
+  }
+
+  .telBnr {
+    margin-top: 40px;
+  }
+
+  .btnStyle {
+    margin: 0;
+  }
+}
+
+.inquiry_top {
+  margin: 80px 0 96px;
+}
+
+.-error {
+  input,
+  &.selectBox {
+    background-color: #ffeded;
+    border-color: #ec3f3f !important;
+
+    &::placeholder {
+      color: red;
+    }
+  }
+
+  select {
+    border-color: #ffeded !important;
+  }
+}
+
+.errorText {
+  @include fontsize(14, 24);
+
+  position: relative;
+  display: none;
+  padding-left: 1.3em;
+  font-style: normal;
+  color: #ec3f3f;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: auto;
+    content: "";
+  }
+
+  &.-active {
+    display: block;
+
+    &::before {
+      animation: error 1.5s ease 0s infinite normal;
+    }
+  }
+}
+
+@keyframes error {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+#forConfrim {
+  &:disabled {
+    pointer-events: none;
+    cursor: none;
+    filter: grayscale(1);
+    opacity: 0.8;
+  }
+}
+
+input:-webkit-autofill {
+  box-shadow: 0 0 0 999px #fff inset;
+}
+
+select:-webkit-autofill {
+  transition: background-color 10000s ease-in-out 0s;
+}

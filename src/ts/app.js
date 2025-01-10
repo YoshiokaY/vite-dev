@@ -7,6 +7,7 @@ import { Filter } from "./class/Filter";
 import { ArchiveList } from "./class/NewsArchive";
 import { NewsSingle } from "./class/NewsSingle";
 import { SmoothScroll } from "./class/SmoothScroll";
+import { GuideTour } from "./class/GuideTour";
 
 window.addEventListener("DOMContentLoaded", () => {
   new Modal(); // モーダル
@@ -18,6 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
   new ArchiveList(); // お知らせ一覧
   new NewsSingle(); // お知らせ詳細
   new SmoothScroll(); // スムーススクロール
+  new GuideTour(); // スムーススクロール
 });
 
 window.addEventListener("load", () => {
