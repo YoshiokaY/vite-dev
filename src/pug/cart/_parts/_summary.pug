@@ -1,0 +1,11 @@
+section(class="pb-[2.8rem]")
+  .contentInner
+    h2.text-h2.font-bold(class="mb-[1em]") ヘルプツアーコンポーネント
+    p(class="mb-[1em]") ヘルプをポップアップで表示するWeb Componentsです。
+    ul.list-disc(class="pl-[1em] mb-[2em]")
+      li ポップアップを表示するためのボタンにslot="c_help_btn"の属性を記述します。
+      li ポップアップを表示したい要素のIDをslot属性に指定します。
+      li 上記で指定した要素にそのポップアップの内容をhtmlで記述します。
+
+    .bg-gray(class="mb-[5rem] p-[1em]")
+      code &lt;guide-tour><br>&lt;button slot="helpOpen">&lt;!-- 起動ボタン --&gt;&lt;/button><br>&lt;div class="c_help_txt" slot="help01">&lt;!-- ポップアップ1の内容 --&gt;&lt;/div><br>&lt;div class="c_help_txt" slot="help02">&lt;!-- ポップアップ2の内容 --&gt;&lt;/div><br>&lt;div class="c_help_txt" slot="help03">&lt;!-- ポップアップ3の内容 --&gt;&lt;/div><br>&lt;div class="c_help_txt" slot="help04">&lt;!-- ポップアップ4の内容 --&gt;&lt;/div><br>&lt;/guide-tour>

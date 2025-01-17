@@ -2,6 +2,21 @@
 
 /* 見出し  */
 
+.c_ttl {
+  &_item {
+    margin-bottom: 2.4rem;
+    font-size: 2.4rem;
+    font-weight: bold;
+    line-height: calc(32 / 24);
+  }
+
+  &_18 {
+    margin-bottom: 1.2rem;
+    font-size: 1.8rem;
+    line-height: calc(27 / 18);
+  }
+}
+
 /// -----------------数字つき見出し//
 
 .-numTtl {

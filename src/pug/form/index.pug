@@ -10,13 +10,23 @@ block vars
 
 block contents
   guide-tour
-    button(slot="c_help_btn") ヘルプボタン
+    button(slot="helpOpen") ヘルプボタン
     .c_help_txt(slot="help01")
-      p 資料の送付方法を選択してください
+      p 資料の送付方法を選択してください。
     .c_help_txt(slot="help02")
-      p 名前を入力してください
+      p 名前を記入してください。
     .c_help_txt(slot="help03")
-      p 名前のふりがなを平がなで入力してください
+      p 名前の読みをひらがなで記入してください。
     .c_help_txt(slot="help04")
-      p メールアドレスを入力してください
+      p メールアドレスを記入してください。
+    .c_help_txt(slot="help05")
+      p 電話番号の数字のみ記入してください。
+    .c_help_txt(slot="help07")
+      p ご検討中のプランを選択してください。
+    .c_help_txt(slot="help08")
+      p 当てはまる項目を選択してください。
+    .c_help_txt(slot="help09")
+      p プライバシーポリシーを確認の上（別ページが開きます）、チェックボックスを押してください。
+    .c_help_txt(slot="submit")
+      p 「送信する」ボタンを押すとメールが送信されます。
   include ./_parts/_form.html

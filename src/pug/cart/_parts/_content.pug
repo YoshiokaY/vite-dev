@@ -1,0 +1,82 @@
+section.cartSec
+  .l_header
+    img(src=imgPath + "header.png", alt="", width="", height="", decoding="async", loading="lazy")
+    guide-tour
+      button(slot="helpOpen"): img(src=imgPath + "icon_help.png", alt="初めての方", width="75", height="46", decoding="async", loading="lazy")
+      .c_help_txt(slot="help01")
+        p(class="mb-[0.5rem]") ボタンを押して色を選択してください。
+        .grid(class="grid-cols-[auto,1fr] gap-[1em]")
+          img(src=imgPath + "color.png", alt="", width="48", height="48", decoding="async", loading="lazy")
+          p 青い囲いが出ている状態が現在の選択状態です。
+      .c_help_txt(slot="help02")
+        p ボタンを押してサイズを選択してください。
+      .c_help_txt(slot="help03")
+        p ご購入される数量を選択してください。
+      .c_help_txt(slot="help04")
+        p 「カートに入れる」ボタンを押すと商品がカートに追加されます。
+  .contentInner
+    h1.c_ttl_item メンズ 2足組ソックス（履き心地ゆったり）
+    ul.c_tag
+      li.c_tag_item 履き口ゆったり
+      li.c_tag_item 表糸 綿100％
+      li.c_tag_item 抗菌防臭
+  .c_slide
+    .splide.mv_slide_main
+      .splide__track
+        .splide__list
+          .splide__slide
+            img(src=imgPath + "mv_img001.png", alt="商品画像", width="360", height="360", decoding="async", loading="lazy")
+          .splide__slide
+            img(src=imgPath + "mv_img002.png", alt="商品画像", width="360", height="360", decoding="async", loading="lazy")
+  .contentInner
+    .c_slide
+      .splide.mv_slide_thumb
+        .splide__track
+          .splide__list
+            .splide__slide
+              figure
+                img(src=imgPath + "mv_img001.png", alt="", width="52", height="52", decoding="async", loading="lazy")
+            .splide__slide
+              figure
+                img(src=imgPath + "mv_img002.png", alt="", width="52", height="52", decoding="async", loading="lazy")
+    h2.c_ttl_18(for="select_color") カラー:
+    ul#help01.selectList(class="gap-[1.6rem]")
+      li
+        input#select_color_1.select(type="radio", name="select_color", checked)
+        label.c_btn.-color(for="select_color_1")
+          span.btnColor.-gray: span.txtHidden グレー
+      li
+        input#select_color_2.select(type="radio", name="select_color")
+        label.c_btn.-color(for="select_color_2")
+          span.btnColor.-black: span.txtHidden 黒
+    h2.c_ttl_18 サイズ:
+    ul#help02.selectList(class="gap-[1.6rem]")
+      li
+        input#select_size_1.select(type="radio", name="select_size", checked)
+        label.c_btn(for="select_size_1") 24-26cm
+      li
+        input#select_size_2.select(type="radio", name="select_size")
+        label.c_btn(for="select_size_2") 26-28cm
+    h2.c_ttl_18 数量
+    #help03.select_container
+      select#select_volume(name="slect_volume")
+        option(value="1", selected) 1
+        option(value="2") 2
+        option(value="3") 3
+        option(value="4") 4
+        option(value="5") 5
+    .priceContainer
+      p.priceContainer_txt 539
+        |
+        span 円（税込）
+      p: a.priceContainer_link(href="") 配送について
+
+    button#help04.cartBtn(type="submit"): img(src=imgPath + "primary_button.png", alt="", width="", height="", decoding="async", loading="lazy")
+
+    img(src=imgPath + "secondary_button.png", alt="", width="", height="", decoding="async", loading="lazy")
+
+    p.cartLink: a(href="") 返品・交換について
+
+    img(src=imgPath + "content.png", alt="", width="", height="", decoding="async", loading="lazy")
+    img.bread(src=imgPath + "bread.png", alt="", width="", height="", decoding="async", loading="lazy")
+    img(src=imgPath + "footer.png", alt="", width="", height="", decoding="async", loading="lazy")

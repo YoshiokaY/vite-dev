@@ -3,12 +3,18 @@
 
 /* ヘッダー */
 .l_header {
-  height: 20rem;
-  border: 0.4rem solid $color-prime;
+  position: relative;
+  z-index: 9999;
+  width: 100%;
 
   .headerLogo {
     z-index: 999;
     transition: filter 0.3s ease-out 0.3s;
+  }
+
+  guide-tour {
+    position: absolute;
+    inset: auto 9.4rem 0 auto;
   }
   /// -----------------Gナビ//
   .headerNavi {

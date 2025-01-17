@@ -8,6 +8,8 @@ import { ArchiveList } from "./class/NewsArchive";
 import { NewsSingle } from "./class/NewsSingle";
 import { SmoothScroll } from "./class/SmoothScroll";
 import { GuideTour } from "./class/GuideTour";
+import "./utils/slide";
+import { getHeader } from "./utils/util";
 
 window.addEventListener("DOMContentLoaded", () => {
   new Modal(); // モーダル
@@ -24,4 +26,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener("load", () => {
   new Accordion(); // アコーディオン
+  getHeader();
 });

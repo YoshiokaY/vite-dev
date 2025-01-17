@@ -25,6 +25,7 @@
     "@markuplint/pug-parser": "^4.6.7",
     "@playwright/test": "^1.47.2",
     "@prettier/plugin-pug": "^3.1.0",
+    "@splidejs/splide": "^4.1.4",
     "@types/jquery": "^3.5.31",
     "@types/node": "^22.7.3",
     "@types/pug": "^2.0.10",

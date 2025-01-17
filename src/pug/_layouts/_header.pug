@@ -4,22 +4,5 @@
   let menus = common["menu"] ? common["menu"] : [];
 
 header.l_header
-  .contentInner
-    .grid.items-center(class="md:grid-cols-[calc(262/1080*100%),1fr]")
-      if slug == "top"
-        h1.headerLogo(class="md:w-[clamp(11rem,56%,17.4rem)] md:ml-[min(8%,2.4rem)] w-[12.3rem]")
-          a.block(href="/") ヘッダー
-      else
-        .headerLogo(class="md:w-[clamp(11rem,56%,17.4rem)] md:ml-[min(8%,2.4rem)] w-[12.3rem]")
-          a.block(href="/") ヘッダー
-      nav.headerNavi.flex.justify-end.relative(class="gap-[6.4rem] max-md:before:bg-prime")
-        h2.txtHidden グローバルナビゲーション
-        button.ac_menu(class="h-[2.8rem]")
-          span.bg-txt(class="h-[0.2rem] after:bg-txt before:bg-txt after:h-[0.2rem] before:h-[0.2rem]") メニューを開く
-        .naviWrapper
-          .h-full(class="max-md:overflow-y-auto")
-            ul#navi.flex.flex-col.items-center(class="md:flex-row md:gap-[4.6rem] md:justify-end gap-[calc(9.6rem/2)]")
-              +setNav(menus)
-          button.closeBtn.txtHidden メニューを閉じる
 
 <!-- /ヘッダー -->

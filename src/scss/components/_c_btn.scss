@@ -14,42 +14,64 @@ $colorBtnTxt_hover: $colorBtn; // ホバー時文字色
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  max-width: 20rem;
-  height: 5.6rem;
   padding: 1em;
-  overflow: hidden;
   font-weight: bold;
-  color: $colorBtnTxt;
+  color: #212121;
   text-decoration: none;
-  background-color: $colorBtn;
-  border: 0.15rem solid $color-prime;
+  border: 0.1rem solid #212121;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.3rem 0 0 #212121;
   transition:
-    background-color $easing,
-    color $easing;
+    translate 0.2s,
+    box-shadow 0.2s;
   @include hover {
-    color: var(--color-prime);
-
-    &::before {
-      transform: scale(0, 1);
-      transform-origin: right top;
-    }
-
-    &::after {
-      background-color: var(--color-prime);
-      translate: 0.5rem 0;
-    }
+    box-shadow: none;
+    translate: 0 0.3rem;
   }
 
-  &.-reversal {
-    &::after {
-      inset: 0 auto 0 2.4rem;
-      border-color: var(--color-prime);
-      rotate: 180deg;
-    }
-    @include hover {
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    content: "";
+    border-radius: 0.8rem;
+    outline: 0.3rem solid #448aff;
+    outline-offset: 0;
+    opacity: 0;
+  }
+
+  &.-color {
+    position: relative;
+    height: 4.8rem;
+    aspect-ratio: 1/1;
+    padding: 0.5rem;
+
+    &.-select {
+      position: relative;
+      pointer-events: none;
+      border-color: transparent;
+      box-shadow: none;
+
       &::after {
-        left: 1.6rem;
+        opacity: 1;
+      }
+    }
+
+    .btnColor {
+      width: 100%;
+      height: 100%;
+      border: 0.1rem solid #212121;
+      border-radius: 0.8rem;
+
+      &.-black {
+        background-color: #212121;
+      }
+
+      &.-gray {
+        background-color: #c9c9c9;
       }
     }
   }

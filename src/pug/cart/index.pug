@@ -1,0 +1,13 @@
+extends ../_base/_layout
+
+block vars
+  include ./_contents
+  - let slug = "about";
+  - let head = about["head"];
+  - let content = about["content"];
+  - let imgPath = "/img/";
+  - let imgPathLocal = "/img/" + slug + "/";
+
+block contents
+  include ./_parts/_summary
+  include ./_parts/_content

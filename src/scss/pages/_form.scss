@@ -23,8 +23,8 @@ header.-relative {
     -moz-appearance: none;
     appearance: none;
     background: transparent;
-    border: none;
-    border-radius: 0;
+    // border: none;
+    // border-radius: 0;
     outline: none;
   }
 
@@ -687,4 +687,8 @@ input:-webkit-autofill {
 
 select:-webkit-autofill {
   transition: background-color 10000s ease-in-out 0s;
+}
+
+.c_btn {
+  margin-inline: auto;
 }

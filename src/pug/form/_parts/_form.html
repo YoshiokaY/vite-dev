@@ -7,12 +7,12 @@
         <table class="formTable -resTable" id="inputTable">
           <tbody>
             <tr>
-              <th class="required" id="help01">資料の送付方法</th>
-              <td><input type="radio" id="emailing" name="00N2x000008XNnC" value="メールで受け取る" checked="" /><label for="emailing">メールで受け取る</label> <input type="radio" id="mailing" name="00N2x000008XNnC" value="郵送で受け取る" /><label for="mailing">郵送で受け取る</label></td>
+              <th class="required">資料の送付方法</th>
+              <td id="help01"><input type="radio" id="emailing" name="00N2x000008XNnC" value="メールで受け取る" checked="" /><label for="emailing">メールで受け取る</label> <input type="radio" id="mailing" name="00N2x000008XNnC" value="郵送で受け取る" /><label for="mailing">郵送で受け取る</label></td>
             </tr>
             <tr>
-              <th class="required" id="help02">お名前</th>
-              <td class="half">
+              <th class="required">お名前</th>
+              <td class="half" id="help02">
                 <div>
                   <span> <label for="sei">姓</label><input type="text" name="姓" id="sei" value="" required="required" placeholder="例）鈴木" maxlength="255" /> </span> <i class="errorText">姓が入力されていません。</i>
                 </div>
@@ -22,8 +22,8 @@
               </td>
             </tr>
             <tr>
-              <th class="required" id="help03">ふりがな</th>
-              <td class="half">
+              <th class="required">ふりがな</th>
+              <td class="half" id="help03">
                 <div>
                   <span> <label for="ruby">せい</label><input type="text" name="せい" id="ruby" value="" required="required" placeholder="例）すずき" maxlength="255" /> </span> <i class="errorText">姓のふりがなが入力されていません。</i> <i class="errorText">全角ひらがなで入力してください。</i>
                 </div>
@@ -33,32 +33,22 @@
               </td>
             </tr>
             <tr>
-              <th class="required" id="help04"><label for="email">メールアドレス</label></th>
-              <td>
+              <th class="required"><label for="email">メールアドレス</label></th>
+              <td id="help04">
                 <span> <input type="email" id="email" name="メールアドレス" value="" required="required" placeholder="例）example@email.com" /> </span> <i class="errorText">メールアドレスが入力されていません。</i> <i class="errorText">メールアドレスが正しくありません。</i>
               </td>
             </tr>
             <tr>
               <th class="required"><label for="telno">電話番号</label> <small>(携帯電話番号または固定電話番号)</small></th>
-              <td>
+              <td id="help05">
                 <span> <input type="tel" name="電話番号" id="phone" value="" required="required" placeholder="例）09012345678" maxlength="255" /> </span> <i class="errorText">電話番号が入力されていません。</i> <i class="errorText">電話番号に数字以外の文字が入力されています。</i> <i class="errorText"></i>
                 <p class="inputMsg">電話番号は-（ハイフン）なしで入力してください。</p>
-              </td>
-            </tr>
-            <tr class="type1 -disabled">
-              <th>お葬式の予定地域</th>
-              <td><input type="radio" id="samezip" name="00N2x000008XNnH" value="ご住所と同じ" checked="" /><label for="samezip">ご住所と同じ</label> <input type="radio" id="otherzip" name="00N2x000008XNnH" value="別の場所を予定" /><label for="otherzip">別の場所を予定</label></td>
-            </tr>
-            <tr class="type2">
-              <th>お葬式の予定地域</th>
-              <td>
-                <span> <input id="00N2x000008XNnR" name="00N2x000008XNnR" type="text" placeholder="例）大垣市" maxlength="255" /> </span>
               </td>
             </tr>
             <tr>
               <th><label for="plan">検討しているお葬式の種類</label></th>
               <td>
-                <span class="selectBox">
+                <span class="selectBox" id="help07">
                   <select id="plan" name="検討しているお葬式の種類">
                     <option value="" selected="selected" disabled="">選択してください</option>
                     <option value="お通夜・告別式あり">お通夜・告別式あり</option>
@@ -71,28 +61,19 @@
             </tr>
             <tr>
               <th>ご対象者様のご状況</th>
-              <td class="-vertical">
+              <td class="-vertical" id="help08">
                 <span> <input type="radio" id="situation2" name="00N2x000008XIgQ" value="危篤" /><label for="situation2">危篤</label> <input type="radio" id="situation3" name="00N2x000008XIgQ" value="余命宣告（1ヶ月以内）" /><label for="situation3">余命宣告（1ヶ月以内）</label> <input type="radio" id="situation4" name="00N2x000008XIgQ" value="闘病中（重度）" /><label for="situation4">闘病中（重度）</label> <input type="radio" id="situation5" name="00N2x000008XIgQ" value="闘病中（軽度）" /><label for="situation5">闘病中（軽度）</label> <input type="radio" id="situation6" name="00N2x000008XIgQ" value="健在（終活）" /><label for="situation6">健在（終活）</label> </span>
               </td>
             </tr>
             <tr>
               <th class="required">送信確認</th>
-              <td>
+              <td id="help09">
                 送信内容をご確認の上、<a href="/privacy/" target="_blank" rel="noopener noreferrer" class="policyLink">プライバシーポリシー</a>に同意いただける場合はチェックを入れてください。 <span class="policyCheckBox"> <input type="checkbox" required="required" name="送信確認" value="送信チェック済み" id="submit_check" /><label for="submit_check">プライバシーポリシーに同意する</label> </span> <i class="errorText">送信確認がチェックされていません。</i>
               </td>
             </tr>
           </tbody>
         </table>
-        <div class="confirmModal" id="confirmModal">
-          <div class="bg"></div>
-          <section class="confContent">
-            <div class="inner">
-              <h1 class="conf_ttl">入力内容をご確認ください</h1>
-              <table class="formTable -resTable" id="confirmTable"></table>
-              <div class="submitContainer"><button type="button" class="cancelBtn" id="closeModal">キャンセル</button> <button type="submit" class="btnStyle -btn3">送信する</button></div>
-            </div>
-          </section>
-        </div>
+        <button type="submit" class="c_btn" id="submit">送信する</button>
       </form>
     </div>
   </div>
