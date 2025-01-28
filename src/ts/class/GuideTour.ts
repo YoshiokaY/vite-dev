@@ -5,6 +5,7 @@ import { customElement, property, state } from "lit/decorators.js";
 export class GuideTour extends LitElement {
   static styles = css`
     /* オーバーレイのスタイル */
+
     .c_help_pop {
       border: 0;
       background: none;
@@ -29,8 +30,9 @@ export class GuideTour extends LitElement {
       left: 0;
       width: 100%;
       height: calc(var(--targetY) - var(--targetHeight));
-      background-color: rgba(0, 0, 0, 0.5);
+      background-color: var(--color-txt);
       z-index: -1;
+      opacity: 0.5;
     }
 
     .c_help_pop::after {
@@ -47,9 +49,9 @@ export class GuideTour extends LitElement {
     .c_help_container {
       max-width: calc(100% - 3rem);
       position: relative;
-      background-color: white;
+      background-color: var(--help-body);
       padding: 1rem 6.5rem 2rem;
-      color: #333;
+      color: var(--color-txt);
       border-radius: 0.5rem;
       box-shadow: 0 0.22rem 0.4rem rgba(0, 0, 0, 0.2);
       opacity: 0;
@@ -62,7 +64,7 @@ export class GuideTour extends LitElement {
       margin: auto;
       width: 2rem;
       height: 1.5rem;
-      background-color: #fff;
+      background-color: var(--help-body);
       clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
     }
     .c_help_pop.-reversal .c_help_container::before {
@@ -85,13 +87,13 @@ export class GuideTour extends LitElement {
 
     .c_help_icon {
       position: relative;
-      height: 4rem;
+      height: 3.5rem;
       aspect-ratio: 1/1;
       display: inline-block;
     }
 
     .c_help_icon::after {
-      content: '?';
+      content: '';
       position: absolute;
       inset: 0;
       margin: auto;
@@ -102,7 +104,7 @@ export class GuideTour extends LitElement {
       align-items: center;
       font-size: 1.6rem;
       font-weight: bold;
-      color: #999;
+      color: var(--help-body);
     }
 
     .progress-svg {
@@ -110,17 +112,17 @@ export class GuideTour extends LitElement {
       inset: 0;
       margin: auto;
       fill: none;
-      stroke: #999;
+      stroke: var(--help-stroke);
       width: 100%;
       height: 100%;
       stroke-dasharray: calc(24 * 3.14), calc(24 * 3.14);
-      stroke-width: 0.3rem;
+      stroke-width: 0.5rem;
       transform: rotate(-90deg);
     }
 
     .progress-svg.-bar {
       stroke-dasharray: var(--progress), calc(24 * 3.14);
-      stroke: #333;
+      stroke: var(--help-fill);
     }
 
     .c_help_arrow,
@@ -130,9 +132,9 @@ export class GuideTour extends LitElement {
       margin: auto;
       height: 3rem;
       aspect-ratio: 1/1;
-      background-color: #999;
+      background-color: var(--help-btn);
       border-radius: 50%;
-      border: 0;
+      border: 0.1rem solid var(--help-border);
       cursor: pointer;
       box-shadow: 0 0.2rem 0 0 #212121;
       transition:
@@ -141,7 +143,7 @@ export class GuideTour extends LitElement {
     }
 
     .c_help_arrow.-disable {
-      opacity: 0.5;
+      opacity: 0.35;
       pointer-events: none;
     }
 
@@ -169,7 +171,7 @@ export class GuideTour extends LitElement {
       height: 0.8rem;
       aspect-ratio: 1/1;
       display: flex;
-      border: 0.2rem solid #fff;
+      border: 0.2rem solid var(--help-arrow);
       border-width: 0.2rem 0.2rem 0 0;
       rotate: 45deg;
     }
@@ -182,7 +184,6 @@ export class GuideTour extends LitElement {
     .c_help_close {
       inset: 0.5rem 0.5rem auto auto;
       height: 2rem;
-      background-color: #999;
     }
 
     .c_help_close::before,
@@ -193,7 +194,7 @@ export class GuideTour extends LitElement {
       margin: auto;
       width: 0.2rem;
       height: 60%;
-      background-color: #fff;
+      background-color: var(--help-arrow);
     }
 
     .c_help_close::before {
@@ -214,8 +215,33 @@ export class GuideTour extends LitElement {
     }
 
     .c_help_caution {
-      color: #ff5555;
+      color: var(--help-caution);
       font-weight: 500;
+    }
+
+    .stepNum-current {
+      font-size: 120%;
+      position: relative;
+      padding-right: 0.3em;
+      color: var(--help-fill);
+    }
+    .stepNum-current::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+      width: 0.3rem;
+      height: 70%;
+      background-color: var(--help-stroke);
+      rotate: 25deg;
+    }
+    .stepNum-all {
+      font-size: 70%;
+      vertical-align: bottom;
+      font-weight: 600;
+      margin-left: 0.3em;
+      color: var(--help-stroke);
     }
 
   `;
@@ -258,7 +284,7 @@ export class GuideTour extends LitElement {
                     <circle cx="15" cy="15" r="12"></circle>
                   </svg>
                 </span>
-                ステップ：${this.currentIndex + 1}/${this.targets.length}
+                <span class="stepNum">ステップ：<span class="stepNum-current">${this.currentIndex + 1}</span><span class="stepNum-all">${this.targets.length}</span></span>
               </p>
               <slot name="${currentTargetId}"></slot>
               ${
