@@ -17,18 +17,31 @@ section(class="py-[8rem]")
     .bg-gray(class="mb-[5rem] p-[1em]")
       code &lt;filter-list category="[&quot;札幌&quot;,&quot;東京&quot;,&quot;京都&quot;,&quot;男性&quot;,&quot;女性&quot;,&quot;EGM&quot;,&quot;EGK&quot;,&quot;EGN&quot;,&quot;EGH&quot;]" all="すべて" visible="3" type="checkbox" search="AND"><br>&lt;slot name="content"><br>&lt;!-- フィルタリングする要素を子要素として記述 --&gt;<br>&lt;/slot&gt;<br>&lt;/filter-list&gt;
 
-    filter-list(category=filter.cats, all="すべて", visible=3)
-      .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
-        each list, i in filter.list
-          .border-prime.c_filter_item(class="border-[0.1rem]")
-            +picture(list.img.src, "", list.img.size)
-            div(class="p-[2.4rem]")
-              .flex(class="gap-[1.6rem] mb-[1.2rem]")
-                each cat in list.cat
-                  span.c_filter_cat.bg-prime.text-reversal.text-sm(class="p-[0.1em_0.5em]") !{ cat }
-              h3.text-prime.font-bold(class="mb-[0.8rem]")
-                span.block.text-sm No.!{ (i + 1) }
-                span.text-lg !{ list.ttl }さん
-              p(class="max-md:text-red") !{ list.txt }
+    //- filter-list(category=filter.cats, all="すべて", visible=3)
+    //-   .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
+    //-     each list, i in filter.list
+    //-       .border-prime.c_filter_item(class="border-[0.1rem]")
+    //-         +picture(list.img.src, "", list.img.size)
+    //-         div(class="p-[2.4rem]")
+    //-           .flex(class="gap-[1.6rem] mb-[1.2rem]")
+    //-             each cat in list.cat
+    //-               span.c_filter_cat.bg-prime.text-reversal.text-sm(class="p-[0.1em_0.5em]") !{ cat }
+    //-           h3.text-prime.font-bold(class="mb-[0.8rem]")
+    //-             span.block.text-sm No.!{ (i + 1) }
+    //-             span.text-lg !{ list.ttl }さん
+    //-           p(class="max-md:text-red") !{ list.txt }
+
+    filter-list(category=filter.cats, all="すべて", visible=4, src="/_assets/js/eg", search="AND")
+      //- each list, i in filter.list
+      //-   .border-prime.c_filter_item(class="border-[0.1rem]")
+      //-     +picture(list.img.src, "", list.img.size)
+      //-     div(class="p-[2.4rem]")
+      //-       .flex(class="gap-[1.6rem] mb-[1.2rem]")
+      //-         each cat in list.cat
+      //-           span.c_filter_cat.bg-prime.text-reversal.text-sm(class="p-[0.1em_0.5em]") !{ cat }
+      //-       h3.text-prime.font-bold(class="mb-[0.8rem]")
+      //-         span.block.text-sm No.!{ (i + 1) }
+      //-         span.text-lg !{ list.ttl }さん
+      //-       p(class="max-md:text-red") !{ list.txt }
 
 <!-- /フィルター -->
