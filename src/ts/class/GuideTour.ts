@@ -10,10 +10,7 @@ export class GuideTour extends LitElement {
       border: 0;
       background: none;
       position: fixed;
-      top: var(--popY);
-      bottom: auto;
-      right: auto;
-      left:  var(--popX);
+      inset: var(--popY) 0 auto;
       margin: auto;
       z-index: 999;
       width: fit-content;
@@ -242,6 +239,17 @@ export class GuideTour extends LitElement {
       font-weight: 600;
       margin-left: 0.3em;
       color: var(--help-stroke);
+    }
+    @media screen and (width >= 768px) {
+      .c_help_pop {
+        right: auto;
+        left:  var(--popX);
+        padding-right: 2rem;
+      }
+      .c_help_container::before {
+        right: auto;
+        left: 1rem;
+      }
     }
 
   `;

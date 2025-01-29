@@ -1,0 +1,23 @@
+section(class="py-[8rem]")
+  .contentInner
+    h2.text-h2.font-bold(class="mb-[1em]") ヘルプツアーコンポーネント
+    p(class="mb-[1em]") ヘルプをポップアップで表示するWeb Componentsです。
+    ul.list-disc(class="pl-[1em] mb-[2em]")
+      li ポップアップを表示するためのボタンにslot="c_help_btn"の属性を記述します。
+      li ポップアップを表示したい要素のIDをslot属性に指定します。
+      li 上記で指定した要素にそのポップアップの内容を記述します。<br>テキストや画像のほか、html構造を自由に組み込むことができます。
+      li ポップアップの色を変える場合はcss変数で指定します。
+
+    h3.text-h3 サンプルのカラー
+    p(class="mb-[3rem]") --help-body: #fff;<br>--help-btn: #fff;<br>--help-arrow: #212121;<br>--help-border: #212121;<br>--help-caution: #c00;<br>--help-stroke: #c9c9c9;<br>--help-fill: #448aff;
+
+    h3.text-h3(class="mb-[1em]") コードサンプル
+    .bg-gray(class="mb-[5rem] p-[1em]")
+      code &lt;guide-tour&gt;<br>&emsp;&emsp;&lt;button slot=&quot;helpOpen&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;img src=&quot;/img/icon_help.png&quot; alt=&quot;初めての方&quot; width=&quot;75&quot; height=&quot;46&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot;&gt;<br>&emsp;&emsp;&lt;/button&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help01&quot;&gt;<br>&emsp;&emsp;&lt;p class=&quot;mb-[0.5rem]&quot;&gt;ボタンを押して色を選択してください。&lt;/p&gt;<br>&emsp;&emsp;&lt;div class=&quot;grid grid-cols-[auto,1fr] gap-[1em]&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;img src=&quot;/img/color.png&quot; alt=&quot;&quot; width=&quot;48&quot; height=&quot;48&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;p&gt;青い囲いが出ている状態が現在の選択状態です。&lt;/p&gt;<br>&emsp;&emsp;&lt;/div&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help02&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;ボタンを押してサイズを選択してください。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help03&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;ご購入される数量を選択してください。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help04&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;「カートに入れる」ボタンを押すと商品がカートに追加されます。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&lt;/guide-tour&gt;
+
+    h3.text-h3(class="mb-[1em]") サンプル
+    ul.list-disc(class="pl-[1em] mb-[2em]")
+      li: a(href="/help/cart/") カートに追加する
+      li: a(href="/help/form/") お問い合わせをする
+
+<!-- /ヘルプツアー -->

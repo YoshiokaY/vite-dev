@@ -1,0 +1,39 @@
+extends ../../_base/_layout
+
+block vars
+  include ./_contents
+  - let slug = "about";
+  - let head = about["head"];
+  - let content = about["content"];
+  - let imgPath = "/img/";
+  - let imgPathLocal = "/img/" + slug + "/";
+
+block contents
+  .contentInner
+    h2.text-h2(class="mb-[0.5em]") お問い合わせフォームを送信するまでのヘルプツアー
+    p <span class="font-bold">ヘルプボタン</span>を押すとヘルプツアーが始まります。
+  .contentInner
+    guide-tour
+      button.c_btn.mr-0.mb-3.bg-second.text-reversal(slot="helpOpen", class="rounded-[999rem]") ヘルプボタン
+      .c_help_txt(slot="help01")
+        p 資料の送付方法を選択してください。
+      .c_help_txt(slot="help02")
+        p 名前を記入してください。
+      .c_help_txt(slot="help03")
+        p 名前の読みをひらがなで記入してください。
+      .c_help_txt(slot="help04")
+        p メールアドレスを記入してください。
+      .c_help_txt(slot="help05")
+        p 電話番号の数字のみ記入してください。
+      .c_help_txt(slot="help07")
+        p ご検討中のプランを選択してください。
+      .c_help_txt(slot="help08")
+        p 当てはまる項目を選択してください。
+      .c_help_txt(slot="help09")
+        p プライバシーポリシーを確認の上（別ページが開きます）、チェックボックスを押してください。
+      .c_help_txt(slot="submit")
+        p 「送信する」ボタンを押すとメールが送信されます。
+  include ./_parts/_form.html
+
+  .contentInner(class="pb-[5rem]")
+    a.c_btn(href="/help/", class="max-w-[32rem]") 戻る

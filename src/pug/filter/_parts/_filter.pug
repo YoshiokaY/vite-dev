@@ -1,0 +1,34 @@
+<!-- フィルター -->
+- let filter = content.filter ? content.filter : [];
+
+section(class="py-[8rem]")
+  .contentInner
+    h2.text-h2.font-bold(class="mb-[1em]") フィルタリングコンポーネント
+    p(class="mb-[1em]") カテゴリーを選択して要素の絞り込みを行うWeb Componentsです。
+    ul.list-disc(class="pl-[1em] mb-[2em]")
+      li category属性にフィルタリングするカテゴリーを配列で入れます。記述がない場合、子要素が表示されるだけになります。
+      li 実際にフィルタリングを行う要素はslotに入れることでどんな構造でも使い回しが可能です。<br>※ただし、.c_filter_catをつけた要素にフィルタリングのテキストと一致するカテゴリーを記述する必要があります。
+      li visibleオプションに数値を指定することで表示件数を設定できます。<br>※もっと見るボタンを押すことで設定件数ずつ表示。
+      li typeオプションを"radio"にすることで単一絞り込みになります。<br>※デフォルトはcheckbox。
+      li searchオプションを"OR"にすることでOR検索になります。<br>※デフォルトはAND検索。
+      li allオプションで全件表示ボタンのテキストを変更できます。一つも選択がない場合、初期状態も全件表示になります。
+
+    h3.text-h3(class="mb-[1em]") フィルタリングコンポーネント
+    .bg-gray(class="mb-[5rem] p-[1em]")
+      code &lt;filter-list category="[&quot;札幌&quot;,&quot;東京&quot;,&quot;京都&quot;,&quot;男性&quot;,&quot;女性&quot;,&quot;EGM&quot;,&quot;EGK&quot;,&quot;EGN&quot;,&quot;EGH&quot;]" all="すべて" visible="3" type="checkbox" search="AND"><br>&lt;slot name="content"><br>&lt;!-- フィルタリングする要素を子要素として記述 --&gt;<br>&lt;/slot&gt;<br>&lt;/filter-list&gt;
+
+    filter-list(category=filter.cats, all="すべて", visible=3)
+      .grid.grid-cols-3(class="gap-[3.2rem]", slot="content")
+        each list, i in filter.list
+          .border-prime.c_filter_item(class="border-[0.1rem]")
+            +picture(list.img.src, "", list.img.size)
+            div(class="p-[2.4rem]")
+              .flex(class="gap-[1.6rem] mb-[1.2rem]")
+                each cat in list.cat
+                  span.c_filter_cat.bg-prime.text-reversal.text-sm(class="p-[0.1em_0.5em]") !{ cat }
+              h3.text-prime.font-bold(class="mb-[0.8rem]")
+                span.block.text-sm No.!{ (i + 1) }
+                span.text-lg !{ list.ttl }さん
+              p(class="max-md:text-red") !{ list.txt }
+
+<!-- /フィルター -->

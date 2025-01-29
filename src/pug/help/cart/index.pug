@@ -1,0 +1,15 @@
+extends ../../_base/_layout
+
+block vars
+  include ./_contents
+  - let slug = "about";
+  - let head = about["head"];
+  - let content = about["content"];
+  - let imgPath = "/img/";
+  - let imgPathLocal = "/img/" + slug + "/";
+
+block contents
+  .contentInner
+    h2.text-h2(class="mb-[0.5em]") カートに追加するまでのヘルプツアー
+    p <span class="font-bold">「初めての方」</span>ボタンを押すとヘルプツアーが始まります。
+  include ./_parts/_content
