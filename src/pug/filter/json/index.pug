@@ -1,4 +1,4 @@
-extends ../_base/_layout
+extends ../../_base/_layout
 
 block vars
   include ./_contents
@@ -9,7 +9,6 @@ block vars
   - let imgPathLocal = "/img/" + slug + "/";
 
 block contents
-  include ./_parts/_content
-
+  include ./_parts/_filter
   .contentInner(class="pb-[5rem]")
-    a.c_btn(href="/", class="max-w-[32rem]") 戻る
+    a.c_btn(href="/filter/", class="max-w-[32rem]") 戻る

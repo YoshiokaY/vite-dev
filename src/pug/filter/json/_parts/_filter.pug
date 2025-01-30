@@ -1,0 +1,15 @@
+<!-- フィルター -->
+- let filter = content.filter ? content.filter : [];
+
+section(class="py-[8rem]")
+  .contentInner
+    h2.text-h2.font-bold(class="mb-[1em]") フィルタリングコンポーネント
+    p(class="mb-[1em]") srcオプションにjsonファイルのURLを指定するとフィルタリングしたい要素を動的に表示/非表示することができます。<br>スタイリングは通常通りできますが、フィルタリング要素やjsonの構造を編集する場合はjs側を修正する必要があります。
+
+    h3.text-h3(class="mb-[1em]") サンプルコード
+    .bg-gray(class="mb-[5rem] p-[1em]")
+      code &lt;filter-list category="["札幌","東京","京都","男性","女性","EGM","EGK","EGN","EGH"]" visible="3" src="/_assets/js/eg" search="OR"&gt;<br>&lt;/filter-list&gt;
+
+    filter-list(category=filter.cats, visible=3, src="/_assets/js/eg", search="OR")
+
+<!-- /フィルター -->
