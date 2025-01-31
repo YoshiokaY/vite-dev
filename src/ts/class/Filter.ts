@@ -126,7 +126,7 @@ export class Filter extends LitElement {
                 i < this.show
                   ? html`
                 <div class="border-prime c_filter_item border-[0.1rem] -visible">
-                  <img src="/img/top/${item.img.src}" width="${item.img.size[0]}" height="${item.img.size[1]}" decoding="async" loading="lazy">
+                  <img src="${item.img.src}" width="${item.img.size[0]}" height="${item.img.size[1]}" decoding="async" loading="lazy">
                   <div class="p-[2.4rem]">
                     <div class="flex gap-[1.6rem] mb-[1.2rem]">
                       ${item.cat.map((cat) => {
