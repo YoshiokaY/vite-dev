@@ -25,6 +25,13 @@
 @use "pages/*";
 
 // Tailwindの読み込み
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// @tailwind base;
+// @tailwind components;
+// @tailwind utilities;
+
+@theme {
+  --color-mint-500: oklch(72% 0.11 178deg);
+  --color-forth: blue;
+  --color-fifth: red;
+  --color-sixs: yellow;
+}

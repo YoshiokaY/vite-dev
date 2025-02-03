@@ -1,7 +1,7 @@
 <!-- トップページ -->
 section(class="my-[3rem]")
   .contentInner
-    h2.font-bold.text-h2.scrollIn.-up(class="mb-[2.4rem]") 画像のmixin
+    h2.font-bold.text-h2.scrollIn.-up.bg-mint-500(class="mb-[2.4rem]") 画像のmixin
     .grid.grid-cols-1(class="gap-[3.2rem] md:grid-cols-2")
       figure.scrollIn.-up
         +picture("noimage.jpg", "仮画像", [800,600,800,600])
@@ -12,8 +12,8 @@ section(class="my-[3rem]")
 
       a.textLink(href="#") リンクテキスト
 
-    p <span class="scrollIn">.scrollInを付与することで交差オブザーバーを使用したフェードインアニメーションがつきます。</span><br>また<span class="scrollIn -up">.-up</span> <span class="scrollIn -down">.-down</span> <span class="scrollIn -left">.-left</span> <span class="scrollIn -right">.-right</span> で方向を指定できます。<br><span class="scrollIn -each">.-eachを付けるとつけている兄弟要素でディレイさせられます。</span><br><span class="scrollIn -each">移動距離や所要時間はsrc/scss/components/_u_anima.scssで設定できます。</span>
+    p.text-forth <span class="scrollIn">.scrollInを付与することで交差オブザーバーを使用したフェードインアニメーションがつきます。</span><br>また<span class="scrollIn -up">.-up</span> <span class="scrollIn -down">.-down</span> <span class="scrollIn -left">.-left</span> <span class="scrollIn -right">.-right</span> で方向を指定できます。<br><span class="scrollIn -each">.-eachを付けるとつけている兄弟要素でディレイさせられます。</span><br><span class="scrollIn -each">移動距離や所要時間はsrc/scss/components/_u_anima.scssで設定できます。</span>
 
-    p <span class="scroll">.scrollのみの場合は-activeがつくだけなので、オリジナルのアニメーションやjsの発火はこちらを使用してください。</span>
+    p.text-fifth <span class="scroll bg-sixs">.scrollのみの場合は-activeがつくだけなので、オリジナルのアニメーションやjsの発火はこちらを使用してください。</span>
 
 <!--/トップページ -->
