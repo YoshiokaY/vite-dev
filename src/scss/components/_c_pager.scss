@@ -22,16 +22,30 @@
       background-color: $color-prime;
       border: 0.1rem solid $color-prime;
       border-radius: 50%;
+      transition:
+        color $easing,
+        background-color $easing;
 
       &.-current {
         color: $color-prime;
         background-color: $color-reversal;
       }
 
+      &.-number {
+        @include hover {
+          color: $color-prime;
+          background-color: $color-reversal;
+        }
+      }
+
       &.-arrow {
         position: relative;
         background-color: transparent;
         border: 0;
+        transition: opacity $easing;
+        @include hover {
+          opacity: 0.5;
+        }
 
         &::after {
           position: absolute;

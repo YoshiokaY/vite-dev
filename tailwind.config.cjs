@@ -15,7 +15,7 @@ export default {
         third: "var(--color-third)",
         gray: "var(--color-gray)",
         body: "var(--color-body)",
-        highlight: "var(--color-higlight)",
+        highlight: "var(--color-highlight)",
       },
       fontSize: {
         // css変数にすることでsass側と統一（sp時に可変サイズにする）
