@@ -1,0 +1,31 @@
+<!DOCTYPE html><html dir="ltr" lang="ja"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no"><meta name="format-detection" content="telephone=no"><title>タイトルタイトルタイトル｜タイトルタイトル</title><meta name="description" content="テキストテキストテキストテキストテキストテキスト"><meta name="keywords" content="テキスト,テキスト,テキスト,テキスト,テキスト"><meta property="og:type" content="article"><meta property="og:local" content="ja_JP"><meta property="og:site_name" content="◯◯◯◯◯◯"><meta property="og:title" content="タイトルタイトルタイトル｜タイトルタイトル"><meta property="og:description" content="テキストテキストテキストテキストテキストテキスト"><meta property="og:url" content="https://www.XXXXX.XX.XX/about/"><meta property="og:image" content="https://www.XXXXX.XX.XX/_assets/img/ogp.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="タイトルタイトルタイトル｜タイトルタイトル"><meta name="twitter:description" content="テキストテキストテキストテキストテキストテキスト"><meta name="twitter:image" content="https://www.XXXXX.XX.XX/_assets/img/ogp.jpg"><link rel="icon"><link rel="canonical" href="https://www.XXXXX.XX.XX/about/"><script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://www.XXXXX.XX.XX/",
+    "logo": "https://www.XXXXX.XX.XX/_assets/img/logo.svg"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "タイトルタイトルタイトル｜タイトルタイトル",
+        "item": "https://www.XXXXX.XX.XX/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "タイトルタイトルタイトル｜タイトルタイトル"
+      }
+    ]
+  }
+]</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">  <script type="module" crossorigin src="/_assets/js/app.js"></script>
+  <link rel="stylesheet" crossorigin href="/_assets/css/style.css">
+</head><body class="page-about"><noscript>
+  <p>このページは JavaScript を使用しています。<br />お使いのブラウザーは JavaScript が無効になっているか、JavaScript に対応していません。<br />適切にこのページ表示する場合は JavaScriptを有効にするか、JavaScript に対応しているブラウザーでアクセスしてください。</p>
+</noscript>
+<a href="#main" class="txtHidden skipLink">本文へ移動</a>
+<!-- ヘッダー --><header class="l_header"></header><!-- /ヘッダー --><main id="main" aria-label="本文"><section class="md:py-[14rem] py-[8rem]"><div class="contentInner scrollIn -up"><h2 class="text-h2 font-bold mb-[1em]">ニュースコンポーネント</h2><p class="mb-[3rem]">jsonからお知らせの情報動的に表示するweb Componentsです。<br><a href="/_assets/js/news.json" target="_blank" rel="noopener" class="underline">jsonファイル</a>を更新することで一覧ページや詳細ページに内容が反映されるので、静的案件でもお知らせの更新や管理が容易になります。</p><ul class="list-disc pl-[1em] mb-[5rem]"><li><span class="text-red bg-gray font-bold">srcオプション</span>でjsonファイルのアドレスを相対パスで指定します。</li><li>トップページなど、記事一覧ページ以外に設置する場合は<span class="text-red bg-gray font-bold">hrefオプション</span>で記事一覧ページのリンク先を相対パスで指定できます。</li><li><span class="text-red bg-gray font-bold">visibleオプション</span>で1ページに表示する最大件数を指定できます。</span></li><li><span class="text-red bg-gray font-bold">headlineオプション</span>でヘッドラインに表示する最大件数を指定できます。</li><li>詳細ページは記事一覧ページで動的に生成されます。記事の順番はjsonの配列番号に従います。</li><li>jsonファイルにlinkが指定されている場合は自動生成の記事ではなく、当該urlにリンクします。</li><li>デフォルトではセキュリティの観点から相対パスのみ受け付けるようにしていますが、型を整形すればJSON APIやREST APIから表示データを参照することも可能です。</li><li>スタイリングは変更可能ですが、DOM構造やJSONの型を変更する場合はjsの編集が必要です。</li></ul><h3 class="text-h3 mb-[1em]">サンプルコード</h3><div class="bg-gray mb-[5rem] p-[1em]"><code>&lt;news-archive src="/_assets/js/news" href="/news/archive/" headline="3" visible="4"&gt;<br>&lt;!-- JSONデータから動的に生成 --&gt;<br>&lt;/news-archive&gt;</code></div><div class="grid items-center md:grid-cols-[24rem,1fr] md:gap-x-[min(20%,12rem)] gap-y-[4rem] mb-[5rem]"><div class="flex-col justify-between contents w-full md:flex"><h2 class="text-prime text-left text-h2 font-bold md:mb-[4rem]"><span class="c_ttl_h2__en scrollIn -up -each">お知らせ</span></h2><a class="c_btn w-full" href="/news/archive/">もっと見る</a></div><div class="scrollIn -up"><news-archive src="/_assets/js/news" href="/news/archive/" headline="3"></news-archive></div></div><a class="c_btn my-[2.4rem] max-w-[28rem]" href="/">戻る</a></div></section><!-- /ニュースコンポーネント --></main><!--　フッター --><footer class="l_footer"><i></i></footer><!--　/フッター --><script src="//cdn.jsdelivr.net/npm/@oddbird/popover-polyfill@0.3.8/dist/popover.iife.min.js" integrity="sha256-e4nHKzmwysJ3lb8GTURv5YrPqNFQ7xNcYzn/xop4K+0=" crossorigin="anonymous" defer></script></body></html>

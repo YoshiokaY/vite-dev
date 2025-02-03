@@ -2,7 +2,6 @@
 import { html, LitElement } from "lit";
 import { property, customElement } from "lit/decorators.js";
 import { sanitize, srcCheck } from "../utils/util.ts";
-import _ from "lodash";
 interface jsonObject {
   cat: string[];
   ttl: string;
@@ -46,7 +45,7 @@ export class Filter extends LitElement {
         const response = await fetch(srcCheck(sanitize(this.src)) + ".json");
         const data = await response.json();
         this.data = data;
-        this.array = _.cloneDeep(this.data);
+        this.array = JSON.parse(JSON.stringify(this.data));
       } catch (error) {
         console.error("Error fetching data:", error);
       }

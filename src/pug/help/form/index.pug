@@ -11,10 +11,10 @@ block vars
 block contents
   .contentInner
     h2.text-h2(class="mb-[0.5em]") お問い合わせフォームを送信するまでのヘルプツアー
-    p <span class="font-bold">ヘルプボタン</span>を押すとヘルプツアーが始まります。
+    p(class="mb-[2rem]") <span class="font-bold">お困りですか？</span>を押すとヘルプツアーが始まります。
   .contentInner
     guide-tour
-      button.c_btn.mr-0.mb-3.bg-second.text-reversal(slot="helpOpen", class="rounded-[999rem]") ヘルプボタン
+      button.c_btn.mr-0.mb-3.bg-second.text-reversal.helpBtn(slot="helpOpen", class="rounded-[999rem]") お困りですか？
       .c_help_txt(slot="help01")
         p 資料の送付方法を選択してください。
       .c_help_txt(slot="help02")

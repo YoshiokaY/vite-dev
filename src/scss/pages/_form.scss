@@ -692,3 +692,13 @@ select:-webkit-autofill {
 .c_btn {
   margin-inline: auto;
 }
+
+.helpBtn {
+  position: fixed;
+  top: 5rem;
+  right: 0;
+  display: inline-block;
+  border-radius: 1rem 0 0 1rem !important;
+  writing-mode: tb-rl;
+  writing-mode: vertical-rl;
+}

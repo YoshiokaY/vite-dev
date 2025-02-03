@@ -126,7 +126,7 @@ export class NewsArchive extends LitElement {
                       <img src="${item.img.src}" width="${item.img.size && item.img.size[0] ? item.img.size[0] : null}" height="${item.img.size && item.img.size[1] ? item.img.size[1] : null}" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full max-w-[48rem]">
                       `
                         : html`
-                      <img src="/img/top/noimage.jpg" width="480" height="320" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full">
+                      <img src="/_assets/img/top/noimage.jpg" width="480" height="320" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full">
                       `
                     }
                     <div>
@@ -218,7 +218,7 @@ export class NewsArchive extends LitElement {
                               <img src="${item.img.src}" width="${item.img.size && item.img.size[0] ? item.img.size[0] : null}" height="${item.img.size && item.img.size[1] ? item.img.size[1] : null}" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full">
                               `
                                 : html`
-                              <img src="/img/top/noimage.jpg" width="480" height="320" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full">
+                              <img src="/_assets/img/top/noimage.jpg" width="480" height="320" decoding="async" loading="lazy" class="aspect-[240/160] object-cover w-full">
                               `
                             }
                           </div>

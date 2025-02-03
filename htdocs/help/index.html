@@ -1,0 +1,25 @@
+<!DOCTYPE html><html dir="ltr" lang="ja"><head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# website: http://ogp.me/ns/website#"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,shrink-to-fit=no"><meta name="format-detection" content="telephone=no"><title>タイトルタイトルタイトル</title><meta name="description" content="テキストテキストテキストテキストテキストテキスト"><meta name="keywords" content="テキスト,テキスト,テキスト,テキスト,テキスト"><meta property="og:type" content="website"><meta property="og:local" content="ja_JP"><meta property="og:site_name" content="◯◯◯◯◯◯"><meta property="og:title" content="タイトルタイトルタイトル"><meta property="og:description" content="テキストテキストテキストテキストテキストテキスト"><meta property="og:url" content="https://www.XXXXX.XX.XX/"><meta property="og:image" content="https://www.XXXXX.XX.XX/_assets/img/ogp.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="タイトルタイトルタイトル"><meta name="twitter:description" content="テキストテキストテキストテキストテキストテキスト"><meta name="twitter:image" content="https://www.XXXXX.XX.XX/_assets/img/ogp.jpg"><link rel="icon"><link rel="canonical" href="https://www.XXXXX.XX.XX/"><script type="application/ld+json">[
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "url": "https://www.XXXXX.XX.XX/",
+    "logo": "https://www.XXXXX.XX.XX/_assets/img/logo.svg"
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "タイトルタイトルタイトル"
+      }
+    ]
+  }
+]</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&amp;display=swap" rel="stylesheet">  <script type="module" crossorigin src="/_assets/js/app.js"></script>
+  <link rel="stylesheet" crossorigin href="/_assets/css/style.css">
+</head><body class="page-top"><noscript>
+  <p>このページは JavaScript を使用しています。<br />お使いのブラウザーは JavaScript が無効になっているか、JavaScript に対応していません。<br />適切にこのページ表示する場合は JavaScriptを有効にするか、JavaScript に対応しているブラウザーでアクセスしてください。</p>
+</noscript>
+<a href="#main" class="txtHidden skipLink">本文へ移動</a>
+<!-- ヘッダー --><header class="l_header"></header><!-- /ヘッダー --><main id="main" aria-label="本文"><section class="py-[8rem]"><div class="contentInner"><h2 class="text-h2 font-bold mb-[1em]">ヘルプツアーコンポーネント</h2><p class="mb-[1em]">ヘルプをポップアップで表示するWeb Componentsです。</p><ul class="list-disc pl-[1em] mb-[2em]"><li>ポップアップを表示するためのボタンに<span class="text-red bg-gray font-bold">slot="c_help_btn"</span>を記述します。</li><li>子要素にポップアップを表示したい要素のIDを<span class="text-red bg-gray font-bold">slot属性</span>に指定します。</li><li>上記で指定した要素にそのポップアップの内容を記述します。<br>テキストや画像のほか、html構造を自由に組み込むことができます。</li><li>ポップアップの色を変える場合はcss変数で指定します。</li></ul><h3 class="text-h3">サンプルのカラー</h3><p class="mb-[3rem]">--help-body: #fff;<br>--help-btn: #fff;<br>--help-arrow: #212121;<br>--help-border: #212121;<br>--help-caution: #c00;<br>--help-stroke: #c9c9c9;<br>--help-fill: #448aff;</p><h3 class="text-h3 mb-[1em]">コードサンプル</h3><div class="bg-gray mb-[5rem] p-[1em]"><code>&lt;guide-tour&gt;<br>&emsp;&emsp;&lt;button slot=&quot;helpOpen&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;img src=&quot;/img/icon_help.png&quot; alt=&quot;初めての方&quot; width=&quot;75&quot; height=&quot;46&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot;&gt;<br>&emsp;&emsp;&lt;/button&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help01&quot;&gt;<br>&emsp;&emsp;&lt;p class=&quot;mb-[0.5rem]&quot;&gt;ボタンを押して色を選択してください。&lt;/p&gt;<br>&emsp;&emsp;&lt;div class=&quot;grid grid-cols-[auto,1fr] gap-[1em]&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;img src=&quot;/img/color.png&quot; alt=&quot;&quot; width=&quot;48&quot; height=&quot;48&quot; decoding=&quot;async&quot; loading=&quot;lazy&quot;&gt;<br>&emsp;&emsp;&emsp;&lt;p&gt;青い囲いが出ている状態が現在の選択状態です。&lt;/p&gt;<br>&emsp;&emsp;&lt;/div&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help02&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;ボタンを押してサイズを選択してください。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help03&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;ご購入される数量を選択してください。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&emsp;&lt;div class=&quot;c_help_txt&quot; slot=&quot;help04&quot;&gt;<br>&emsp;&emsp;&lt;p&gt;「カートに入れる」ボタンを押すと商品がカートに追加されます。&lt;/p&gt;<br>&emsp;&lt;/div&gt;<br>&lt;/guide-tour&gt;</code></div><h3 class="text-h3 mb-[1em]">サンプル</h3><ul class="list-disc pl-[1em] mb-[2em]"><li><a href="/help/cart/">カートに追加する</a></li><li><a href="/help/form/">お問い合わせをする</a></li></ul></div></section><!-- /ヘルプツアー --><div class="contentInner py-[5rem]"><a class="c_btn max-w-[32rem]" href="/help/">戻る</a></div></main><!--　フッター --><footer class="l_footer"><i></i></footer><!--　/フッター --><script src="//cdn.jsdelivr.net/npm/@oddbird/popover-polyfill@0.3.8/dist/popover.iife.min.js" integrity="sha256-e4nHKzmwysJ3lb8GTURv5YrPqNFQ7xNcYzn/xop4K+0=" crossorigin="anonymous" defer></script></body></html>
