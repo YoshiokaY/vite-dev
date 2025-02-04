@@ -5,7 +5,6 @@ import globule from "globule";
 import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
 import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
-// import tailwindcss from "@tailwindcss/vite";
 
 // pugを検索（_から始まるものは除外）
 const htmlFiles = globule.find("src/**/*.pug", {
@@ -64,7 +63,6 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       sassGlobImports(),
-      // tailwindcss(),
       vitePluginPug(minify === "false" ? false : true),
       imagemin === "true"
         ? imageminPlugin({

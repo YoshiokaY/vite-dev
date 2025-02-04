@@ -1,158 +1,159 @@
 @use "../abstracts" as *;
 @use "sass:math";
+@layer base {
+  * {
+    box-sizing: border-box;
+    font-size: 100%;
+    // scroll-margin-top: var(--headerHeight);
+    // scroll-behavior: smooth;
 
-* {
-  box-sizing: border-box;
-  font-size: 100%;
-  // scroll-margin-top: var(--headerHeight);
-  // scroll-behavior: smooth;
-
-  &::before,
-  &::after {
-    box-sizing: inherit;
+    &::before,
+    &::after {
+      box-sizing: inherit;
+    }
   }
-}
 
-// 視差効果を明示的に切っている場合のフォールバック
-@media (prefers-reduced-motion: reduce) {
-  *,
-  ::before,
-  ::after {
-    transition-duration: 1ms !important;
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
+  // 視差効果を明示的に切っている場合のフォールバック
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      transition-duration: 1ms !important;
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
   }
-}
 
-input::-moz-focus-inner {
-  padding: 0;
-  margin: 0;
-  border: 0;
-}
-
-ul,
-ol,
-dd {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-size: inherit;
-  font-weight: inherit;
-  text-wrap: wrap;
-}
-
-cite {
-  font-style: normal;
-}
-
-fieldset {
-  padding: 0;
-  margin: 0;
-  border-width: 0;
-}
-
-button {
-  padding: 0;
-  color: inherit;
-  appearance: none;
-  cursor: pointer;
-  background-color: transparent;
-  border: none;
-}
-
-summary {
-  display: block;
-  list-style: none;
-}
-
-summary::-webkit-details-marker {
-  display: none;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
-}
-
-figure,
-picture {
-  display: block;
-  padding: 0;
-  margin: 0;
-  line-height: 1;
-  text-align: center;
-
-  figcaption {
-    margin: auto;
-    text-align: left;
+  input::-moz-focus-inner {
+    padding: 0;
+    margin: 0;
+    border: 0;
   }
-}
 
-html,
-body {
-  text-size-adjust: 100%;
-}
+  ul,
+  ol,
+  dd {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
 
-html {
-  overflow: auto;
-  font-size: 62.5%;
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+    text-wrap: wrap;
+  }
 
-body {
-  width: 100%;
-  overflow: hidden;
-  font: var(--font-setting-base);
-  font-feature-settings: var(--font-feature-settings);
-  color: $color-txt;
-  letter-spacing: var(--font-tracking);
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  background-color: $color-body;
-  -webkit-font-smoothing: antialiased;
-  backface-visibility: hidden;
-}
+  cite {
+    font-style: normal;
+  }
 
-::selection {
-  color: $color-reversal;
-  background-color: $color-prime;
-}
+  fieldset {
+    padding: 0;
+    margin: 0;
+    border-width: 0;
+  }
 
-main {
-  min-height: 70vh;
-}
+  button {
+    padding: 0;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+  }
 
-a,
-button {
-  color: inherit;
-  text-decoration: none;
+  summary {
+    display: block;
+    list-style: none;
+  }
 
-  &:focus-visible {
-    outline: solid 0.2rem $color-prime;
-    outline-offset: 0.3rem;
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    max-height: 100%;
+  }
+
+  figure,
+  picture {
+    display: block;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    text-align: center;
+
+    figcaption {
+      margin: auto;
+      text-align: left;
+    }
+  }
+
+  html,
+  body {
+    text-size-adjust: 100%;
+  }
+
+  html {
+    overflow: auto;
+    font-size: 62.5%;
+  }
+
+  body {
+    width: 100%;
+    overflow: hidden;
+    font: var(--font-setting-base);
+    font-feature-settings: var(--font-feature-settings);
+    color: $color-txt;
+    letter-spacing: var(--font-tracking);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    background-color: $color-body;
+    -webkit-font-smoothing: antialiased;
+    backface-visibility: hidden;
+  }
+
+  ::selection {
+    color: $color-reversal;
+    background-color: $color-prime;
+  }
+
+  main {
+    min-height: 70vh;
+  }
+
+  a,
+  button {
+    color: inherit;
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: solid 0.2rem $color-prime;
+      outline-offset: 0.3rem;
+      box-shadow: none;
+    }
+  }
+
+  [tabindex="-1"]:focus-visible {
+    outline: none !important;
     box-shadow: none;
   }
-}
 
-[tabindex="-1"]:focus-visible {
-  outline: none !important;
-  box-shadow: none;
-}
-
-@include mq() {
-  a[href^="tel:"] {
-    color: inherit !important;
-    text-decoration: none !important;
-    pointer-events: none;
+  @include mq() {
+    a[href^="tel:"] {
+      color: inherit !important;
+      text-decoration: none !important;
+      pointer-events: none;
+    }
   }
 }

@@ -25,11 +25,11 @@
     "@markuplint/pug-parser": "^4.6.7",
     "@playwright/test": "^1.47.2",
     "@prettier/plugin-pug": "^3.1.0",
+    "@tailwindcss/postcss": "^4.0.3",
     "@types/jquery": "^3.5.31",
     "@types/node": "^22.7.3",
     "@types/pug": "^2.0.10",
     "@types/sharp": "^0.32.0",
-    "autoprefixer": "^10.4.20",
     "axe-html-reporter": "^2.2.11",
     "eslint": "^9.11.1",
     "eslint-config-prettier": "^9.1.0",
@@ -52,9 +52,5 @@
     "vite": "^5.4.14",
     "vite-plugin-sass-glob-import": "^3.0.2",
     "vite-plugin-webp-and-path": "^0.1.4"
-  },
-  "dependencies": {
-    "@tailwindcss/postcss": "^4.0.3",
-    "@tailwindcss/vite": "^4.0.3"
   }
 }

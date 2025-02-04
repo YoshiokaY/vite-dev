@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
 // Vendors
-@use "../../node_modules/@acab/reset.css";
+@use "vendors/_tailwind.css";
+@use "vendors/_reset.css";
 
 // Base
 @use "base/*";
