@@ -39,6 +39,18 @@ $base: 16, 14;
 $sm: 14, 12;
 $xs: 12, 10;
 
+@theme {
+  // カラー（使用する際はcolor-txtやcolor-primeなどの形で記述。tailwindは使用するクラスに合わせてXXX-txtやXXX-prime）
+  --color-txt: #463e2c; // テキストカラー
+  --color-reversal: #fff; // テキスト反転
+  --color-gray: #d6d4d0; // グレースケール
+  --color-prime: #463e2c; // プライムカラー
+  --color-second: red; // セカンドカラー
+  --color-third: blue; // サードカラー
+  --color-body: #fff; //  ボディカラー
+  --color-highlight: #f8f8f7; // ハイライト背景
+}
+
 :root {
   // SP時
 
@@ -47,16 +59,6 @@ $xs: 12, 10;
   --font-tracking: 0;
   --font-weight-normal: 400;
   --font-feature-settings: normal; // "pkna" on, "palt" on, "pwid" on;
-
-  // カラー（使用する際はcolor-txtやcolor-primeなどの形で記述。tailwindhは使用するクラスに合わせて-txtや-prime）
-  --color-txt: #463e2c; // テキストカラー
-  --color-reversal: #fff; // テキスト反転
-  --color-gray: #d6d4d0; // グレースケール
-  --color-prime: #463e2c; // プライムカラー
-  --color-second: red; // セカンドカラー
-  --color-third: blue; // サードカラー
-  --color-body: #fff; //  ボディカラー
-  --color-higilight: #f8f8f7; // ハイライト背景
 
   // トランジッション（使用する際は$easing）
   --transition: 0.4s ease-out;

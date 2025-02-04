@@ -27,6 +27,7 @@ Vite-dev環境
 
 ```sh
 npm i
+npx playwright install
 ```
 
 ## 各コマンド
@@ -144,9 +145,9 @@ npm run report
 - 頭に`_`が付いていない`scss`ファイルをエントリーポイントにビルドします。
 - 従来通りDart Sassでの記述をサポートしています。
 - Tailwindをサポートしていますので、sassと並行で活用してください。
-- 色や文字サイズなどの変数は`src/scss/abstracts/_variables.scss`で設定した値をSassとTailwindの両方で使用できるようになっていますので案件ごとに設定してください。
+- 色や文字サイズなどの変数は`src/scss/abstracts/_variables.scss`で設定した値をSassとTailwindの両方で使用できるようになっていますので案件ごとに設定してください。※Tailwind4.0に伴い、@themeに追加することで利用可能。
 - glob記法をサポートしているので、各scssファイルの一括読み込みや除外が可能です。
-- リセットスタイルは従来のものからアクセシビリティが考慮された`@acab/reset.css`に変更しています。
+- リセットスタイルは従来のものからアクセシビリティが考慮された`@acab/reset.css`に変更しています。※Tailwind4.0に伴いレイヤー指定する必要があるためローカルファイルの読み込みに変更。
 - アクセシビリティ担保のためサイズ指定には`rem`を使用しています。（`px`だとブラウザ設定で文字サイズを変更していても固定になってしまう。また、文字だけ大きくなって表示が崩れるため）
 - いちいち計算するのがめんどくさいのでデフォルトでは`1px＝0.1rem`です。必要に応じて変更してください。
 - SPの文字サイズはデフォルトで`rem`を使用していますがどの端末でも同じ見え方にしたい場合は`src/scss/abstracts/_variables.scss`の`$spFontVw`を`"true"`にしてください。
@@ -309,6 +310,13 @@ npm run check:update
 - webp変換の除外ルール
 - GitHubActionでeslintとmarkuplintの自動チェック
 - その他軽微なFB対応
+
+### 1.8.0β (2025-02)
+
+- Tailwind4.0にアップデート
+- 上記アップデートに伴い変数をcss側で追加できるように変更
+- 上記アップデートに伴いautoprefixerからLightningCSSに変更
+- 上記アップデートに伴いreset.cssをローカルファイルの読み込みに変更
 
 ## 実装予定
 - WP開発用にゆうじさんのdocker環境マージ

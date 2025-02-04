@@ -1,0 +1,60 @@
+section
+  .contentInner
+    h2.text-h2.font-bold.mb-48 Tailwind4.0アップデートによる変更点
+    .grid.gap-64.mb-64
+      div
+        h3.text-h3.font-bold.mb-24 カスタムクラスをcssで設定できるように！
+        p 案件ごとのカスタムクラスはtailwind.config.jsに記述する必要がありましたが、cssファイルに@themeで設定できるようになりました。<br>また設定したものがcss変数としてデフォルトで出力されるので、sassやjsでも同じ変数を使えるようになりました。
+      div
+        h3.text-h3.font-bold.mb-24 ユーティリティクラスがより直感的で簡素な記述に！
+        p.mb-16 マージンや透明度、幅、高さなどナディアのデザインではページやセクションによって微妙に違うものに対して使っていたユーティリティクラスですが、<br>単位や角カッコを付与しないで使えるようになりました。<br>そのため特にpugでの記述が効率化、見通しが良くなります。
+        ul.grid.grid-cols-2.gap-32
+          li
+            .text-xl.font-medium.text-third before
+            p: span.bg-gray.inline-flex.items-center(class="h-[6.5rem] p-[1rem] opacity-[0.5]") h-[6.5rem].p-[1rem].opacity-[0.5]
+          li
+            h3.text-xl.font-medium.text-second after
+            p: span.bg-gray.h-65.p-10.opacity-50.inline-flex.items-center h-65.p-10.opacity-50
+      div
+        h3.text-h3.font-bold.mb-24 擬似クラスの記述が簡素化
+        p.mb-16 :notや:nth-*などの擬似クラスが角カッコなしで記述できるようになったため、特にpugでの効率化とコードの見通しが良くなりました。
+
+        ul.grid.grid-cols-2.gap-32
+          li
+            .text-xl.font-medium.text-third before
+            ul
+              li(class="[&:nth-child(2)]:text-third") [&:nth-child(2)]:text-third
+              li(class="[&:nth-child(2)]:text-third") [&:nth-child(2)]:text-third
+              li(class="[&:nth-child(2)]:text-third") [&:nth-child(2)]:text-third
+          li
+            h3.text-xl.font-medium.text-second after
+            ul
+              li(class="nth-2:text-third") nth-2:text-third
+              li(class="nth-2:text-third") nth-2:text-third
+              li(class="nth-2:text-third") nth-2:text-third
+      div
+        h3.text-h3.font-bold.mb-24 グラデーションの記述が簡素に！
+        p.mb-16 長々とクラスを書かないと実現できなかったtailwindのグラデショーンの記述が角度を記述できるようになったため簡素化しました。<br>またOKLCHの色空間を記述できるようになったので、Tailwindの記述のみで綺麗なグラデーションを作れます。
+
+        ul.grid.grid-cols-2.gap-32
+          li
+            .text-xl.font-medium.text-third before
+            .grid.gap-16
+              button.from-third.to-second.py-6.px-15.rounded-lg.text-reversal.bg-linear-to-b from-third.to-second.bg-linear-to-b
+              button.from-third.to-second.py-6.px-15.rounded-lg.text-reversal.bg-linear-to-r from-third.to-second.bg-linear-to-r
+          li
+            h3.text-xl.font-medium.text-second after
+            .grid.gap-16
+              button.from-third.to-second.py-6.px-15.rounded-lg.text-reversal(class="bg-linear-180/oklch") from-third.to-second.bg-linear-180/oklch
+              button.from-third.to-second.py-6.px-15.rounded-lg.text-reversal(class="bg-linear-45/oklch") from-third.to-second.bg-linear-45/oklch
+      div
+        h3.text-h3.font-bold.mb-24 コンテナクエリに対応！
+        p.mb-16 デフォルトでコンテナクエリの記述に対応、cssだといまいち直感的ではないため使い所がよく分からないコンテナクエリですが、gridとかと同じでTailwindで記述した方が仲良くなれるかも！？
+        div(class="@container")
+          .grid.gap-24.grid-cols-1(class="@lg:grid-cols-2")
+            div
+              img(src=imgPathLocal + "noimage.jpg", alt="", width="", height="", decoding="async", loading="lazy")
+              p あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
+            div
+              img(src=imgPathLocal + "noimage.jpg", alt="", width="", height="", decoding="async", loading="lazy")
+              p あのイーハトーヴォのすきとおった風、夏でも底に冷たさをもつ青いそら、うつくしい森で飾られたモリーオ市、郊外のぎらぎらひかる草の波。
