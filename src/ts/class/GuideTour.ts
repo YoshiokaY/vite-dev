@@ -127,6 +127,7 @@ export class GuideTour extends LitElement {
       position: absolute;
       inset: 0 0.5rem;
       margin: auto;
+      width: 3rem;
       height: 3rem;
       aspect-ratio: 1/1;
       background-color: var(--help-btn);
@@ -181,6 +182,7 @@ export class GuideTour extends LitElement {
     .c_help_close {
       inset: 0.5rem 0.5rem auto auto;
       height: 2rem;
+      width: 2rem;
     }
 
     .c_help_close::before,
