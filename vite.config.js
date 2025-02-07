@@ -5,6 +5,7 @@ import globule from "globule";
 import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
 import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
+import scssWatch from "./plugins/vite-plugin-scss-watch.js";
 
 // pugを検索（_から始まるものは除外）
 const htmlFiles = globule.find("src/**/*.pug", {
@@ -63,6 +64,10 @@ export default defineConfig(({ mode }) => {
     },
     plugins: [
       sassGlobImports(),
+      scssWatch({
+        targetFilePattern: "./src/scss/**/_*.scss", // ワイルドカードで複数のファイルを指定
+        outputFile: "./src/scss/style.scss",
+      }),
       vitePluginPug(minify === "false" ? false : true),
       imagemin === "true"
         ? imageminPlugin({
