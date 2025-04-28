@@ -310,5 +310,11 @@ npm run check:update
 - GitHubActionでeslintとmarkuplintの自動チェック
 - その他軽微なFB対応
 
+### 1.5.5 (2025-04)
+- canonicalの仕様を【ドメイン+各ページ】の形に変更
+- imageminのキャッシュ機能をオプションに変更
+- その他軽微なFB対応
+
+
 ## 実装予定
 - WP開発用にゆうじさんのdocker環境マージ

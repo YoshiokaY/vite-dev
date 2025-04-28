@@ -2,6 +2,7 @@ import { resolve } from "path";
 import { defineConfig, loadEnv } from "vite";
 import vitePluginPug from "./plugins/vite-plugin-pug";
 import globule from "globule";
+import viteImagemin from "vite-plugin-imagemin";
 import imageminPlugin from "@macropygia/vite-plugin-imagemin-cache";
 import VitePluginWebpAndPath from "./plugins/vite-plugin-webp-and-path";
 import sassGlobImports from "vite-plugin-sass-glob-import";
@@ -18,6 +19,7 @@ export default defineConfig(({ mode }) => {
   const relative = env.VITE_ASSETS_RELATIVE;
   const minify = env.VITE_BUILD_MINIFY;
   const imagemin = env.VITE_BUILD_IMAGEMIN;
+  const imageCash = env.VITE_BUILD_IMAGEMIN_CASH;
   const webp = env.VITE_BUILD_WEBP;
   return {
     publicDir: "public", //コピーディレクトリ
@@ -65,10 +67,39 @@ export default defineConfig(({ mode }) => {
       sassGlobImports(),
       vitePluginPug(minify === "false" ? false : true),
       imagemin === "true"
-        ? imageminPlugin({
-            cacheDir: ".cache",
-            concurrency: 4,
-            plugins: {
+        ? imageCash === "true"
+          ? imageminPlugin({
+              cacheDir: ".cache",
+              concurrency: 4,
+              plugins: {
+                optipng: {
+                  optimizationLevel: 7,
+                },
+                mozjpeg: {
+                  quality: 80,
+                },
+                pngquant: {
+                  quality: [0.8, 0.9],
+                  speed: 4,
+                },
+                svgo: {
+                  plugins: [
+                    {
+                      name: "removeViewBox",
+                    },
+                    {
+                      name: "removeEmptyAttrs",
+                      active: false,
+                    },
+                  ],
+                },
+              },
+            })
+          : viteImagemin({
+              gifsicle: {
+                optimizationLevel: 7,
+                interlaced: false,
+              },
               optipng: {
                 optimizationLevel: 7,
               },
@@ -90,8 +121,7 @@ export default defineConfig(({ mode }) => {
                   },
                 ],
               },
-            },
-          })
+            })
         : "",
       webp === "true"
         ? VitePluginWebpAndPath({
