@@ -16,7 +16,7 @@ meta(property="og:local", content="ja_JP")
 meta(property="og:site_name", content=site.sitename)
 meta(property="og:title", content=head.title)
 meta(property="og:description", content=head.description)
-meta(property="og:url", content=head.url)
+meta(property="og:url", content=site.domain + (head.url ? head.url : ""))
 meta(property="og:image", content=site.ogp)
 if site.facebookID
   meta(property="fb:app_id", content=site.facebookID)
@@ -30,11 +30,11 @@ if site.twitterName
 
 link(rel="icon", href=site.icon)
 if site.icon
-  link(rel="icon", href=site.icon + "/icon.svg", type="image/svg+xml")
+  link(rel="icon", href=site.icon, type="image/svg+xml")
 if site.touchIcon
   link(rel="apple-touch-icon", sizes="180x180", href=site.icon + "/apple-touch-icon.png")
 
-link(rel="canonical", href=head.url)
+link(rel="canonical", href=site.domain + (head.url ? head.url : ""))
 
 include ./_jsonLd
 
