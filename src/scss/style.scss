@@ -1,8 +1,8 @@
 @charset "UTF-8";
 
 // Vendors
-@use "../../node_modules/@acab/reset.css";
-@use "../../node_modules/@splidejs/splide/dist/css/splide-core.min.css";
+@use "vendors/_tailwind.css";
+@use "vendors/_reset.css";
 
 // Base
 @use "base/*";
@@ -24,8 +24,3 @@
 
 // 各ページ
 @use "pages/*";
-
-// Tailwindの読み込み
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

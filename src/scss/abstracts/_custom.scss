@@ -77,3 +77,24 @@ $color-higlight: var(--color-higlight);
 
 // トランジッション
 $easing: var(--transition);
+
+// tailwindのcssに格納
+@theme {
+  --font-base: var(--font-size-base);
+  --text-h1: var(--font-size-heading-1);
+  --text-h2: var(--font-size-heading-2);
+  --text-h3: var(--font-size-heading-3);
+  --text-h4: var(--font-size-heading-4);
+  --text-h5: var(--font-size-heading-5);
+  --text-xl: var(--font-size-large-2);
+  --text-lg: var(--font-size-large-1);
+  --text-base: var(--font-size-base);
+  --text-sm: var(--font-size-small-1);
+  --text-xs: var(--font-size-small-2);
+}
+
+@layer theme {
+  :root {
+    --spacing: 0.1rem;
+  }
+}

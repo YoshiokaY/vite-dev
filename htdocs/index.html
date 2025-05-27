@@ -57,8 +57,8 @@
     <main id="main" aria-label="本文"><!-- トップページ -->
       <section class="my-[3rem]">
         <div class="contentInner">
-          <h2 class="font-bold text-h2 scrollIn -up mb-[2.4rem]">画像のmixin</h2>
-          <div class="grid grid-cols-1 gap-[3.2rem] md:grid-cols-2">
+          <h2 class="font-bold text-h2 scrollIn -up bg-mint-500 mb-[2.4rem]">画像のmixin</h2>
+          <div class="grid grid-cols-1 gap-[32] md:grid-cols-2">
             <figure class="scrollIn -up">
               <picture>
                 <source media="(min-width:768px)" srcset="/_assets/img/noimage.webp" width="800" height="600"/><img src="/_assets/img/noimage_sp.webp" alt="仮画像" decoding="async" width="800" height="600"/>
@@ -69,8 +69,8 @@
               <figcaption class="leading-[1.8]"><span class="font-bold">レスポンシブ対応しない画像用のmixinです。</span><br>サイズはPC幅・高さの順で配列に格納してください。<br>デフォルトで遅延読み込みが入っていますがlazy="no-lazy"にすることで解除できます。<br>style=""内にクラスを書くことでスタイルを適応できます。</figcaption>
             </figure><a class="textLink" href="#">リンクテキスト</a>
           </div>
-          <p><span class="scrollIn">.scrollInを付与することで交差オブザーバーを使用したフェードインアニメーションがつきます。</span><br>また<span class="scrollIn -up">.-up</span> <span class="scrollIn -down">.-down</span> <span class="scrollIn -left">.-left</span> <span class="scrollIn -right">.-right</span> で方向を指定できます。<br><span class="scrollIn -each">.-eachを付けるとつけている兄弟要素でディレイさせられます。</span><br><span class="scrollIn -each">移動距離や所要時間はsrc/scss/components/_u_anima.scssで設定できます。</span></p>
-          <p><span class="scroll">.scrollのみの場合は-activeがつくだけなので、オリジナルのアニメーションやjsの発火はこちらを使用してください。</span></p>
+          <p class="text-forth"><span class="scrollIn">.scrollInを付与することで交差オブザーバーを使用したフェードインアニメーションがつきます。</span><br>また<span class="scrollIn -up">.-up</span> <span class="scrollIn -down">.-down</span> <span class="scrollIn -left">.-left</span> <span class="scrollIn -right">.-right</span> で方向を指定できます。<br><span class="scrollIn -each">.-eachを付けるとつけている兄弟要素でディレイさせられます。</span><br><span class="scrollIn -each">移動距離や所要時間はsrc/scss/components/_u_anima.scssで設定できます。</span></p>
+          <p class="text-fifth"><span class="scroll bg-sixs">.scrollのみの場合は-activeがつくだけなので、オリジナルのアニメーションやjsの発火はこちらを使用してください。</span></p>
         </div>
       </section><!--/トップページ --><!-- モーダル -->
       <section class="my-[3rem]">
